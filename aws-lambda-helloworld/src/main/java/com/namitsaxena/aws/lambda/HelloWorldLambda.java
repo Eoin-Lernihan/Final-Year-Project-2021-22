@@ -11,9 +11,11 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 
@@ -59,23 +61,32 @@ public class HelloWorldLambda
         	            .build())
         	        .build();
         	MongoClient mongoClient = MongoClients.create(settings);
-        	MongoDatabase database = mongoClient.getDatabase("test");
+        	MongoDatabase database = mongoClient.getDatabase("Names");
             System.out.println("welcome to lambda function yeh.!!!");
 
-        	MongoCollection<Document> col = database.getCollection("Names");
-
-            System.out.println("data count" + col.countDocuments());
-
-            BasicDBObject setValue = new BasicDBObject();
-            BasicDBObject query = new BasicDBObject();
-            query.put("contacts.mobileNo", "7090909090");
-            setValue.put("contacts.$.userId", "userId12121212");
-            BasicDBObject set = new BasicDBObject("$set", setValue);
+        	MongoCollection<Document> col = database.getCollection("product");
+        	FindIterable<Document> fi = col.find();
+        	 MongoCursor<Document> cursor = fi.iterator();
+             try {
+                 while(cursor.hasNext()) {               
+                     System.out.println(cursor.next().toJson());
+                 }
+             } finally {
+                 cursor.close();
+             }
+        	//Document b = a.first();
+       //     System.out.println("data count" + col.countDocuments());
+       //     System.out.println(b);
+          //  BasicDBObject setValue = new BasicDBObject();
+            //BasicDBObject query = new BasicDBObject();
+           // query.put("contacts.mobileNo", "7090909090");
+        //    setValue.put("contacts.$.userId", "userId12121212");
+          //  BasicDBObject set = new BasicDBObject("$set", setValue);
             mongoClient.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "{product: 'this.props.location.productInfo.productName', description: 'this.props.location.productInfo.productDescription', price: 40, image: 'this.props.location.productInfo.imageURL', quantityAllowed:  4,orderQuantity: 1}";
 	}
 }

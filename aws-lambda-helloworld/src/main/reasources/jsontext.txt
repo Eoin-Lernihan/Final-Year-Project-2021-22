@@ -1,0 +1,1 @@
+{product: 'this.props.location.productInfo.productName', description: 'this.props.location.productInfo.productDescription', price: 40, image: 'this.props.location.productInfo.imageURL', quantityAllowed:  4,orderQuantity: 1}
