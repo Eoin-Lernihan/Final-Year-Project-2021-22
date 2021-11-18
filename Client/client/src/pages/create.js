@@ -1,12 +1,11 @@
 import React from 'react';
-const Home = () =>{
+const create = () =>{
   return (
     <div>
-      <h3>Home</h3>
+      <h3>create</h3>
      
     </div>
   );
 }
-export default Home;
+export default create;
 
-Goat.js

@@ -9,4 +9,3 @@ const login = () =>{
 }
 export default login;
 
-Goat.js

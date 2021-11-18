@@ -11,4 +11,3 @@ const signUp = () =>{
 }
 export default signUp;
 
-Goat.js

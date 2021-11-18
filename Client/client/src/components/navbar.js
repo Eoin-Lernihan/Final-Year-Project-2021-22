@@ -1,72 +1,61 @@
-import React, { Component } from 'react';
+/** import React from 'react';
 import {  Link } from "react-router-dom";
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { MainPage } from './mainPage';
-import { Store } from './store';
-import { Checkout } from './checkout';
-import { ProductPage } from './productPage';
-import { Cart } from './cart';
-import { Login } from './login';
-import { Signup } from './signup';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Form from 'react-bootstrap/Form';
-
 const navbar= () =>{
   return (
-    <div>
+  <div>
     <li>
       <Link to="/">Home</Link>
     </li>
     <li>
-      <Link to="/create">Create</Link>
+      <Link to="/login">login</Link>
     </li>
     <li>
-      <Link to="/login">Login</Link>
-    </li>
-    <li>
-      <Link to="/signUp">Sign Up</Link>
+      <Link to="/signUp">signUp</Link>
     </li>
   </div>
   );
 }
+export default navbar;
+import {
+Nav,
+NavLink,
+Bars,
+NavMenu,
+NavBtn,
+NavBtnLink,
+} from './NavbarElements';
 
-export class navbar extends Component {
-    state = { searchTerm: '' }
 
-    handleSelect = (eventKey) => {
-        if (eventKey === "Logout") {
-            this.props.handleLogout();
-        }
-    }
+	{ Second Nav }
+		{<NavBtnLink to='/sign-in'>Sign In</NavBtnLink> }
+		<NavBtn>
+		<NavBtnLink to='/signin'>Sign In</NavBtnLink>
+		</NavBtn>
+*/
 
-    render() {
-        return (
-            <div className="navbar">
-                <BrowserRouter>
-                    <Navbar className="d-flex align-items-center" bg="dark" variant="dark" sticky="top" expand="md">
-                        <Container>
-                            <Navbar.Brand href="/"><img src="DigitronLogo.png" alt="Digitron" width="75" height="40"></img></Navbar.Brand>
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse>
-                                <Nav className="NavLinks">
-                                    <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/cart">Cart</Nav.Link>
-                                    <Nav.Link href="/store">Store</Nav.Link>
-                                </Nav>
+import React from 'react';
 
-                            </Navbar.Collapse>
-                            
-                        </Container>
-                    </Navbar>
-                    <Switch>
 
-                    <Route path="/store" component={Store} exact></Route>
-                        <Route path="/" component={MainPage} exact></Route>
-                    </Switch>
-                </BrowserRouter>
-            </div>
-        );
-    }
+const Navbar = () => {
+return (
+	<>
+	<Nav>
+		<Bars />
+
+		<NavMenu>
+		<NavLink to='/' activeStyle>
+      Home
+		</NavLink>
+		<NavLink to='/events' activeStyle>
+			Events
+		</NavLink>	
+		<NavLink to='/sign-up' activeStyle>
+			Sign Up
+		</NavLink>
+    </NavMenu>
+	</Nav>
+	</>
+);
+};
+
+export default Navbar;
