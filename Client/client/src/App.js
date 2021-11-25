@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
@@ -14,7 +13,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.js"
 import Login from "./pages/login.js"
 import SignUp from "./pages/signUp.js"
-import Create from "./pages/create.js"
 import create from './pages/create.js';
 
 
