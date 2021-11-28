@@ -6,10 +6,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import { Home } from './Home';
 import { Create } from './create';
-/*import { Login } from './login';
+import { Login } from './login';
 
-                        <Route path="/checkout" component={Login} exact></Route>
-**/
+                      
+
 
 
 //import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -30,13 +30,13 @@ export class NavigationBar extends Component {
                 <BrowserRouter>
                     <Navbar className="d-flex align-items-center" bg="dark" variant="dark" sticky="top" expand="md">
                         <Container>
-                            <Navbar.Brand href="/"><img src="DigitronLogo.png" alt="Digitron" width="75" height="40"></img></Navbar.Brand>
+                            <Navbar.Brand href="/">Name</Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse>
                                 <Nav className="NavLinks">
                                     <Nav.Link href="/">Home</Nav.Link>
                                     <Nav.Link href="/create">Cart</Nav.Link>
-                                    <Nav.Link href="/login">Store</Nav.Link>
+                                    <Nav.Link href="/login">Login</Nav.Link>
                                 </Nav>
 								
                             </Navbar.Collapse>
@@ -45,7 +45,7 @@ export class NavigationBar extends Component {
 					<Switch>
                         <Route path="/" component={Home} exact></Route>
                         <Route path="/create" component={Create} exact></Route>
-
+						<Route path="/login" component={Login} exact></Route>
 						</Switch>
                 </BrowserRouter>
             </div>

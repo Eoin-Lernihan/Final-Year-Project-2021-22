@@ -12,21 +12,7 @@ function clickMe() {
             });
   alert("You clicked me!");
 }
-/*
-const create = () =>{
- return (
-    <div>
-      <h3>create</h3>
-      <button theme="pink" onClick={clickMe}>
-          Pink theme
-        </button>  
-    </div>
-    
-  );
-   
-}
-export default create;
-**/
+
 export class Create extends Component{
   render(){
     return (
