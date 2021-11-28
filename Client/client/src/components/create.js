@@ -1,5 +1,5 @@
-import React from 'react';
 import axios from 'axios';
+import React, { Component } from 'react';
 const port = 4000;
 
 function clickMe() {
@@ -12,7 +12,7 @@ function clickMe() {
             });
   alert("You clicked me!");
 }
-
+/*
 const create = () =>{
  return (
     <div>
@@ -26,4 +26,19 @@ const create = () =>{
    
 }
 export default create;
+**/
+export class Create extends Component{
+  render(){
+    return (
+      <div className="create">
+        
+        <h3>create</h3>
+      <button theme="pink" onClick={clickMe}>
+          Pink theme
+        </button>  
+        </div>
+    );
+  }
+}
+  
 

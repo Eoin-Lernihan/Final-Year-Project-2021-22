@@ -1,6 +1,4 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css'
-import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
+
 
 /** 
 import { Navbar } from 'react-bootstrap'
@@ -9,30 +7,54 @@ import { Nav } from 'react-bootstrap'
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-*/
-import Home from "./pages/Home.js"
+
+import Home from "./components/Home.js"
 import Login from "./pages/login.js"
 import SignUp from "./pages/signUp.js"
 import create from './pages/create.js';
+*/
+import React, { Component } from 'react';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { NavigationBar } from './components/navbar';
 
+class App extends Component {   
+  state = {
+      user: ''
+  }
 
-function App() {
-  return (
-    <Router>
-      <navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/signUp" component={Login} />
-        <Route path="/login" component={SignUp} />
-        <Route path="/create" component={create} />
+  handleLogin = (uname) => {
+      sessionStorage.setItem("LoggedIn", uname);
+      this.setState({ user: sessionStorage.getItem("LoggedIn") });
+  }
 
-      </Switch>
-    </Router>
-    
-  );
+  handleLogout = () => {
+      sessionStorage.removeItem("LoggedIn");
+  }
+
+  componentDidMount() {
+      this.setState({ user: sessionStorage.getItem("LoggedIn") });
+  }
+
+  render() {
+      return (
+          // JSX (JavaScript XML) - Babel(A JavaScript compiler) converts JSX to JavaScript
+          <div className="App">
+              <NavigationBar
+                  handleLogin={this.handleLogin}
+                  handleLogout={this.handleLogout}
+                  username={this.state.user}>
+              </NavigationBar>
+             
+          </div>
+        
+         
+      );
+  }
 }
 
 export default App;
+
 
 /** 
 function App() {
