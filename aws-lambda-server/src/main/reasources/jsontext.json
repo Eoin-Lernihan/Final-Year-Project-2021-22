@@ -1,0 +1,1 @@
+{"product" : "Funnyname", "description": "Totatlly depe", "price": 30, "image": "this.props.location.productInfo.imageURL", "quantityAllowed": 2,"orderQuantity": 0}

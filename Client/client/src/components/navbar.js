@@ -35,7 +35,7 @@ export class NavigationBar extends Component {
                             <Navbar.Collapse>
                                 <Nav className="NavLinks">
                                     <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/create">Cart</Nav.Link>
+                                    <Nav.Link href="/create">Create</Nav.Link>
                                     <Nav.Link href="/login">Login</Nav.Link>
                                 </Nav>
 								

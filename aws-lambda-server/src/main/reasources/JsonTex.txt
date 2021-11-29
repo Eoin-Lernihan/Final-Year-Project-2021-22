@@ -1,0 +1,12 @@
+Shop{NameOfShop,Email,Mobilephone}
+Verify
+Player{Name,UserName,Email,Number}
+Check name to see if it is safe
+Tournament{ID,Name, Game Type, Type Of Tourment, PublicOrPrivate,GameLenghtInMinutes,Describtion,AmountOfPlayers,JoinedPlayers,Owner}
+
+TournamentSlots{TouranmentID,SlotNumber,Player}
+
+TouranmentGames{}
+Doesn't Show a game if they are private or have no slots left.
+
+Currents{}

@@ -1,14 +1,14 @@
-package com.ns;
+package ie.gmit;
 
 import org.junit.jupiter.api.Test;
 
-import com.namitsaxena.aws.lambda.HelloWorldLambda;
+import ie.gmit.sw.Tournament;
 
 public class HelloTest {
 
 	@Test
 	public void test() {
-		HelloWorldLambda lambda = new HelloWorldLambda();
+		Tournament lambda = new Tournament();
 		
 		System.out.println("Return Val = " + String.valueOf(10));
 		System.out.println("Return Val = " + ("V=" + 10));

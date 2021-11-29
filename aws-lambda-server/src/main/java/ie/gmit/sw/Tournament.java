@@ -1,4 +1,4 @@
-package com.namitsaxena.aws.lambda;
+package ie.gmit.sw;
 
 import java.util.Map;
 
@@ -17,24 +17,11 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-
-
-/**
- * Note:
- * Example: http://docs.aws.amazon.com/lambda/latest/dg/get-started-step4-optional.html doesn't work (gives - deserialization error with Integer
- * 	com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of java.lang.Integer out of START_OBJECT token
- * 
- * Solution: http://stackoverflow.com/questions/35545642/error-executing-hello-world-for-aws-lambda-in-java
- * http://docs.aws.amazon.com/AWSToolkitEclipse/latest/ug/lambda-tutorial.html
- * 
- * @author namit
- *
- */
-public class HelloWorldLambda 
+ public class Tournament 
 {	
 	public static void main(String[] args){
 
-		HelloWorldLambda hello = new HelloWorldLambda();
+		Tournament hello = new Tournament();
 		hello.handleRequest(null, null);
 		
 	}
@@ -47,13 +34,12 @@ public class HelloWorldLambda
     }
 	
 	public Object handleRequest(Object o, Context context) {
-
+		//checks to see if the lambda
         System.out.println("welcome to lambda function yeh.!!!");
+        String returnData = "";
         try {
-        	
-        	
+        	//Connects to my mongodb server
         	ConnectionString connectionString = new ConnectionString("mongodb+srv://user1:bV7hIKFPvWxZqlB8@serverlessinstance0.dgmiv.mongodb.net/ServerlessInstance0?retryWrites=true&w=majority&authSource=admin");
-
 			MongoClientSettings settings = MongoClientSettings.builder()
         	        .applyConnectionString(connectionString)
         	        .serverApi(ServerApi.builder()
@@ -61,32 +47,27 @@ public class HelloWorldLambda
         	            .build())
         	        .build();
         	MongoClient mongoClient = MongoClients.create(settings);
+        	//connects to the 
         	MongoDatabase database = mongoClient.getDatabase("Names");
-            System.out.println("welcome to lambda function yeh.!!!");
-
-        	MongoCollection<Document> col = database.getCollection("product");
+        	//
+        	MongoCollection<Document> col = database.getCollection("users");
         	FindIterable<Document> fi = col.find();
-        	 MongoCursor<Document> cursor = fi.iterator();
+        	MongoCursor<Document> cursor = fi.iterator();
+        	 
              try {
-                 while(cursor.hasNext()) {               
-                     System.out.println(cursor.next().toJson());
+            	 //return first one
+                 if ( cursor.hasNext()) {               
+                     returnData = cursor.next().toJson();
                  }
              } finally {
                  cursor.close();
              }
-        	//Document b = a.first();
-       //     System.out.println("data count" + col.countDocuments());
-       //     System.out.println(b);
-          //  BasicDBObject setValue = new BasicDBObject();
-            //BasicDBObject query = new BasicDBObject();
-           // query.put("contacts.mobileNo", "7090909090");
-        //    setValue.put("contacts.$.userId", "userId12121212");
-          //  BasicDBObject set = new BasicDBObject("$set", setValue);
+             //closes mongodb
             mongoClient.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "{product: 'this.props.location.productInfo.productName', description: 'this.props.location.productInfo.productDescription', price: 40, image: 'this.props.location.productInfo.imageURL', quantityAllowed:  4,orderQuantity: 1}";
+        return returnData;
 	}
 }
