@@ -1,0 +1,47 @@
+@startuml
+
+title Final Year Project - Class Diagram
+
+class User{
+    String name
+    String username
+    int number
+    String email
+}
+class Player{
+    String phoneNumber
+}
+class Admin{
+}
+
+class Shop{
+    String address
+    String phoneNumber
+    String emailAddress
+    String website
+}
+
+User <|--left- Player
+User <|--up- Admin
+
+
+class Touranment{
+    Date StartDate
+    String Name
+    String Prize
+    String URL
+    addPlayer()
+}
+
+class TouranmentTypes{
+    String  Format
+    int ApproxDurationMinutes 
+}
+
+
+Touranment <|--left- TouranmentTypes
+Touranment o--Down Player
+Touranment o--Up Shop
+Shop o--right Admin
+
+@enduml
