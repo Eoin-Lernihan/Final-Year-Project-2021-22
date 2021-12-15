@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 const port = 4000;
 
-function clickMe() {
+function getUser() {
   axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user`)
             .then(response => {
               console.log(response.data);
@@ -18,7 +18,7 @@ export class Create extends Component{
     return (
       <div className="create">
         <h3>create</h3>
-      <button theme="pink" onClick={clickMe}>
+      <button theme="pink" onClick={getUser}>
           demo button
         </button>  
         </div>

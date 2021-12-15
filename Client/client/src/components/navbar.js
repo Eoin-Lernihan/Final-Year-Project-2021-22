@@ -30,15 +30,16 @@ export class NavigationBar extends Component {
                 <BrowserRouter>
                     <Navbar className="d-flex align-items-center" bg="dark" variant="dark" sticky="top" expand="md">
                         <Container>
-                            <Navbar.Brand href="/">Name</Navbar.Brand>
+                            <Navbar.Brand href="/">Tournaaro</Navbar.Brand>
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse>
+                            <Navbar.Collapse className="justify-content-start">
                                 <Nav className="NavLinks">
                                     <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/create">Create</Nav.Link>
-                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    <Nav.Link href="/create">Create</Nav.Link>                                   
                                 </Nav>
-								
+                            </Navbar.Collapse>
+                            <Navbar.Collapse className="justify-content-end" color='white'>
+                            <Nav.Link href="/login" >Login</Nav.Link>
                             </Navbar.Collapse>
                         </Container>
                     </Navbar>

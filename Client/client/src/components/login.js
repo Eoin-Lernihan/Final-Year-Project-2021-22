@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 export class Login extends Component{
 render(){
+  function checkUser() {
+    alert("Sorry this username or password is wrong")
+  }
   return (
     <div className="login">
       
@@ -11,7 +14,12 @@ render(){
       <label>Enter your username:
         <input type="text" />
       </label>
-      <button theme="pink">enter</button>  
+      <br></br>
+      <label>Enter your password:
+        <input type="text" />
+      </label>
+      <br></br>
+      <button theme="pink" onClick={checkUser}>enter</button>  
     </form>
           </p>
       </div>
