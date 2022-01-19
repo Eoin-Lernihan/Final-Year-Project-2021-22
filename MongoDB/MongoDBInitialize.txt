@@ -1,0 +1,26 @@
+Game Save Data
+_id:Object
+_owner:Object
+_Game:Object
+_GameMode:Object
+_MaxPeople:Object
+_CurrentPeople:Object,Array
+_Time:Object
+
+
+User Save Data
+_id:Object
+userName:Object
+firstName:Object
+email:Object
+lastName:Object
+number:Object
+inCurrentGames:Object,Array
+
+Admin Save data
+_id:Object
+companyUserName:Object
+companyName:Object
+companyEmail:Object
+companyNumber:Object
+gamesRunning:Object,Array
