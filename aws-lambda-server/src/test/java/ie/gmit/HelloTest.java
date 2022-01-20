@@ -2,13 +2,13 @@ package ie.gmit;
 
 import org.junit.jupiter.api.Test;
 
-import ie.gmit.sw.Tournament;
+import ie.gmit.sw.TournamentController;
 
 public class HelloTest {
 
 	@Test
 	public void test() {
-		Tournament lambda = new Tournament();
+		TournamentController lambda = new TournamentController();
 		
 		System.out.println("Return Val = " + String.valueOf(10));
 		System.out.println("Return Val = " + ("V=" + 10));
