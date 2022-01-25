@@ -5,23 +5,18 @@ import java.util.Map;
 import org.bson.Document;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.mongodb.BasicDBObject;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerApi;
-import com.mongodb.ServerApiVersion;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
- public class TournamentController 
+ public class UserController 
 {	
+	 private DBConnection connection = new DBConnection();
+
 	public static void main(String[] args){
 
-		TournamentController hello = new TournamentController();
+		UserController hello = new UserController();
 		hello.handleRequest(null, null);
 		
 	}
@@ -33,27 +28,21 @@ import com.mongodb.client.MongoDatabase;
         return "Hello World";
     }
 	
-	public Object handleRequest(Object o, Context context) {
+	public User handleRequest(Object o, Context context) {
 		//checks to see if the lambda
         System.out.println("welcome to lambda function yeh.!!!");
         String returnData = "";
         try {
         	//Connects to my mongodb server
-        	ConnectionString connectionString = new ConnectionString("mongodb+srv://user1:bV7hIKFPvWxZqlB8@serverlessinstance0.dgmiv.mongodb.net/ServerlessInstance0?retryWrites=true&w=majority&authSource=admin");
-			MongoClientSettings settings = MongoClientSettings.builder()
-        	        .applyConnectionString(connectionString)
-        	        .serverApi(ServerApi.builder()
-        	            .version(ServerApiVersion.V1)
-        	            .build())
-        	        .build();
-        	MongoClient mongoClient = MongoClients.create(settings);
-        	//connects to the 
-        	MongoDatabase database = mongoClient.getDatabase("Names");
         	//
+        	MongoClient mongoClient = connection.getDBConection();
+        	
+        	MongoDatabase database = mongoClient.getDatabase("Names");
+        	
+        	
         	MongoCollection<Document> col = database.getCollection("users");
         	FindIterable<Document> fi = col.find();
-        	MongoCursor<Document> cursor = fi.iterator();
-        	 
+        	MongoCursor<Document> cursor = fi.iterator(); 
              try {
             	 //return first one
                  if ( cursor.hasNext()) {               
@@ -62,13 +51,23 @@ import com.mongodb.client.MongoDatabase;
              } finally {
                  cursor.close();
              }
-             //closes mongodb
-            mongoClient.close();
+         
+            connection.closeDB(mongoClient);
 
         } catch (Exception e) {
             e.printStackTrace();
         }  
-        return returnData;
+        User user1 = new User();
+        user1.setFirstName("firstName");
+        user1.setLastName("lasr");
+        user1.setEmail("email");
+		return user1 ;
 	}
+
+
+	
+
+
+
 	
 }

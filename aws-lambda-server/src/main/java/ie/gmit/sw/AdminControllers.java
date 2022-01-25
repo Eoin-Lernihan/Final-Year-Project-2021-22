@@ -15,19 +15,16 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 public class AdminControllers {
+	 private DBConnection connection = new DBConnection();
+
 	public Object handleRequest(Object o, Context context) {
 		//checks to see if the lambda
+		
         System.out.println("welcome to lambda function yeh.!!!");
         String returnData = "";
         try {
-        	ConnectionString connectionString = new ConnectionString("mongodb+srv://user1:bV7hIKFPvWxZqlB8@serverlessinstance0.dgmiv.mongodb.net/ServerlessInstance0?retryWrites=true&w=majority&authSource=admin");
-		MongoClientSettings settings = MongoClientSettings.builder()
-        	        .applyConnectionString(connectionString)
-        	        .serverApi(ServerApi.builder()
-        	            .version(ServerApiVersion.V1)
-        	            .build())
-        	        .build();
-        	MongoClient mongoClient = MongoClients.create(settings);
+        	MongoClient mongoClient = connection.getDBConection();
+        	
         	MongoDatabase database = mongoClient.getDatabase("Names");
         	MongoCollection<Document> col = database.getCollection("admins");
         	FindIterable<Document> fi = col.find();
@@ -42,7 +39,7 @@ public class AdminControllers {
                  cursor.close();
              }
              //closes mongodb
-            mongoClient.close();
+             connection.closeDB(mongoClient);
 
         } catch (Exception e) {
             e.printStackTrace();
