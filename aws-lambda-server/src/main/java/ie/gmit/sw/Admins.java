@@ -1,6 +1,6 @@
 package ie.gmit.sw;
 
-public class Admins {
+public class Admins implements DBObject{
 
 	private String firstName;
 	private String lastName;
