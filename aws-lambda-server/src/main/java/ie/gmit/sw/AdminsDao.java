@@ -8,12 +8,12 @@ public class AdminsDao {
 
 	 private Mapper mapper = new Mapper();
 	public List<DBObject> getAllAdmin() {
-		String collectionName = "users";
-		List<DBObject> userlist = new ArrayList<>();
+		String collectionName = "admins";
+		List<DBObject> adminList = new ArrayList<>();
        System.out.println("welcome to lambda function yeh.!!!");
-       mapper.rowsMapper(collectionName, userlist, adminMap);  
+       mapper.rowsMapper(collectionName, adminList, adminMap);  
        
-		return userlist;
+		return adminList;
 	}
 
 
