@@ -1,49 +1,44 @@
 package ie.gmit.sw;
 
+import java.util.List;
+
 import org.bson.Document;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.ServerApi;
-import com.mongodb.ServerApiVersion;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
-public class AdminControllers {
+public class Mapper {
 	 private DBConnection connection = new DBConnection();
-
-	public Object handleRequest(Object o, Context context) {
-		//checks to see if the lambda
-		
-        System.out.println("welcome to lambda function yeh.!!!");
-        String returnData = "";
+	public void rowsMapper(String collectionName, List<DBObject> userlist, DBObjectMapper usermap) {
+		Document returnData;
         try {
+        	//Connects to my mongodb server
         	MongoClient mongoClient = connection.getDBConection();
         	
         	MongoDatabase database = mongoClient.getDatabase("Names");
-        	MongoCollection<Document> col = database.getCollection("admins");
+        	
+        	
+			MongoCollection<Document> col = database.getCollection(collectionName);
+        	
         	FindIterable<Document> fi = col.find();
-        	MongoCursor<Document> cursor = fi.iterator();
-        	 
+        	MongoCursor<Document> cursor = fi.iterator(); 
              try {
             	 //return first one
                  if ( cursor.hasNext()) {               
-                     returnData = cursor.next().toJson();
+                     returnData = cursor.next();
+                     usermap.populateEnity(userlist, returnData);
                  }
              } finally {
                  cursor.close();
              }
-             //closes mongodb
-             connection.closeDB(mongoClient);
+         
+            connection.closeDB(mongoClient);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return returnData;
 	}
 }

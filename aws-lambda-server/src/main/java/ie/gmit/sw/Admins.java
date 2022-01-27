@@ -1,9 +1,12 @@
 package ie.gmit.sw;
 
-public class User implements DBObject  {
+public class Admins {
+
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String number;
+	
 	
 	public String getFirstName() {
 		return firstName;
@@ -23,5 +26,12 @@ public class User implements DBObject  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
 
 }
