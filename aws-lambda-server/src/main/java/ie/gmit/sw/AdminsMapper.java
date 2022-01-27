@@ -7,9 +7,10 @@ import org.bson.Document;
 public class AdminsMapper implements DBObjectMapper {
 	public void populateEnity(List<DBObject> adminList, Document returnData) {
 		Admins admin = new Admins();
-		admin.setFirstName(returnData.getString("firstName"));
-		admin.setLastName(returnData.getString("lastName"));
-		admin.setEmail(returnData.getString("email"));
+		admin.setName(returnData.getString("companyUserName"));
+		admin.setCompanyName(returnData.getString("companyName"));
+		admin.setEmail(returnData.getString("companyEmail"));
+		admin.setNumber(returnData.getString("companyNumber"));
 		adminList.add(admin);
 	}
 }

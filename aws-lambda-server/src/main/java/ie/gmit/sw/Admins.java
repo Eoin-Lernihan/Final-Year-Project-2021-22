@@ -2,23 +2,23 @@ package ie.gmit.sw;
 
 public class Admins implements DBObject{
 
-	private String firstName;
-	private String lastName;
+	private String name;
+	private String companyName;
 	private String email;
 	private String number;
 	
 	
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getCompanyName() {
+		return companyName;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	public String getEmail() {
 		return email;
