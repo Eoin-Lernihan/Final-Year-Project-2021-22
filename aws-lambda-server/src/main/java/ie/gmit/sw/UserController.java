@@ -35,16 +35,15 @@ import com.google.gson.Gson;
 		System.out.println(input);
         return "Hello World";
     }
-	
-//	public List<User> handleRequest(Map<String,Object> input, Context context) {
-//		System.out.println(input);
-//    	List<User> allUser = new ArrayList<>();
-//    	User user = new User();
-//    	user.setEmail("email");
-//    	user.setFirstName("first");
-//    	user.setLastName("lastNam");
-//		return allUser;
-//	}
+	public List<User> handleRequest(Map<String,Object> input, Context context) {
+		System.out.println(input);
+    	List<User> allUser = new ArrayList<>();
+    	User user = new User();
+    	user.setEmail("email");
+    	user.setFirstName("first");
+    	user.setLastName("lastNam");
+		return allUser;
+	}
 	
 	
 /**
@@ -54,8 +53,8 @@ import com.google.gson.Gson;
 }
 
  */
-	@Override
-	public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
+	
+	public void handleRequestGSon(InputStream input, OutputStream output, Context context) throws IOException {
 		JSONParser parser = new JSONParser();
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 	    JSONObject responseJson = extractedToResponse();
@@ -79,6 +78,12 @@ import com.google.gson.Gson;
 		responseJson.put("body", responseBody);
 		responseJson.put("statusCode", 200);
 		return responseJson;
+	}
+
+	@Override
+	public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	 
