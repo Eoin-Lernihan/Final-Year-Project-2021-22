@@ -1,5 +1,5 @@
 package ie.gmit.sw;
 
-public interface DBObject {
+public abstract class  DBObject {
 
 }

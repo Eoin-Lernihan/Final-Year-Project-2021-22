@@ -10,6 +10,6 @@ public class UserMapper implements DBObjectMapper {
 		 user1.setFirstName(returnData.getString("firstName"));
 		 user1.setLastName(returnData.getString("lastName"));
 		 user1.setEmail(returnData.getString("email"));
-		 userlist.add(user1);
+		userlist.add(user1 );
 	}
 }

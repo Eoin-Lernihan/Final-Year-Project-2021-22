@@ -1,6 +1,6 @@
 package ie.gmit.sw;
 
-public class Tournaments implements DBObject {
+public class Tournaments extends  DBObject {
 	private String owner;
 	private String game;
 	private String gameMode;

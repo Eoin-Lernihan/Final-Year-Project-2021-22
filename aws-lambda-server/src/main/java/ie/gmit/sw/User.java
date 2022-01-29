@@ -1,6 +1,9 @@
 package ie.gmit.sw;
 
-public class User implements DBObject  {
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+public class User extends DBObject  {
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -23,5 +26,20 @@ public class User implements DBObject  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public User() {
+		//defualt constuctor
+	}
+	public User(String json) {
+        Gson gson = new Gson();
+        User request = gson.fromJson(json, User.class);
+        this.email = request.getEmail();
+        this.firstName = request.getFirstName();
+        this.lastName = request.getLastName();
+	}
+
+    public String toString() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(this);
+    }
 
 }
