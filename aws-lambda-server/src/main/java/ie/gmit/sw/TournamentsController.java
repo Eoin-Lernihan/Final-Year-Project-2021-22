@@ -23,8 +23,8 @@ public class TournamentsController {
   }
 	
 	public List<DBObject> handleRequest(Object o, Context context) {
-		
-  	return tournamentDao.getAlltournament();
+		  List<DBObject> allTourment = tournamentDao.getAlltournament();
+  	return allTourment;
 	}
 
 

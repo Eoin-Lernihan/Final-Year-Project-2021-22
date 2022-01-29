@@ -35,13 +35,16 @@ import com.google.gson.Gson;
 		System.out.println(input);
         return "Hello World";
     }
-	public List<User> handleRequest(Map<String,Object> input, Context context) {
+	public List<User> handleRequestAWS(Map<String,Object> input, Context context) {
 		System.out.println(input);
-    	List<User> allUser = new ArrayList<>();
-    	User user = new User();
-    	user.setEmail("email");
-    	user.setFirstName("first");
-    	user.setLastName("lastNam");
+    //	List<User> allUser = new ArrayList<>();
+    //	User user = new User();
+    //	user.setEmail("email");
+  //  	user.setFirstName("first");
+    //	user.setLastName("lastNam");
+   // 	allUser.add(user);
+	    List<User> allUser = userDao.getAllUser();
+
 		return allUser;
 	}
 	
@@ -58,8 +61,6 @@ import com.google.gson.Gson;
 		JSONParser parser = new JSONParser();
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 	    JSONObject responseJson = extractedToResponse();
-		
-		
 		OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
 	    writer.write(responseJson.toString());
 	    writer.close();
@@ -68,12 +69,14 @@ import com.google.gson.Gson;
 	public JSONObject extractedToResponse() {
 		JSONObject responseJson = new JSONObject();
 		JSONObject responseBody = new JSONObject();
-		List<User> allUser = new ArrayList<>();
-		User user = new User();
-		user.setEmail("email");
-		user.setFirstName("first");
-		user.setLastName("lastNam");
-		allUser.add(user);
+	//	List<User> allUser = new ArrayList<>();
+		//User user = new User();
+		//user.setEmail("email");
+		//user.setFirstName("first");
+		//user.setLastName("lastNam");
+		//allUser.add(user);
+	    List<User> allUser = userDao.getAllUser();
+
 		responseBody.put("users", new Gson().toJson(allUser));
 		responseJson.put("body", responseBody);
 		responseJson.put("statusCode", 200);

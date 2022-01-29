@@ -37,9 +37,6 @@ public class User extends DBObject  {
         this.lastName = request.getLastName();
 	}
 
-    public String toString() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(this);
-    }
+    
 
 }
