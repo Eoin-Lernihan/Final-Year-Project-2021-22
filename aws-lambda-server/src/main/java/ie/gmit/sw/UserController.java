@@ -33,7 +33,8 @@ import com.mongodb.client.result.InsertOneResult;
 	public static void main(String[] args){
 		UserController hello = new UserController();
 		//JSONObject a = hello.extractedToResponse();
-		hello.handleRequestsParm(null, null);
+		hello.handleRequestGetTester("Funnyname");
+		hello.extractedToResponse();
 		//System.out.println(a);
 	}
 	
@@ -54,6 +55,23 @@ import com.mongodb.client.result.InsertOneResult;
 	    List<User> allUser = userDao.getAllUser();
 
 		return allUser;
+	}
+	
+	public void handleRequestGet(Map<String,Object> input, Context context) {
+		System.out.println(input);
+		String userName =(String)input.getOrDefault("userName", "");
+
+	    List<User> allUser = userDao.getAUser(userName);
+
+		//return allUser;
+	}
+	public void handleRequestGetTester(String input) {
+		System.out.println(input);
+		String userName = input;
+
+	    List<User> allUser = userDao.getAUser(userName);
+
+		//return allUser;
 	}
 	
 	
@@ -90,6 +108,7 @@ import com.mongodb.client.result.InsertOneResult;
 		responseJson.put("statusCode", 200);
 		return responseJson;
 	}
+	
 
 	@Override
 	public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {

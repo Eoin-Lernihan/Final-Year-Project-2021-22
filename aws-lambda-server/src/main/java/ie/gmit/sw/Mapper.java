@@ -1,5 +1,7 @@
 package ie.gmit.sw;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.util.List;
 
 import org.bson.Document;
@@ -11,29 +13,26 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 public class Mapper {
-	 private DBConnection connection = new DBConnection();
-	public void rowsMapper(String collectionName, List<DBObject> userlist, DBObjectMapper usermap) {
+	public void rowsMapper(String collectionName, List<DBObject> userlist, DBObjectMapper usermap, String fillter) {
+		
 		Document returnData;
         try {
         	//Connects to my mongodb server
+       	  DBConnection connection = new DBConnection();
+
         	MongoClient mongoClient = connection.getDBConection();
         	
         	MongoDatabase database = mongoClient.getDatabase("Names");
         	
         	
 			MongoCollection<Document> col = database.getCollection(collectionName);
-        	
-        	FindIterable<Document> fi = col.find();
-        	MongoCursor<Document> cursor = fi.iterator(); 
-             try {
-            	 //return first one
-                 if ( cursor.hasNext()) {               
-                     returnData = cursor.next();
-                     usermap.populateEnity(userlist, returnData);
-                 }
-             } finally {
-                 cursor.close();
-             }
+			if(fillter == null ) {
+				getMongoDB(userlist, usermap, col);
+			}
+			else {
+				Document doc = getWithFillter(col, fillter);
+				
+			}
          
             connection.closeDB(mongoClient);
 
@@ -41,4 +40,27 @@ public class Mapper {
             e.printStackTrace();
         }
 	}
+
+	private void getMongoDB(List<DBObject> userlist, DBObjectMapper usermap, MongoCollection<Document> col) {
+		Document returnData;
+		FindIterable<Document> fi = col.find();   	
+		MongoCursor<Document> cursor = fi.iterator(); 
+		 try {
+			 //return first one
+			 while(cursor.hasNext()) {               
+		         returnData = cursor.next();
+		         usermap.populateEnity(userlist, returnData);
+		     }
+		 } finally {
+		     cursor.close();
+		 }
+	}
+
+	private Document getWithFillter(MongoCollection<Document> col, String fillter) {
+		Document doc = col.find(eq("userName", "Funnyname")).first();        	
+		System.out.println("This a check " + doc.toString());
+		return doc;
+	}
+	
+
 }

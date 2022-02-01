@@ -17,13 +17,24 @@ public class UserDao {
 	 private DBObjectMapper usermap = new UserMapper();
 	 private DBConnection connection = new DBConnection();
 	 private UserMapper usesrmap = new UserMapper();
-
+	 private String finder = null;
 	 private Mapper mapper = new Mapper();
-	public List<User> getAllUser() {
+
+	 public List<User> getAllUser() {
 		String collectionName = "users";
 		List<DBObject> userlist = new ArrayList<>();
         System.out.println("welcome to lambda function yeh.!!!");
-        mapper.rowsMapper(collectionName, userlist, usermap);  
+        mapper.rowsMapper(collectionName, userlist, usermap, finder);  
+        List<User> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );
+		return  users;
+	}
+	
+	public List<User> getAUser(String name) {
+		finder = name;
+		String collectionName = "users";
+		List<DBObject> userlist = new ArrayList<>();
+        System.out.println("welcome to lambda function yeh.!!!");
+        mapper.rowsMapper(collectionName, userlist, usermap, finder);  
         List<User> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );
 		return  users;
 	}
@@ -32,7 +43,6 @@ public class UserDao {
 		MongoClient mongoClient = connection.getDBConection();
 		
 		MongoDatabase database = mongoClient.getDatabase("Names");
-		
 		
 		MongoCollection<Document> col = database.getCollection("user");
 		
