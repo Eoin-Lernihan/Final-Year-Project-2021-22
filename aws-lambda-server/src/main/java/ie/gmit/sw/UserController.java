@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -17,16 +19,22 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
+import com.mongodb.ConnectionString;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.InsertOneResult;
  public class UserController implements RequestStreamHandler
  //RequestHandler <Map<String,Object>, List <User>>
 {	
-	 UserDao userDao = new UserDao();
-	
+	 private UserDao userDao = new UserDao();
+
 	 //testing
 	public static void main(String[] args){
 		UserController hello = new UserController();
-		JSONObject a = hello.extractedToResponse();
-		System.out.println(a);
+		//JSONObject a = hello.extractedToResponse();
+		hello.handleRequestsParm(null, null);
+		//System.out.println(a);
 	}
 	
 	//testing
@@ -37,12 +45,12 @@ import com.google.gson.Gson;
     }
 	public List<User> handleRequestAWS(Map<String,Object> input, Context context) {
 		System.out.println(input);
-    //	List<User> allUser = new ArrayList<>();
-    //	User user = new User();
-    //	user.setEmail("email");
-  //  	user.setFirstName("first");
-    //	user.setLastName("lastNam");
-   // 	allUser.add(user);
+		//List<User> allUser = new ArrayList<>();
+		//User user = new User();
+		//user.setEmail("email");
+		//user.setFirstName("first");
+		//user.setLastName("lastNam");
+		//allUser.add(user);
 	    List<User> allUser = userDao.getAllUser();
 
 		return allUser;
@@ -69,7 +77,7 @@ import com.google.gson.Gson;
 	public JSONObject extractedToResponse() {
 		JSONObject responseJson = new JSONObject();
 		JSONObject responseBody = new JSONObject();
-	//	List<User> allUser = new ArrayList<>();
+		//List<User> allUser = new ArrayList<>();
 		//User user = new User();
 		//user.setEmail("email");
 		//user.setFirstName("first");
@@ -89,17 +97,27 @@ import com.google.gson.Gson;
 		
 	}
 	
+
 	 
-	 
+	public void handleRequestsParm(Map<String,Object> input, Context context) {
+		String firstName =(String)input.getOrDefault("firstName", "");
+		String lastName =(String)input.getOrDefault("lastName", "");
+		String email =(String)input.getOrDefault("email", "");
+		String userName =(String)input.getOrDefault("userName", "");
+		String number = (String)input.getOrDefault("firstName", "");
+		userDao.addUser(firstName, lastName, email, userName, number);  
+	}
+
+
 	
 	//Orignal version for getting users
-	//public List<User> handleRequest(Map<String,Object> input, Context context) {
-		//System.out.println(input);
-    //	List<User> allUser = userDao.getAllUser();
-	//	return allUser;
-//	}
+	//public List<User> handleRequest(Map<String,Object> input, Context context){
+	//System.out.println(input);
+    //List<User> allUser = userDao.getAllUser();
+	//return allUser;
+	//}
 
-
+ 
 
 	
 

@@ -3,6 +3,7 @@ package ie.gmit.sw;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class UserMapper implements DBObjectMapper {
 	public void populateEnity(List<DBObject> userlist, Document returnData) {
@@ -12,4 +13,14 @@ public class UserMapper implements DBObjectMapper {
 		 user1.setEmail(returnData.getString("email"));
 		userlist.add(user1 );
 	}
+	
+	public static Document formater(String userName, String email, String firstName, String lastName, String number) {
+    	return new Document("_id", new ObjectId())
+	  	.append("userName", userName)
+	  	.append("email", email)
+	  	.append("firstName", firstName)
+	  	.append("lastName", lastName)
+	  	.append("number", number);
+
+    } 
 }

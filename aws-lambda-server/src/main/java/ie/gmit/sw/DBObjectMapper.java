@@ -7,4 +7,5 @@ import org.bson.Document;
 public interface DBObjectMapper {
 
 	public void populateEnity(List<DBObject> userlist, Document returnData);
+	
 }

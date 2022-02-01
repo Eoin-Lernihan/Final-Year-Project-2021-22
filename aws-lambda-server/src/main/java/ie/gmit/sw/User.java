@@ -27,8 +27,9 @@ public class User extends DBObject  {
 		this.email = email;
 	}
 	public User() {
-		//defualt constuctor
+	//defualt constuctor
 	}
+	
 	public User(String json) {
         Gson gson = new Gson();
         User request = gson.fromJson(json, User.class);
