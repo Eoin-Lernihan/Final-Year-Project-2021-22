@@ -53,24 +53,19 @@ import com.mongodb.client.result.InsertOneResult;
 		//user.setLastName("lastNam");
 		//allUser.add(user);
 	    List<User> allUser = userDao.getAllUser();
-
 		return allUser;
 	}
 	
-	public void handleRequestGet(Map<String,Object> input, Context context) {
+	public void handleRequestGetSingle(Map<String,Object> input, Context context) {
 		System.out.println(input);
 		String userName =(String)input.getOrDefault("userName", "");
-
 	    List<User> allUser = userDao.getAUser(userName);
-
 		//return allUser;
 	}
 	public void handleRequestGetTester(String input) {
 		System.out.println(input);
 		String userName = input;
-
 	    List<User> allUser = userDao.getAUser(userName);
-
 		//return allUser;
 	}
 	
@@ -102,7 +97,6 @@ import com.mongodb.client.result.InsertOneResult;
 		//user.setLastName("lastNam");
 		//allUser.add(user);
 	    List<User> allUser = userDao.getAllUser();
-
 		responseBody.put("users", new Gson().toJson(allUser));
 		responseJson.put("body", responseBody);
 		responseJson.put("statusCode", 200);
@@ -126,7 +120,10 @@ import com.mongodb.client.result.InsertOneResult;
 		String number = (String)input.getOrDefault("firstName", "");
 		userDao.addUser(firstName, lastName, email, userName, number);  
 	}
-
+	
+	public void handleRequestPut(Map<String,Object> input, Context context) {
+		
+	}
 
 	
 	//Orignal version for getting users
