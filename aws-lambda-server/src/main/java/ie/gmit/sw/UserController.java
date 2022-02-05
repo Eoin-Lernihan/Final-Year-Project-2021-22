@@ -117,12 +117,19 @@ import com.mongodb.client.result.InsertOneResult;
 		String lastName =(String)input.getOrDefault("lastName", "");
 		String email =(String)input.getOrDefault("email", "");
 		String userName =(String)input.getOrDefault("userName", "");
-		String number = (String)input.getOrDefault("firstName", "");
+		String number = (String)input.getOrDefault("number", "");
 		userDao.addUser(firstName, lastName, email, userName, number);  
 	}
 	
 	public void handleRequestPut(Map<String,Object> input, Context context) {
-		
+		String firstName =(String)input.getOrDefault("firstName", "");
+		String lastName =(String)input.getOrDefault("lastName", "");
+		String email =(String)input.getOrDefault("email", "");
+		String userName =(String)input.getOrDefault("userName", "");
+		String number = (String)input.getOrDefault("number", "");
+		String newUserName = (String)input.getOrDefault("newUserName", "");
+		String newNumber = (String)input.getOrDefault("newNumber", "");
+		userDao.updateUser(firstName, lastName, email, userName, number, newUserName ,newNumber);
 	}
 
 	
