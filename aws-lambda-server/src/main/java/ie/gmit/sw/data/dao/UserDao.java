@@ -35,19 +35,20 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
-public class UserDao {
+public class UserDao implements AllObjectsGet {
 	 private DBObjectMapper usermap = new UserMapper();
 	 private DBConnection connection = new DBConnection();
 	 private UserMapper usesrmap = new UserMapper();
 	 private String finder = null;
 	 private Mapper mapper = new Mapper();
 
-	 public List<User> getAllUser() {
+	 @Override
+	public List<Object> getAll() {
 		String collectionName = "users";
 		List<DBObject> userlist = new ArrayList<>();
         System.out.println("welcome to lambda function yeh.!!!");
         mapper.rowsMapper(collectionName, userlist, usermap, finder);  
-        List<User> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );
+        List<Object> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );
 		return  users;
 	}
 	
