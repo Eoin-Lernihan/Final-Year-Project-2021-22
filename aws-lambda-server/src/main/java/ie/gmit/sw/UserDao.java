@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.bson.Document;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -68,9 +69,18 @@ public class UserDao {
 		MongoClient mongoClient = connection.getDBConection();	
 		MongoDatabase database = mongoClient.getDatabase("Names");
 		MongoCollection<Document> collection = database.getCollection("user");
-		collection.updateOne(eq("userName", firstName),combine(set("userName", newUserName), set("number", newNumber)));
+		//collection.updateOne(eq("userName", firstName),combine(set("userName", newUserName), set("number", newNumber)));
 
-		
+		BasicDBObject query = new BasicDBObject();
+		query.put("userName", userName);
+
+		BasicDBObject updateDocument = new BasicDBObject();
+		updateDocument.put("userName", newUserName);
+
+		BasicDBObject updateObject = new BasicDBObject();
+		updateObject.put("$set", updateDocument);
+
+		collection.updateOne(query, updateObject);
 	}
 
 
