@@ -1,9 +1,12 @@
-package ie.gmit.sw;
+package ie.gmit.sw.controller;
 
 import java.util.List;
 import java.util.Map;
 
 import com.amazonaws.services.lambda.runtime.Context;
+
+import ie.gmit.sw.data.dao.TournamentsDao;
+import ie.gmit.sw.data.utily.DBObject;
 
 public class TournamentsController {
 	 TournamentsDao tournamentDao = new TournamentsDao();

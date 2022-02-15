@@ -1,8 +1,12 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.mapper;
 
 import java.util.List;
 
 import org.bson.Document;
+
+import ie.gmit.sw.data.model.Tournaments;
+import ie.gmit.sw.data.utily.DBObject;
+import ie.gmit.sw.data.utily.DBObjectMapper;
 
 public class TournamentsMapper implements DBObjectMapper {
 	public void populateEnity(List<DBObject> tournamentsList, Document returnData) {

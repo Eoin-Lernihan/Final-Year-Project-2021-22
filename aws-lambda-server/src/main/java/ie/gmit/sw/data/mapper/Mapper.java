@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.mapper;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -11,6 +11,10 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+
+import ie.gmit.sw.data.utily.DBConnection;
+import ie.gmit.sw.data.utily.DBObject;
+import ie.gmit.sw.data.utily.DBObjectMapper;
 
 public class Mapper {
 	public void rowsMapper(String collectionName, List<DBObject> userlist, DBObjectMapper usermap, String fillter) {
@@ -50,6 +54,7 @@ public class Mapper {
 			 while(cursor.hasNext()) {               
 		         returnData = cursor.next();
 		         usermap.populateEnity(userlist, returnData);
+		      
 		     }
 		 } finally {
 		     cursor.close();

@@ -2,7 +2,7 @@ package ie.gmit;
 
 import org.junit.jupiter.api.Test;
 
-import ie.gmit.sw.UserController;
+import ie.gmit.sw.controller.UserController;
 
 public class HelloTest {
 

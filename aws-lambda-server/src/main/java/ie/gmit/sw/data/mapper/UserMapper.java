@@ -1,9 +1,13 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.mapper;
 
 import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import ie.gmit.sw.data.model.User;
+import ie.gmit.sw.data.utily.DBObject;
+import ie.gmit.sw.data.utily.DBObjectMapper;
 
 public class UserMapper implements DBObjectMapper {
 	public void populateEnity(List<DBObject> userlist, Document returnData) {

@@ -1,4 +1,6 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.model;
+
+import ie.gmit.sw.data.utily.DBObject;
 
 public class Admins extends DBObject{
 

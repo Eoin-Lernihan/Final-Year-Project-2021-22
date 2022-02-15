@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +14,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
+
+import ie.gmit.sw.data.mapper.Mapper;
+import ie.gmit.sw.data.mapper.UserMapper;
+import ie.gmit.sw.data.model.User;
+import ie.gmit.sw.data.utily.DBConnection;
+import ie.gmit.sw.data.utily.DBObject;
+import ie.gmit.sw.data.utily.DBObjectMapper;
+
 import static com.mongodb.client.model.Filters.*;
 
 import java.util.List;

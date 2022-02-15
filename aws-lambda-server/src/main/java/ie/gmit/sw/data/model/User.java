@@ -1,7 +1,9 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import ie.gmit.sw.data.utily.DBObject;
 
 public class User extends DBObject  {
 	private String firstName;

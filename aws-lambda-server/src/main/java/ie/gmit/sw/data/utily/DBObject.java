@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.utily;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

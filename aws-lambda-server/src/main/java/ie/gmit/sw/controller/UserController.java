@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,11 +24,18 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
+
+import ie.gmit.sw.data.dao.UserDao;
+import ie.gmit.sw.data.model.User;
  public class UserController implements RequestStreamHandler
  //RequestHandler <Map<String,Object>, List <User>>
 {	
 	 private UserDao userDao = new UserDao();
-
+	 private String firstName;
+	 private String lastName;
+	 private String email;
+	 private String userName;
+	 private String number;
 	 //testing
 	public static void main(String[] args){
 		UserController hello = new UserController();
@@ -113,25 +120,26 @@ import com.mongodb.client.result.InsertOneResult;
 
 	 
 	public void handleRequestsParm(Map<String,Object> input, Context context) {
-		String firstName =(String)input.getOrDefault("firstName", "");
-		String lastName =(String)input.getOrDefault("lastName", "");
-		String email =(String)input.getOrDefault("email", "");
-		String userName =(String)input.getOrDefault("userName", "");
-		String number = (String)input.getOrDefault("number", "");
+		 setterForPostPut(input);
 		userDao.addUser(firstName, lastName, email, userName, number);  
 	}
-	
+
+
 	public void handleRequestPut(Map<String,Object> input, Context context) {
-		String firstName =(String)input.getOrDefault("firstName", "");
-		String lastName =(String)input.getOrDefault("lastName", "");
-		String email =(String)input.getOrDefault("email", "");
-		String userName =(String)input.getOrDefault("userName", "");
-		String number = (String)input.getOrDefault("number", "");
+		 setterForPostPut(input);
 		String newUserName = (String)input.getOrDefault("newUserName", "");
 		String newNumber = (String)input.getOrDefault("newNumber", "");
 		userDao.updateUser(firstName, lastName, email, userName, number, newUserName ,newNumber);
 	}
 
+	
+	private void setterForPostPut(Map<String, Object> input) {
+		firstName =(String)input.getOrDefault("firstName", "");
+		 lastName =(String)input.getOrDefault("lastName", "");
+		 email =(String)input.getOrDefault("email", "");
+		 userName =(String)input.getOrDefault("userName", "");
+		 number = (String)input.getOrDefault("number", "");
+	}
 	
 	//Orignal version for getting users
 	//public List<User> handleRequest(Map<String,Object> input, Context context){

@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,9 @@ import org.json.simple.JSONObject;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.google.gson.Gson;
+
+import ie.gmit.sw.data.dao.AdminsDao;
+import ie.gmit.sw.data.utily.DBObject;
 
 public class AdminsController {
 	 AdminsDao adminDao = new AdminsDao();

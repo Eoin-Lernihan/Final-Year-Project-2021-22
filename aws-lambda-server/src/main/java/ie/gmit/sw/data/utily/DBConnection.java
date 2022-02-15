@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.utily;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;

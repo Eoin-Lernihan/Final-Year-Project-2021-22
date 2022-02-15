@@ -1,7 +1,12 @@
-package ie.gmit.sw;
+package ie.gmit.sw.data.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ie.gmit.sw.data.mapper.Mapper;
+import ie.gmit.sw.data.mapper.UserMapper;
+import ie.gmit.sw.data.utily.DBObject;
+import ie.gmit.sw.data.utily.DBObjectMapper;
 
 public class AdminsDao {
 	 private DBObjectMapper adminMap = new UserMapper();
