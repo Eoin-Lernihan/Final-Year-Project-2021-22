@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.Document;
 
 import ie.gmit.sw.data.model.Tournaments;
+import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
 
@@ -17,5 +18,11 @@ public class TournamentsMapper implements DBObjectMapper {
 		tournament.setMaxPeople(returnData.getString("MaxPeople"));
 		tournament.setCurrentPeople(returnData.getString("CurrentPeople"));
 		tournamentsList.add(tournament);
+	}
+
+	@Override
+	public Document formater(User reqUser) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

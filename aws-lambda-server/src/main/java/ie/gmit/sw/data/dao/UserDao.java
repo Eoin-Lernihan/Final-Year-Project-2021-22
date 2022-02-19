@@ -1,44 +1,24 @@
 package ie.gmit.sw.data.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
-import com.mongodb.client.MongoClient;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
 
 import ie.gmit.sw.data.mapper.Mapper;
 import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.User;
-import ie.gmit.sw.data.utily.DBConnection;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
 
-import static com.mongodb.client.model.Filters.*;
-
-import java.util.List;
-
-import org.bson.Document;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
-
-public class UserDao implements AllObjectsGet {
+public class UserDao extends BaseDao implements AllObjectsGet {
 	 private DBObjectMapper usermap = new UserMapper();
-	 private DBConnection connection = new DBConnection();
-	 private UserMapper usesrmap = new UserMapper();
+	 private DBObjectMapper usesrmap = new UserMapper();
 	 private String finder = null;
 	 private Mapper mapper = new Mapper();
 
@@ -46,54 +26,45 @@ public class UserDao implements AllObjectsGet {
 	public List<Object> getAll() {
 		String collectionName = "users";
 		List<DBObject> userlist = new ArrayList<>();
-        System.out.println("welcome to lambda function yeh.!!!");
         mapper.rowsMapper(collectionName, userlist, usermap, finder);  
         List<Object> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );
 		return  users;
 	}
 	
-	public List<User> getAUser(String name) {
+	@Override
+	public List<Object> getOne(String name) {
 		finder = name;
 		String collectionName = "users";
 		List<DBObject> userlist = new ArrayList<>();
-        System.out.println("welcome to lambda function yeh.!!!");
         mapper.rowsMapper(collectionName, userlist, usermap, finder);  
-        List<User> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );
+        List<Object> users= userlist.stream().map(user -> (User) user).collect(Collectors.toList() );        
 		return  users;
 	}
 	
-	public void addUser(String firstName, String lastName, String email, String userName, String number) {
-		MongoClient mongoClient = connection.getDBConection();
-		
-		MongoDatabase database = mongoClient.getDatabase("Names");
-		
-		MongoCollection<Document> collection = database.getCollection("user");
-		
-		InsertOneResult a = collection.insertOne(usesrmap.formater(userName, email, firstName, lastName, number));
-		
-		System.out.println("Checker " + a);
-	}
-	
-	public void updateUser(String firstName, String lastName, String email, String userName, String number, String newUserName, String newNumber) {
-		MongoClient mongoClient = connection.getDBConection();	
-		MongoDatabase database = mongoClient.getDatabase("Names");
-		MongoCollection<Document> collection = database.getCollection("user");
-		//collection.updateOne(eq("userName", firstName),combine(set("userName", newUserName), set("number", newNumber)));
 
+	@Override
+	public void addOne(User request) {
+		MongoCollection<Document> collection = getCollection("user");		
+		InsertOneResult a = collection.insertOne(usesrmap.formater(request));
+	}
+
+
+	@Override
+	public void updateOne(User request) {
+		MongoCollection<Document> collection = getCollection("user");
 		BasicDBObject query = new BasicDBObject();
-		query.put("userName", userName);
+		// id here 
+		query.put("_id", request.getNumber());
 
 		BasicDBObject updateDocument = new BasicDBObject();
-		updateDocument.put("userName", newUserName);
+		updateDocument.put("_id", request.getNumber());
+		updateDocument.put("userName", request.getUserName());
+		updateDocument.put("firstName", request.getFirstName());
+		updateDocument.put("emailName", request.getEmail());
+		updateDocument.put("lastName", request.getLastName());
 
-		BasicDBObject updateObject = new BasicDBObject();
-		updateObject.put("$set", updateDocument);
-
-		collection.updateOne(query, updateObject);
+		updateCollection(collection, query, updateDocument);		
+		
 	}
-
-
-
-
 
 }

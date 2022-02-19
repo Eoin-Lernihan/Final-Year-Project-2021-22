@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.Document;
 
 import ie.gmit.sw.data.model.Admins;
+import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
 
@@ -16,5 +17,11 @@ public class AdminsMapper implements DBObjectMapper {
 		admin.setEmail(returnData.getString("companyEmail"));
 		admin.setNumber(returnData.getString("companyNumber"));
 		adminList.add(admin);
+	}
+
+	@Override
+	public Document formater(User reqUser) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

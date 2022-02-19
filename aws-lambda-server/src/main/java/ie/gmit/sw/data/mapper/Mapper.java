@@ -62,7 +62,7 @@ public class Mapper {
 	}
 
 	private Document getWithFillter(MongoCollection<Document> col, String fillter) {
-		Document doc = col.find(eq("userName", "Funnyname")).first();        	
+		Document doc = col.find(eq("userName",fillter)).first();        	
 		System.out.println("This a check " + doc.toString());
 		return doc;
 	}

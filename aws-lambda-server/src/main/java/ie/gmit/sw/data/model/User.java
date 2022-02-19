@@ -9,6 +9,8 @@ public class User extends DBObject  {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String userName;
+	private String number;
 	
 	public String getFirstName() {
 		return firstName;
@@ -38,6 +40,18 @@ public class User extends DBObject  {
         this.email = request.getEmail();
         this.firstName = request.getFirstName();
         this.lastName = request.getLastName();
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getNumber() {
+		return number;
 	}
 
     
