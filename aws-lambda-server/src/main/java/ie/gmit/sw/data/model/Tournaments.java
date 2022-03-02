@@ -1,5 +1,7 @@
 package ie.gmit.sw.data.model;
 
+import com.google.gson.Gson;
+
 import ie.gmit.sw.data.utily.DBObject;
 
 public class Tournaments extends  DBObject {
@@ -8,7 +10,24 @@ public class Tournaments extends  DBObject {
 	private String gameMode;
 	private String maxPeople;
 	private String currentPeople;
+	private Integer number;
+	
 
+	public Tournaments() {
+		//defualt constuctor
+		}
+	
+	public Tournaments(String json) {
+        Gson gson = new Gson();
+        Admin request = gson.fromJson(json, Admin.class);
+        this.owner = request.getCompanyUserName();
+        this.game = request.getCompanyName();
+        this.gameMode = request.getCompanyEmail();
+        this.maxPeople = request.getCompanyNumber();
+        this.currentPeople= request.getGamesRunning();
+        
+	}
+	
 	public String getOwner() {
 		return owner;
 	}
@@ -38,6 +57,13 @@ public class Tournaments extends  DBObject {
 	}
 	public void setCurrentPeople(String currentPeople) {
 		this.currentPeople = currentPeople;
+	}
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 }

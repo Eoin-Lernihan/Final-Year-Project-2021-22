@@ -19,7 +19,6 @@ import ie.gmit.sw.controller.UserController;
 import ie.gmit.sw.data.mapper.AdminsMapper;
 import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.Admin;
-import ie.gmit.sw.data.model.Tournaments;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
@@ -31,8 +30,8 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
  * @author eoinb
  *
  */
-public class TournamentsDao extends BaseDao implements AllObjectsGet {
-	private static final String TOURNAMENTS_TABLE_NAME = "Games";
+public class AdminDao extends BaseDao implements AllObjectsGet {
+	private static final String ADMIN_TABLE_NAME = "admins";
 	private DBObjectMapper adminMap = new AdminsMapper();
 
 	@Override
@@ -47,14 +46,14 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 	public List<Object> getOne(String name) {
 
 		Bson filter = eq("companyUserName", name);
-		List<Object> tournament = getRowsForFilter(filter);
-		return tournament;
+		List<Object> admins = getRowsForFilter(filter);
+		return admins;
 	}
 
 	@Override
 	public void addOne(Object request1) {
-		Tournaments request = (Tournaments) request1;
-		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
+		Admin request = (Admin) request1;
+		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 		request.setNumber(new Random().nextInt(1000000) + 1);
 		InsertOneResult a = collection.insertOne(adminMap.formater(request));
 	}
@@ -64,15 +63,14 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 	@Override
 	public void updateOne(Object request1) {
 		Admin request = (Admin) request1;
-		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
+		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 
 		Bson filter = eq("number", request.getCompanyNumber());
-		Bson updateOperation1 = set("owner", request.getCompanyUserName());
-		Bson updateOperation2 = set("gameType", request.getCompanyName());
-		Bson updateOperation3 = set("gameMode", request.getCompanyEmail());
-		Bson updateOperation4 = set("maxPeople", request.getCompanyNumber());
-		Bson updateOperation5 = set("currentPeople", request.getGamesRunning());
-		
+		Bson updateOperation1 = set("companyUserName", request.getCompanyUserName());
+		Bson updateOperation2 = set("companyName", request.getCompanyName());
+		Bson updateOperation3 = set("companyEmail", request.getCompanyEmail());
+		Bson updateOperation4 = set("companyNumber", request.getCompanyNumber());
+		Bson updateOperation5 = set("gamesRunning", request.getGamesRunning());
 		Bson updates = combine(updateOperation1, updateOperation2, updateOperation3, updateOperation4,updateOperation5);
 		updateOneInMongoDB(collection, filter, updates);
 
@@ -80,7 +78,7 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 
 	
 	private List<Object> getRowsForFilter(Bson filter) {
-		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
+		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 		List<DBObject> adminlist = new ArrayList<>();
 		getRows(collection, adminlist, adminMap, filter);
 		List<Object> admins = adminlist.stream().map(admin -> (Admin) admin).collect(Collectors.toList());
@@ -125,7 +123,7 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 
 	@Override
 	public void deleteOne(Integer number) {
-			MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
+			MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 
 			Bson filter = eq("number", number);
 			deleteOneInMongoDB(collection, filter );

@@ -10,8 +10,36 @@ public class User extends DBObject  {
 	private String lastName;
 	private String email;
 	private String userName;
-	private String number;
+	private String phoneNumber;
+	private Integer number;
 	
+	public User() {
+	//defualt constuctor
+	}
+	
+	public User(String json) {
+        Gson gson = new Gson();
+        User request = gson.fromJson(json, User.class);
+        this.email = request.getEmail();
+        this.firstName = request.getFirstName();
+        this.lastName = request.getLastName();
+        this.userName = request.getUserName();
+        this.number= request.getNumber();
+        this.phoneNumber= request.getPhoneNumber();
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	public Integer getNumber() {
+		return number;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -30,28 +58,13 @@ public class User extends DBObject  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public User() {
-	//defualt constuctor
+
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	
-	public User(String json) {
-        Gson gson = new Gson();
-        User request = gson.fromJson(json, User.class);
-        this.email = request.getEmail();
-        this.firstName = request.getFirstName();
-        this.lastName = request.getLastName();
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public void setNumber(String number) {
-		this.number = number;
-	}
-	public String getNumber() {
-		return number;
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
     
