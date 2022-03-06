@@ -5,7 +5,7 @@ import java.util.List;
 import org.bson.Document;
 
 import ie.gmit.sw.data.model.Admin;
-import ie.gmit.sw.data.model.Tournaments;
+import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 
 public interface DBObjectMapper {
@@ -16,6 +16,6 @@ public interface DBObjectMapper {
 
 	Document formater(Admin reqAdmin);
 
-	Document formater(Tournaments reqUser);
+	Document formater(Tournament reqUser);
 	
 }

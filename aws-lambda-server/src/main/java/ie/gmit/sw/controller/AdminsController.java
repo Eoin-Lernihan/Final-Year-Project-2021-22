@@ -37,7 +37,7 @@ public class AdminsController extends BaseController implements RequestStreamHan
 		 */
 		public void getAUserUsers(InputStream input, OutputStream output, Context context) throws IOException {
 			JSONObject responseJson = null;
-			String collectionName  = "username";
+			String collectionName  = "companyUserName";
 			findOneValueinDAO(input, output, responseJson, collectionName);
 		}
 

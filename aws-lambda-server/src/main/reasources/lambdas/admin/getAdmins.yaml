@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  getAdmins:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: 'ie.gmit.sw.AdminsController::handleRequest'
+      Runtime: java11
+      CodeUri: .
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: 'arn:aws:iam::931314964676:role/service-role/getAdmins-role-2hmm6ict'

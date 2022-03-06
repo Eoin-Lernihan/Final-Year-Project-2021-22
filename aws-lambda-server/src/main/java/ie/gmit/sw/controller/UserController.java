@@ -44,8 +44,8 @@ public class UserController extends BaseController implements RequestStreamHandl
 	 */
 	public void getAUserUsers(InputStream input, OutputStream output, Context context) throws IOException {
 		JSONObject responseJson = null;
-		String collectionName  = "username";
-		findOneValueinDAO(input, output, responseJson, collectionName);
+		String queryParameterName  = "username";
+		findOneValueinDAO(input, output, responseJson, queryParameterName);
 	}
 
 	/**

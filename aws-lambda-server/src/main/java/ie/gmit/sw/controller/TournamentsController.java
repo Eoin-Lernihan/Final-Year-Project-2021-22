@@ -13,10 +13,11 @@ import com.google.gson.Gson;
 
 import ie.gmit.sw.data.dao.AdminDao;
 import ie.gmit.sw.data.dao.AllObjectsGet;
+import ie.gmit.sw.data.dao.TournamentsDao;
 import ie.gmit.sw.data.model.User;
 
 public class TournamentsController extends BaseController implements RequestStreamHandler {
-	AllObjectsGet adminDao = new AdminDao();
+	AllObjectsGet tournamentsDao = new TournamentsDao();
 
 		/**
 		 * Gets all user in the database and tranforms them by putting in a google json
@@ -24,7 +25,7 @@ public class TournamentsController extends BaseController implements RequestStre
 		 * 
 		 * @return
 		 */
-		public void getAlUsers(InputStream input, OutputStream output, Context context) throws IOException {
+		public void getAllTournaments(InputStream input, OutputStream output, Context context) throws IOException {
 			List<Object> all = getAll();
 			JSONObject responseJson = null;
 			createJsonResponse(output, all, responseJson);
@@ -35,9 +36,9 @@ public class TournamentsController extends BaseController implements RequestStre
 		 * 
 		 * @return
 		 */
-		public void getAUserUsers(InputStream input, OutputStream output, Context context) throws IOException {
+		public void getATournaments(InputStream input, OutputStream output, Context context) throws IOException {
 			JSONObject responseJson = null;
-			String collectionName  = "username";
+			String collectionName  = "id";
 			findOneValueinDAO(input, output, responseJson, collectionName);
 		}
 
@@ -47,13 +48,13 @@ public class TournamentsController extends BaseController implements RequestStre
 		 * @param input
 		 * @param context
 		 */
-		public void addsNewAdmin(InputStream input, OutputStream output, Context context) throws IOException {
+		public void addsNewTournaments(InputStream input, OutputStream output, Context context) throws IOException {
 
 			JSONObject responseJson = null;
 			User request = extractUserFromInput(input, responseJson);
 			//no errors
 			if  (responseJson==null) {
-				adminDao.addOne(request);
+				tournamentsDao.addOne(request);
 				responseJson = new JSONObject();
 				responseJson.put("statusCode",  201);	    	
 		    }
@@ -72,7 +73,7 @@ public class TournamentsController extends BaseController implements RequestStre
 			User request = extractUserFromInput(input, responseJson);	        
 			//no errors
 			if  (responseJson==null) {
-				adminDao.updateOne(request);
+				tournamentsDao.updateOne(request);
 				responseJson = new JSONObject();
 				responseJson.put("statusCode",  201);	    	
 		    }
@@ -89,11 +90,11 @@ public class TournamentsController extends BaseController implements RequestStre
 		}
 
 		
-		protected List<Object> getOne(String username) {
-			return adminDao.getOne(username);
+		protected List<Object> getOne(String tournaments) {
+			return tournamentsDao.getOne(tournaments);
 		}
 		protected List<Object> getAll() {
-			return adminDao.getAll();
+			return tournamentsDao.getAll();
 		}
 
 

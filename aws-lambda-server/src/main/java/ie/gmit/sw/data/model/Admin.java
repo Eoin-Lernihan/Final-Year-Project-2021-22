@@ -1,17 +1,18 @@
 package ie.gmit.sw.data.model;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 
 import ie.gmit.sw.data.utily.DBObject;
 
 public class Admin extends DBObject{
-	private int number;
-	
+	private Integer number;
 	private String companyUserName;
 	private String companyName;
 	private String companyEmail;
 	private String companyNumber;
-	private String gamesRunning;
+	private List<String> gamesRunning;
 	
 
 	public Admin() {
@@ -25,7 +26,7 @@ public class Admin extends DBObject{
         this.companyName = request.getCompanyName();
         this.companyEmail = request.getCompanyEmail();
         this.companyNumber = request.getCompanyNumber();
-        this.gamesRunning= request.getGamesRunning();
+        this.setGamesRunning(request.getGamesRunning());
         
 	}
 	
@@ -62,19 +63,21 @@ public class Admin extends DBObject{
 		this.companyNumber = companyNumber;
 	}
 
-	public String getGamesRunning() {
-		return gamesRunning;
-	}
-
-	public void setGamesRunning(String gamesRunning) {
-		this.gamesRunning = gamesRunning;
-	}
+	
 	public int getNumber() {
 		return number;
 	}
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public List<String> getGamesRunning() {
+		return gamesRunning;
+	}
+
+	public void setGamesRunning(List<String> gamesRunning) {
+		this.gamesRunning = gamesRunning;
 	}
 
 }

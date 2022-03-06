@@ -4,7 +4,10 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
 import static com.mongodb.client.model.Updates.set;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -19,6 +22,7 @@ import ie.gmit.sw.controller.UserController;
 import ie.gmit.sw.data.mapper.AdminsMapper;
 import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.Admin;
+import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
@@ -54,7 +58,7 @@ public class AdminDao extends BaseDao implements AllObjectsGet {
 	public void addOne(Object request1) {
 		Admin request = (Admin) request1;
 		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
-		request.setNumber(new Random().nextInt(1000000) + 1);
+
 		InsertOneResult a = collection.insertOne(adminMap.formater(request));
 	}
 
@@ -65,7 +69,7 @@ public class AdminDao extends BaseDao implements AllObjectsGet {
 		Admin request = (Admin) request1;
 		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 
-		Bson filter = eq("number", request.getCompanyNumber());
+		Bson filter = eq("number", request.getNumber());
 		Bson updateOperation1 = set("companyUserName", request.getCompanyUserName());
 		Bson updateOperation2 = set("companyName", request.getCompanyName());
 		Bson updateOperation3 = set("companyEmail", request.getCompanyEmail());
@@ -93,28 +97,33 @@ public class AdminDao extends BaseDao implements AllObjectsGet {
 	 */
 	// testing
 	public static void main(String[] args) {
-		AllObjectsGet hello = new UserDao();
-		hello.getAll().forEach(u -> System.out.println("getAll Admins"+u.toString()));
-		hello.getOne("GamingDude").forEach(u -> System.out.println("getOne Admins"+u.toString()));
-		User user = new User();
-	//	user.setFirstName("first");
-	//	user.setLastName("last");
-	//	user.setEmail("email");
-	//	user.setPhoneNumber("086-444444");
-	//	user.setUserName("username");
-	//	hello.addOne(user);
-		List<Object> one = hello.getOne("companyUserName");
-		List<User> admins = one.stream().map(u -> (User) u ).collect(Collectors.toList());
+		Integer seedNumber = getRandomNumber();
+		AdminDao adminDao = new AdminDao();
+		
+//		createAdmin(seedNumber, adminDao);
+//		createAdmin(seedNumber+1, adminDao);
+//		createAdmin(seedNumber+2, adminDao);
+//		createAdmin(seedNumber+3, adminDao);
+//		
+		
+		List<Admin> all = adminDao.getAll().stream().map(a -> (Admin) a ).collect(Collectors.toList());
+		all.forEach(a -> System.out.println("getAll Admins"+a.toString()));
+		Admin first  =  all.get(0);
+		String searchCompanyName = first.getCompanyUserName(); 
+		adminDao.getOne(searchCompanyName).forEach(u -> System.out.println("getOne Admins"+u.toString()));
+	
+		List<Object> one = adminDao.getOne(searchCompanyName);
+		List<Admin> admins = one.stream().map(a -> (Admin) a ).collect(Collectors.toList());
 		admins.forEach(u -> System.out.println("getOne admins"+u.toString()));
 		//needto tests update
-		User admins1 = admins.get(0);
-		admins1.setUserName("username1");
-		hello.updateOne(admins1);
-		admins = hello.getOne("username1").stream().map(u -> (User) u ).collect(Collectors.toList());
+		Admin admins1 = admins.get(0);
+		admins1.setCompanyName("companyName2");
+		adminDao.updateOne(admins1);
+		admins = adminDao.getOne("CompanyUserName"+seedNumber.toString()).stream().map(a -> (Admin) a ).collect(Collectors.toList());
 		admins.forEach(u -> System.out.println("After Update getOne Admin"+u.toString()));
-		hello.deleteOne(admins1.getNumber());
-		admins = hello.getOne("username1").stream().map(u -> (User) u ).collect(Collectors.toList());
-		admins.forEach(u -> System.out.println("After delete getOne Admin"+u.toString()));
+	//	adminDao.deleteOne(admins1.getNumber());
+	//	admins = adminDao.getOne("companyName2").stream().map(a -> (Admin) a ).collect(Collectors.toList());
+		admins.forEach(a -> System.out.println("After delete getOne Admin"+a.toString()));
 		
 
 
@@ -129,5 +138,25 @@ public class AdminDao extends BaseDao implements AllObjectsGet {
 			deleteOneInMongoDB(collection, filter );
 
 	}
-		
+	
+	private static Admin  createAdmin( Integer seedNumber, AdminDao adminDao) {
+		Admin admin = new Admin();
+
+		admin.setNumber(seedNumber );
+		admin.setCompanyEmail("email"+seedNumber.toString());
+		admin.setCompanyName("name"+seedNumber.toString());
+		admin.setCompanyUserName("CompanyUserName"+seedNumber.toString());
+		admin.setCompanyNumber("description"+seedNumber.toString());
+		List<String> gamesruning = new ArrayList<>();
+		admin.setGamesRunning(gamesruning);
+		adminDao.addOne(admin);
+		return admin;
+	}
+	
+	private static int getRandomNumber() {
+		int min= 1000;
+		int max= 1000000;
+	    return (int) ((Math.random() * (max - min)) + min);
+	}
+	
 }

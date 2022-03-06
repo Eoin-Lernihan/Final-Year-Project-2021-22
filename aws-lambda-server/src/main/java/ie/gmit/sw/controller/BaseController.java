@@ -22,14 +22,14 @@ public abstract class BaseController {
 		super();
 	}
 
-	protected void findOneValueinDAO(InputStream input, OutputStream output, JSONObject responseJson, String collectionName)
+	protected void findOneValueinDAO(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName)
 			throws UnsupportedEncodingException, IOException {
-				String collectionFillter = setupExtractInputDataQueryParam(input, collectionName, responseJson);
+				String collectionFillter = setupExtractInputDataQueryParam(input, queryParameterName, responseJson);
 				List<Object> all = getOne(collectionFillter);
 				Object  response = null;
 				if (all.isEmpty()) {
 					responseJson.put("statusCode", 400);
-					responseJson.put("exception", "No " + collectionName +  " found for " +collectionFillter );	
+					responseJson.put("exception", "No " + queryParameterName +  " found for " +collectionFillter );	
 				} else {
 					response = all.get(0);
 				}

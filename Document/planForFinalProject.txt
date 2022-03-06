@@ -2,10 +2,10 @@ Week 2, jan24 - jan30-Get and Post                    |						|DONE|DONE
 Week 3, jan31 - feb06-Get Single and Put              | Draft Methodology			|DONE|DONE
 Week 4, feb07 - feb13-APIGateways                     | Draft Technology			|    |DONE
 Week 5, feb14 - feb20-Home And AWS amplify            | Draft System Design			|    |
-Week 6, feb21 - feb27-Touranments getter page         | Draft System Evaluation + Conclusion	|    |
-Week 7, feb28 - mar06-User pagee                      | Methodology				|    |
+Week 6, feb21 - feb27-Sign up/Login                   | Draft System Evaluation + Conclusion	|    |
+Week 7, feb28 - mar06-Sign up/Login                   | Methodology				|    |
 Week 8, mar07 - mar13-Admin Touranment                | Technology				|    |
-Week 9, mar14 - mar20-Sign up/Login                   | System Design				|    |
-Week10, mar21 - mar27-Sign up/Login                   | System Evaluation			|    |
+Week 9, mar14 - mar20-Touranments getter page         | System Design				|    |
+Week10, mar21 - mar27-    User pagee                  | System Evaluation			|    |
 Week11, mar28 - apr03-Tidy up + incase falling behind | Conclusion				|    |
 Week12, apr04 - apr10-Tidy up + incase falling behind | Tidy up + incase falling behind		|    |

@@ -6,7 +6,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import ie.gmit.sw.data.model.Admin;
-import ie.gmit.sw.data.model.Tournaments;
+import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
@@ -18,7 +18,7 @@ public class AdminsMapper implements DBObjectMapper {
 		admin.setCompanyName(returnData.getString("companyName"));
 		admin.setCompanyEmail(returnData.getString("companyEmail"));
 		admin.setCompanyNumber(returnData.getString("companyNumber"));
-		admin.setGamesRunning(returnData.getString("gamesRunning"));
+		admin.setGamesRunning(returnData.getList("gamesRunning", String.class));
 		admin.setNumber(returnData.getInteger("number"));
 		adminList.add(admin);
 	}
@@ -44,7 +44,7 @@ public class AdminsMapper implements DBObjectMapper {
 	}
 
 	@Override
-	public Document formater(Tournaments reqUser) {
+	public Document formater(Tournament reqUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}

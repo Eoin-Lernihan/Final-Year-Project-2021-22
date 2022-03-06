@@ -6,7 +6,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import ie.gmit.sw.data.model.Admin;
-import ie.gmit.sw.data.model.Tournaments;
+import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
@@ -44,7 +44,7 @@ public class UserMapper implements DBObjectMapper {
 	}
 
 	@Override
-	public Document formater(Tournaments reqUser) {
+	public Document formater(Tournament reqUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
