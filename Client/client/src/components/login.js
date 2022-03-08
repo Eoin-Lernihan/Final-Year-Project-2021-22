@@ -44,7 +44,7 @@ export class Login extends Component {
         } else {
             return (
                 <div className="Login topMargin">
-                    <h5>Don't have an account? <Link to="/signup">Sign Up</Link></h5>
+                    <h5>Don't have an account? <Link to="/signUp">Sign Up</Link></h5>
                     <div className="container-fluid col-lg-4">
                         <h2>Sign In</h2>
                         <Form onSubmit={this.onSubmit}>

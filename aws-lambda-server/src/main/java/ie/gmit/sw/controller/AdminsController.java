@@ -24,7 +24,7 @@ public class AdminsController extends BaseController implements RequestStreamHan
 		 * 
 		 * @return
 		 */
-		public void getAlUsers(InputStream input, OutputStream output, Context context) throws IOException {
+		public void getAlAdmin(InputStream input, OutputStream output, Context context) throws IOException {
 			List<Object> all = getAll();
 			JSONObject responseJson = null;
 			createJsonResponse(output, all, responseJson);
@@ -35,7 +35,7 @@ public class AdminsController extends BaseController implements RequestStreamHan
 		 * 
 		 * @return
 		 */
-		public void getAUserUsers(InputStream input, OutputStream output, Context context) throws IOException {
+		public void getAAdmin(InputStream input, OutputStream output, Context context) throws IOException {
 			JSONObject responseJson = null;
 			String collectionName  = "companyUserName";
 			findOneValueinDAO(input, output, responseJson, collectionName);
@@ -66,7 +66,7 @@ public class AdminsController extends BaseController implements RequestStreamHan
 		 * @param input
 		 * @param context
 		 */
-		public void updateExistingUser(InputStream input, OutputStream output, Context context) throws IOException {
+		public void updateExistingAdmin(InputStream input, OutputStream output, Context context) throws IOException {
 
 			JSONObject responseJson = null;
 			User request = extractUserFromInput(input, responseJson);	        
@@ -101,6 +101,11 @@ public class AdminsController extends BaseController implements RequestStreamHan
 		public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
 			// TODO Auto-generated method stub
 
+		}
+
+		@Override
+		protected String getResources() {
+			return "admins";
 		}
 
 }

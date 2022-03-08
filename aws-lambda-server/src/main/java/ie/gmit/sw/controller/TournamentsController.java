@@ -104,4 +104,10 @@ public class TournamentsController extends BaseController implements RequestStre
 
 		}
 
+		@Override
+		protected String getResources() {
+			return "tournaments";
+
+		}
+
 }

@@ -110,4 +110,9 @@ public class UserController extends BaseController implements RequestStreamHandl
 
 	}
 
+	@Override
+	protected String getResources() {		// TODO Auto-generated method stub
+		return "users";
+	}
+
 }

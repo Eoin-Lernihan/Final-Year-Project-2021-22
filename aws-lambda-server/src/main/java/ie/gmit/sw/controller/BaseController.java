@@ -15,6 +15,7 @@ import org.json.simple.parser.ParseException;
 
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public abstract class BaseController {
 
@@ -114,10 +115,16 @@ public abstract class BaseController {
 		}
 		responseJson = new JSONObject();
 		JSONObject responseBody = new JSONObject();
-		responseBody.put("users", new Gson().toJson(response));
+		responseBody.put(getResources(), createGson().toJson(response));
 		responseJson.put("body", responseBody);
 		responseJson.put("statusCode", 200);
 		return responseJson;
+	}
+
+	protected  abstract String getResources();
+
+	private Gson createGson() {
+		return new GsonBuilder().disableHtmlEscaping().create();
 	}
 
 	
