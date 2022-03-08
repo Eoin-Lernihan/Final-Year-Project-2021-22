@@ -3,6 +3,7 @@ package ie.gmit.sw.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -17,6 +18,15 @@ import ie.gmit.sw.data.model.User;
 
 public class AdminsController extends BaseController implements RequestStreamHandler {
 	AllObjectsGet adminDao = new AdminDao();
+	
+
+	public static void main(String[] args) throws UnsupportedEncodingException, IOException {
+		AdminsController adminsController = new AdminsController();
+		OutputStream output = System.out;
+		List<Object> all = adminsController.getAll();
+		JSONObject responseJson = null;
+		adminsController.createJsonResponse(output, all, responseJson);
+	}
 
 		/**
 		 * Gets all user in the database and tranforms them by putting in a google json

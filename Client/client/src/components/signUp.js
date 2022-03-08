@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 const port = 4000;
 
-export class Signup extends Component {
+export class signUp extends Component {
     constructor(props) {
         super(props);
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -45,40 +45,40 @@ export class Signup extends Component {
     }
 
     render() {
-        if (this.state.accountCreated) {
+    if (this.state.accountCreated) {
             return (<Redirect exact to="/" />);
-        } else {
+        } else
+        {
             return (
                 <div className="Signup topMargin">
-                    <h5>Existing user? <Link to="/login">Sign In</Link></h5>
-                    <div className="container-fluid col-lg-8">
-                        <h2>Create an Account</h2>
-                        <Form onSubmit={this.onSubmit}>
-                            <Form.Row>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Email Address</Form.Label>
-                                    <Form.Control type="input" value={this.state.email} onChange={this.onChangeEmail} required></Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="input" value={this.state.password} onChange={this.onChangePassword} required></Form.Control>
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Group as={Col}>
-                                    <Form.Label>First Name</Form.Label>
-                                    <Form.Control type="input" value={this.state.firstName} onChange={this.onChangeFName} required></Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Surname</Form.Label>
-                                    <Form.Control type="input" value={this.state.surname} onChange={this.onChangeSurname} required></Form.Control>
-                                </Form.Group>
-                            </Form.Row>
-                            <Button variant="dark" type="submit">Sign Up</Button>
-                        </Form>
-                        {this.accountCreationFailedMessage()}
-                    </div>
+                <h5>Existing user? <Link to="/login">Sign In</Link></h5>
+                <div className="container-fluid col-lg-8">
+                    <h2>Create an Account</h2>
+                    <Form onSubmit={this.onSubmit}>
+                   
+                    <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
+                    </Form>
+                    {this.accountCreationFailedMessage()}
                 </div>
+            </div>
             );
         }
     }

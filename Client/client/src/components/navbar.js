@@ -7,6 +7,7 @@ import Nav from 'react-bootstrap/Nav';
 import { Home } from './Home';
 import { Create } from './create';
 import { Login } from './login';
+import { signUp } from './signUp';
 
                       
 
@@ -40,6 +41,7 @@ export class NavigationBar extends Component {
                             </Navbar.Collapse>
                             <Navbar.Collapse className="justify-content-end" color='white'>
                             <Nav.Link href="/login" >Login</Nav.Link>
+                            <Nav.Link href="/signUp" >Sing Up</Nav.Link>
                             </Navbar.Collapse>
                         </Container>
                     </Navbar>
@@ -47,6 +49,7 @@ export class NavigationBar extends Component {
                         <Route path="/" component={Home} exact></Route>
                         <Route path="/create" component={Create} exact></Route>
 						<Route path="/login" component={Login} exact></Route>
+                        <Route path="/signUp" component={signUp} exact></Route>
 						</Switch>
                 </BrowserRouter>
             </div>

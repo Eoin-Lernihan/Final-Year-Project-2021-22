@@ -13,7 +13,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -115,7 +114,7 @@ public abstract class BaseController {
 		}
 		responseJson = new JSONObject();
 		JSONObject responseBody = new JSONObject();
-		responseBody.put(getResources(), createGson().toJson(response));
+		responseBody.put(getResources(), response);
 		responseJson.put("body", responseBody);
 		responseJson.put("statusCode", 200);
 		return responseJson;
