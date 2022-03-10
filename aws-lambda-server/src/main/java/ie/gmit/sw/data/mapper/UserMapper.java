@@ -13,14 +13,23 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
 
 public class UserMapper implements DBObjectMapper {
 	
+	public static final String LAST_NAME = "lastName";
+	public static final String PHONE_NUMBER = "phoneNumber";
+	public static final String FIRST_NAME = "firstName";
+	public static final String EMAIL = "email";
+	public static final String USERNAME = "username";
+	public static final String NUMBER = "number";
+	public static final String PASSWORD = "password";
+
 	public void populateEnity(List<DBObject> userlist, Document returnData) {
 		User user1 = new User();
-		user1.setFirstName(returnData.getString("firstName"));
-		user1.setLastName(returnData.getString("lastName"));
-		user1.setEmail(returnData.getString("email"));
-		user1.setUserName(returnData.getString("userName"));
-		user1.setNumber(returnData.getInteger("number"));
-		user1.setPhoneNumber(returnData.getString("phoneNumber"));
+		user1.setFirstName(returnData.getString(FIRST_NAME));
+		user1.setLastName(returnData.getString(LAST_NAME));
+		user1.setEmail(returnData.getString(EMAIL));
+		user1.setUserName(returnData.getString(USERNAME));
+		user1.setNumber(returnData.getInteger(NUMBER));
+		user1.setPhoneNumber(returnData.getString(PHONE_NUMBER));
+		user1.setPassword(returnData.getString(PASSWORD));
 		userlist.add(user1);
 	}
 
@@ -28,12 +37,13 @@ public class UserMapper implements DBObjectMapper {
 	public Document formater(User reqUser) {
 		Document a;
 			a = new Document("_id", new ObjectId());
-		a.append("number", reqUser.getNumber());
-		a.append("userName", reqUser.getUserName())
-		.append("email", reqUser.getEmail())
-		.append("firstName", reqUser.getFirstName())
-		.append("phoneNumber", reqUser.getPhoneNumber())
-		.append("lastName", reqUser.getLastName());
+		a.append(NUMBER, reqUser.getNumber());
+		a.append(USERNAME, reqUser.getUserName())
+		.append(EMAIL, reqUser.getEmail())
+		.append(FIRST_NAME, reqUser.getFirstName())
+		.append(PHONE_NUMBER, reqUser.getPhoneNumber())
+		.append(PASSWORD, reqUser.getPassword())
+		.append(LAST_NAME, reqUser.getLastName());
 		return a;
 	}
 

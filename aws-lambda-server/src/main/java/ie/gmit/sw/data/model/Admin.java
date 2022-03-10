@@ -8,11 +8,12 @@ import ie.gmit.sw.data.utily.DBObject;
 
 public class Admin extends DBObject{
 	private Integer number;
-	private String companyUserName;
-	private String companyName;
-	private String companyEmail;
-	private String companyNumber;
+	private String username;
+	private String name;
+	private String email;
+	private String phoneNumber;
 	private List<String> gamesRunning;
+	private String password;
 	
 
 	public Admin() {
@@ -22,45 +23,50 @@ public class Admin extends DBObject{
 	public Admin(String json) {
         Gson gson = new Gson();
         Admin request = gson.fromJson(json, Admin.class);
-        this.companyUserName = request.getCompanyUserName();
-        this.companyName = request.getCompanyName();
-        this.companyEmail = request.getCompanyEmail();
-        this.companyNumber = request.getCompanyNumber();
+        this.username = request.getUsername();
+        this.name = request.getName();
+        this.email = request.getEmail();
+        this.phoneNumber = request.getPhoneNumber();
+        this.password = request.getPassword();
         this.setGamesRunning(request.getGamesRunning());
         
 	}
 	
 	
-	public String getCompanyUserName() {
-		return companyUserName;
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setCompanyUserName(String companyUserName) {
-		this.companyUserName = companyUserName;
+	public String getUsername() {
+		return username;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public String getName() {
+		return name;
 	}
 
-	public String getCompanyEmail() {
-		return companyEmail;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setCompanyEmail(String companyEmail) {
-		this.companyEmail = companyEmail;
+	public String getEmail() {
+		return email;
 	}
 
-	public String getCompanyNumber() {
-		return companyNumber;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public void setCompanyNumber(String companyNumber) {
-		this.companyNumber = companyNumber;
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	
@@ -78,6 +84,11 @@ public class Admin extends DBObject{
 
 	public void setGamesRunning(List<String> gamesRunning) {
 		this.gamesRunning = gamesRunning;
+	}
+
+	public void setPassword(String password) {
+		this.password= password;
+		
 	}
 
 }

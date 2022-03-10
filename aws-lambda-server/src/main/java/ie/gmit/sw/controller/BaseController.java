@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,37 +23,60 @@ public abstract class BaseController {
 	public BaseController() {
 		super();
 	}
-
-	protected void findOneValueinDAO(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName)
-			throws UnsupportedEncodingException, IOException {
-				String collectionFillter = setupExtractInputDataQueryParam(input, queryParameterName, responseJson);
-				List<Object> all = getOne(collectionFillter);
-				Object  response = null;
-				if (all.isEmpty()) {
-					responseJson.put("statusCode", 400);
-					responseJson.put("exception", "No " + queryParameterName +  " found for " +collectionFillter );	
-				} else {
-					response = all.get(0);
-				}
-				
-				createJsonResponse(output, response, responseJson);
-			}
-
-	protected String setupExtractInputPayload(InputStream input, JSONObject responseJson) {
 	
-		JSONObject event = extractInputData(input, responseJson);
-		if (responseJson != null) {
-			return null;
+	protected Map<String, String> extractFilters(JSONObject event,  JSONObject responseJson, String queryParameterName, String dbFieldName) {
+		String collectionFillter = setupExtractInputDataQueryParam(event, queryParameterName, responseJson);
+		Map<String, String> filters = new HashMap<>();
+		if (dbFieldName==null) {
+			filters.put(queryParameterName, collectionFillter);					
+		} else {
+			filters.put(dbFieldName, collectionFillter);
+			
 		}
+		filters.put(queryParameterName, collectionFillter);
+		return filters;
+	}
+
+	protected void findOneValueinDAO(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName, String dbFieldName)
+		throws UnsupportedEncodingException, IOException {
+		JSONObject event = extractInputData(input, responseJson);
+
+		Map<String, String> filters = extractFilters(event, responseJson, queryParameterName, dbFieldName);
+		List<Object> all = getOne(filters);
+		Object  response = null;
+		if (all.isEmpty()) {
+			if (responseJson == null) {
+				responseJson = new JSONObject();
+			}
+			responseJson.put("statusCode", 400);
+			responseJson.put("exception", "No " + queryParameterName +  " found for " +filters );	
+		} else {
+			response = all.get(0);
+		}
+		
+		createJsonResponse(output, response, responseJson);
+	}
+
+	
+	protected String setupExtractInputPayload(JSONObject event, JSONObject responseJson) {
+	
 		return (String) event.get("body");
 	}
 
-	private String setupExtractInputDataQueryParam(InputStream input, String key, JSONObject responseJson) {
-		JSONObject event = extractInputData(input, responseJson);
+	private String setupExtractInputDataQueryParam( JSONObject event, String key, JSONObject responseJson ) {
 		if (responseJson != null) {
 			return null;
 		}
+		return extractPramsFormPathOrQuarry(key, event);
+	
+	}
+
+	protected String extractPramsFormPathOrQuarry(String key, JSONObject event) {
+		JSONObject responseJson;
 		String value = null;
+		System.out.println();
+		System.out.println(event);
+		
 		if (event.get("pathParameters") != null) {
 			JSONObject pps = (JSONObject) event.get("pathParameters");
 			if (pps.get(key) != null) {
@@ -69,10 +94,9 @@ public abstract class BaseController {
 			responseJson.put("exception", "No value for key in URL " + key );
 		}
 		return value;
-	
 	}
 
-	private JSONObject extractInputData(InputStream input, JSONObject responseJson) {
+	protected JSONObject extractInputData(InputStream input, JSONObject responseJson) {
 		JSONObject event = null;
 		JSONParser parser = new JSONParser();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -115,7 +139,8 @@ public abstract class BaseController {
 		responseJson = new JSONObject();
 		JSONObject responseBody = new JSONObject();
 		responseBody.put(getResources(), response);
-		responseJson.put("body", responseBody);
+		//required for apigatweway
+		responseJson.put("body", responseBody.toString());
 		responseJson.put("statusCode", 200);
 		return responseJson;
 	}
@@ -129,7 +154,7 @@ public abstract class BaseController {
 	
 	protected abstract List<Object> getAll(); 
 
-	protected abstract List<Object>  getOne(String key); 
+	protected abstract List<Object>  getOne(Map<String, String> key); 
 
 
 }

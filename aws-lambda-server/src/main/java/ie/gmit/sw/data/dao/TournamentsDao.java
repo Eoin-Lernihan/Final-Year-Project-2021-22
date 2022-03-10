@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.bson.Document;
@@ -41,10 +43,11 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 	}
 
 	@Override
-	public List<Object> getOne(String number) {
+	public List<Object> getOne(Map<String, String> filters) {
 
-		Bson filter = eq("number", Integer.valueOf(number));
-		List<Object> tournament = getRowsForFilter(filter);
+		Bson filter = createMongoDBFilter(filters);
+		List<Object> tournament = new ArrayList<>();
+		tournament = getRowsForFilter(filter);	
 		return tournament;
 	}
 
@@ -56,25 +59,25 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 	}
 
 	@Override
-	public void updateOne(Object request1) {
+	public void updateOne(Object request1, Map<String, String> filters) {
 		Tournament request = (Tournament) request1;
 		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
 
-		Bson filter = eq("number", request.getNumber());
+		Bson filter = createMongoDBFilter(filters);
+
 		Bson updateOperation1 = set("owner", request.getOwner());
 		Bson updateOperation2 = set("gameType", request.getGame());
 		Bson updateOperation3 = set("gameMode", request.getGameMode());
 		Bson updateOperation4 = set("description", request.getDescription());
 		Bson updateOperation5 = set("maxPlayer", request.getMaxPlayers());
 		Bson updateOperation6 = set("players", request.getPlayers());
-		Bson updateOperation7 = set("number", request.getNumber());
 		Bson updateOperation8 = set("time", request.getTime());
 		Bson updateOperation9 = set("duration", request.getDuration());
 		Bson updateOperation10 = set("public", request.getIsPublic());
 		Bson updateOperation11 = set("numRounds", request.getNumRounds());
 
 		Bson updates = combine(updateOperation1, updateOperation2, updateOperation3, updateOperation4, updateOperation5,
-				updateOperation6, updateOperation7, updateOperation8, updateOperation9, updateOperation10,
+				updateOperation6, updateOperation8, updateOperation9, updateOperation10,
 				updateOperation11);
 		updateOneInMongoDB(collection, filter, updates);
 
@@ -103,25 +106,33 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 		
 		
 //		createTournament(seedNumber, publicValue,  tournamentsDao);
-//		createTournament(seedNumber+1, !publicValue,  tournamentsDao);
-//		createTournament(seedNumber+2, publicValue,  tournamentsDao);
+		//createTournament(seedNumber+1, !publicValue,  tournamentsDao);
+	//	createTournament(seedNumber+2, publicValue,  tournamentsDao);
 //		createTournament(seedNumber+3, !publicValue,  tournamentsDao);
 
 		List<Tournament> all = tournamentsDao.getAll().stream().map(t -> (Tournament) t).collect(Collectors.toList());
 		
 		all.forEach(u -> System.out.println("getAll Tourament" + u.toString()));
 		String searchNumber = all.get(0).getNumber().toString();
-		tournamentsDao.getOne(searchNumber).forEach(t -> System.out.println("getOne Tourament" + t.toString()));
+		Map<String , String> filters = new HashMap<>();
+		filters.put("number", searchNumber);
+
+		tournamentsDao.getOne(filters).forEach(t -> System.out.println("getOne Tourament" + t.toString()));
 		
-		List<Object> one = tournamentsDao.getOne(searchNumber);
+		List<Object> one = tournamentsDao.getOne(filters);
 
 		List<Tournament> tournamentsList = one.stream().map(t -> (Tournament) t).collect(Collectors.toList());
 		tournamentsList.forEach(t -> System.out.println("getOne tournament" + t.toString()));
 		
 		Tournament tournament1 = tournamentsList.get(0);
 		tournament1.setDescription ("changed");
-		tournamentsDao.updateOne(tournament1);
-		tournamentsList = tournamentsDao.getOne(searchNumber).stream().map(t -> (Tournament) t).collect(Collectors.toList());
+		filters.put("number", tournament1.getNumber().toString());
+
+		tournamentsDao.updateOne(tournament1,filters);
+
+		filters = new HashMap<>();
+		filters.put("number", searchNumber);
+		tournamentsList = tournamentsDao.getOne(filters).stream().map(t -> (Tournament) t).collect(Collectors.toList());
 		tournamentsList.forEach(t -> System.out.println("After Update getOne Admin" + t.toString()));
 		tournamentsDao.deleteOne(tournament1.getNumber());
 		tournamentsList.forEach(t -> System.out.println("After delete getOne Admin" + t.toString()));
@@ -165,5 +176,8 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 		deleteOneInMongoDB(collection, filter);
 
 	}
+
+
+
 
 }

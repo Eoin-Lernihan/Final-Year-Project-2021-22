@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -14,9 +15,13 @@ import com.google.gson.Gson;
 import ie.gmit.sw.data.dao.AdminDao;
 import ie.gmit.sw.data.dao.AllObjectsGet;
 import ie.gmit.sw.data.dao.TournamentsDao;
+import ie.gmit.sw.data.mapper.TournamentsMapper;
+import ie.gmit.sw.data.mapper.UserMapper;
+import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 
 public class TournamentsController extends BaseController implements RequestStreamHandler {
+	private static final String PATH_OR_QUERY_PARAM = "touramentId";
 	AllObjectsGet tournamentsDao = new TournamentsDao();
 
 		/**
@@ -38,8 +43,8 @@ public class TournamentsController extends BaseController implements RequestStre
 		 */
 		public void getATournaments(InputStream input, OutputStream output, Context context) throws IOException {
 			JSONObject responseJson = null;
-			String collectionName  = "id";
-			findOneValueinDAO(input, output, responseJson, collectionName);
+			//Need for path paramater on API gateway 
+			findOneValueinDAO(input, output, responseJson, PATH_OR_QUERY_PARAM, TournamentsMapper.NUMBER);
 		}
 
 		/**
@@ -51,7 +56,9 @@ public class TournamentsController extends BaseController implements RequestStre
 		public void addsNewTournaments(InputStream input, OutputStream output, Context context) throws IOException {
 
 			JSONObject responseJson = null;
-			User request = extractUserFromInput(input, responseJson);
+			JSONObject event = extractInputData(input, responseJson);
+
+			Tournament request = extractTournmantFromInput(event, responseJson);
 			//no errors
 			if  (responseJson==null) {
 				tournamentsDao.addOne(request);
@@ -67,13 +74,15 @@ public class TournamentsController extends BaseController implements RequestStre
 		 * @param input
 		 * @param context
 		 */
-		public void updateExistingUser(InputStream input, OutputStream output, Context context) throws IOException {
+		public void updateExistingTournament(InputStream input, OutputStream output, Context context) throws IOException {
 
 			JSONObject responseJson = null;
-			User request = extractUserFromInput(input, responseJson);	        
+			JSONObject event = extractInputData(input, responseJson);
+			Tournament request = extractTournmantFromInput(event, responseJson);	        
+			Map<String, String> filters = extractFilters(event, responseJson, PATH_OR_QUERY_PARAM, TournamentsMapper.NUMBER); 
 			//no errors
 			if  (responseJson==null) {
-				tournamentsDao.updateOne(request);
+				tournamentsDao.updateOne(request,filters);
 				responseJson = new JSONObject();
 				responseJson.put("statusCode",  201);	    	
 		    }
@@ -82,16 +91,16 @@ public class TournamentsController extends BaseController implements RequestStre
 		}
 
 
-		private User extractUserFromInput(InputStream input, JSONObject responseJson) {
-			String body = setupExtractInputPayload(input, responseJson);
+		private Tournament extractTournmantFromInput(JSONObject event, JSONObject responseJson) {
+			String body = setupExtractInputPayload(event, responseJson);
 		    Gson gson = new Gson();
-	        User request = gson.fromJson(body, User.class);
+		    Tournament request = gson.fromJson(body, Tournament.class);
 			return request;
 		}
 
 		
-		protected List<Object> getOne(String tournaments) {
-			return tournamentsDao.getOne(tournaments);
+		protected List<Object> getOne(Map<String, String> filters) {
+			return tournamentsDao.getOne(filters);
 		}
 		protected List<Object> getAll() {
 			return tournamentsDao.getAll();
@@ -109,5 +118,7 @@ public class TournamentsController extends BaseController implements RequestStre
 			return "tournaments";
 
 		}
+
+
 
 }

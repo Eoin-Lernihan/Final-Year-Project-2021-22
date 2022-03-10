@@ -3,7 +3,10 @@ package ie.gmit.sw.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -13,6 +16,7 @@ import com.google.gson.Gson;
 
 import ie.gmit.sw.data.dao.AllObjectsGet;
 import ie.gmit.sw.data.dao.UserDao;
+import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.User;
 
 /**
@@ -23,6 +27,7 @@ import ie.gmit.sw.data.model.User;
  */
 public class UserController extends BaseController implements RequestStreamHandler
 {
+	private static final String PATH_OR_QUERY_PARAM = "username";
 	AllObjectsGet userDao = new UserDao();
 
 	/**
@@ -32,9 +37,28 @@ public class UserController extends BaseController implements RequestStreamHandl
 	 * @return
 	 */
 	public void getAlUsers(InputStream input, OutputStream output, Context context) throws IOException {
-		List<Object> all = getAll();
 		JSONObject responseJson = null;
+		JSONObject event = extractInputData(input, responseJson);
+		List<Object> all  = new ArrayList<>();
+		if(event != null) {
+			
+			Map<String, String> filters = new HashMap<>();
+			System.out.println("This is the event "+ event.toJSONString());
+			String filterUsername = extractPramsFormPathOrQuarry( PATH_OR_QUERY_PARAM, event);
+			String filterPassword = extractPramsFormPathOrQuarry( "password", event);
+			if (filterPassword==null || filterUsername==null) {
+				System.out.println("No username or Password");
+				all = getAll();
+			} else {
+				System.out.println("username ="+filterUsername);
+				System.out.println("Password ="+filterPassword);
+				filters.put(UserMapper.USERNAME, filterUsername);
+				filters.put(UserMapper.PASSWORD, filterPassword);
+				all = getOne(filters);
+			}
+		}
 		createJsonResponse(output, all, responseJson);
+
 	}
 
 	/**
@@ -44,8 +68,7 @@ public class UserController extends BaseController implements RequestStreamHandl
 	 */
 	public void getAUserUsers(InputStream input, OutputStream output, Context context) throws IOException {
 		JSONObject responseJson = null;
-		String queryParameterName  = "username";
-		findOneValueinDAO(input, output, responseJson, queryParameterName);
+		findOneValueinDAO(input, output, responseJson, PATH_OR_QUERY_PARAM, UserMapper.USERNAME);
 	}
 
 	/**
@@ -57,7 +80,9 @@ public class UserController extends BaseController implements RequestStreamHandl
 	public void addsNewUser(InputStream input, OutputStream output, Context context) throws IOException {
 
 		JSONObject responseJson = null;
-		User request = extractUserFromInput(input, responseJson);
+		
+		JSONObject event = extractInputData(input, responseJson);
+		User request = extractUserFromInput(event, responseJson);
 		//no errors
 		if  (responseJson==null) {
 			userDao.addOne(request);
@@ -76,10 +101,14 @@ public class UserController extends BaseController implements RequestStreamHandl
 	public void updateExistingUser(InputStream input, OutputStream output, Context context) throws IOException {
 
 		JSONObject responseJson = null;
-		User request = extractUserFromInput(input, responseJson);	        
+		JSONObject event = extractInputData(input, responseJson);
+		User request = extractUserFromInput(event, responseJson);	
+
+		Map<String, String> filters = extractFilters(event, responseJson,PATH_OR_QUERY_PARAM, UserMapper.USERNAME);
+
 		//no errors
 		if  (responseJson==null) {
-			userDao.updateOne(request);
+			userDao.updateOne(request, filters);
 			responseJson = new JSONObject();
 			responseJson.put("statusCode",  201);	    	
 	    }
@@ -88,16 +117,16 @@ public class UserController extends BaseController implements RequestStreamHandl
 	}
 
 
-	private User extractUserFromInput(InputStream input, JSONObject responseJson) {
-		String body = setupExtractInputPayload(input, responseJson);
+	private User extractUserFromInput(JSONObject event, JSONObject responseJson) {
+		String body = setupExtractInputPayload(event, responseJson);
 	    Gson gson = new Gson();
         User request = gson.fromJson(body, User.class);
 		return request;
 	}
 
 	
-	protected List<Object> getOne(String username) {
-		return userDao.getOne(username);
+	protected List<Object> getOne(Map<String, String> key) {
+		return userDao.getOne(key);
 	}
 	protected List<Object> getAll() {
 		return userDao.getAll();
@@ -114,5 +143,6 @@ public class UserController extends BaseController implements RequestStreamHandl
 	protected String getResources() {		// TODO Auto-generated method stub
 		return "users";
 	}
+
 
 }

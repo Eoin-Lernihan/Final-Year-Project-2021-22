@@ -12,6 +12,8 @@ public class User extends DBObject  {
 	private String userName;
 	private String phoneNumber;
 	private Integer number;
+	private String password;
+
 	
 	public User() {
 	//defualt constuctor
@@ -26,6 +28,7 @@ public class User extends DBObject  {
         this.userName = request.getUserName();
         this.number= request.getNumber();
         this.phoneNumber= request.getPhoneNumber();
+        this.password= request.getPassword();
 	}
 	
 	public String getUserName() {
@@ -65,6 +68,14 @@ public class User extends DBObject  {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
     

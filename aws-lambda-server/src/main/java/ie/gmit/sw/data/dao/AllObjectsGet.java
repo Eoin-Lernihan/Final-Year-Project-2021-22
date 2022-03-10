@@ -1,6 +1,7 @@
 package ie.gmit.sw.data.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -15,12 +16,13 @@ public interface AllObjectsGet {
 
 	List<Object> getAll();
 
-	void updateOne(Object request);
+	void updateOne(Object request, Map<String, String> filters);
 
 	void addOne(Object request);
 
-	List<Object> getOne(String name);
+	List<Object> getOne(Map<String, String> key);
 
 	void deleteOne(Integer integer);
+
 
 }

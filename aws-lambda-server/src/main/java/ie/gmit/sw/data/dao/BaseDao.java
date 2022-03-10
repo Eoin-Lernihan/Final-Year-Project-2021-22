@@ -1,6 +1,13 @@
 package ie.gmit.sw.data.dao;
 
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -51,7 +58,6 @@ public class BaseDao {
 
 	public void updateOneInMongoDB(MongoCollection<Document> collection, Bson filter, Bson updates) {
 		UpdateResult updateResult = collection.updateOne(filter, updates);
-		System.out.println(collection.find(filter).first().toJson(prettyPrint));
 		System.out.println(updateResult);
 	}
 
@@ -94,5 +100,25 @@ public class BaseDao {
 		}
 
 	}
+	/**
+	 * https://www.java67.com/2019/12/how-to-convert-map-to-list-in-java-8.html
+	 */
+	protected Bson createMongoDBFilter(Map<String, String> filters) {
+		Collection<Bson> listOfFilters = filters.entrySet().stream().map(entry -> {
+			Bson filtereq = null;
+			if (entry.getKey().equalsIgnoreCase("number")) {
+				filtereq = eq("number", Integer.valueOf(entry.getValue()));
+			} else {
+				filtereq = eq(entry.getKey(),entry.getValue());				
+			}
+			return filtereq;
+		}).collect(Collectors.toCollection(ArrayList::new));
+		if (listOfFilters.size()==1) {
+			return listOfFilters.iterator().next();
+		}
+		Bson filter = and(listOfFilters);
+		return filter;
+	}
+
 
 }

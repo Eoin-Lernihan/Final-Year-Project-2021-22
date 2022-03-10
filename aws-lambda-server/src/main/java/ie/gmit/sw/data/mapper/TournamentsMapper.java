@@ -13,20 +13,33 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
 
 public class TournamentsMapper implements DBObjectMapper {
 
+	public static final String PUBLIC = "public";
+	public static final String NUM_ROUNDS = "numRounds";
+	public static final String NUMBER = "number";
+	public static final String DURATION = "duration";
+	public static final String TIME = "time";
+	public static final String PLAYERS = "players";
+	public static final String MAX_PLAYERS = "maxPlayers";
+	public static final String DESCRIPTION = "description";
+	public static final String GAME_MODE = "gameMode";
+	public static final String GAME = "game";
+	public static final String OWNER = "owner";
+
+
 	public void populateEnity(List<DBObject> tournamentsList, Document returnData) {
 	
 		Tournament tournament = new Tournament();
-		tournament.setOwner(returnData.getString("owner"));
-		tournament.setGame(returnData.getString("game"));
-		tournament.setGameMode(returnData.getString("gameMode"));
-		tournament.setDescription(returnData.getString("description"));
-		tournament.setMaxPlayers(returnData.getInteger("maxPlayers", 12));
-		tournament.setPlayers(returnData.getList("players", String.class));
-		tournament.setTime(returnData.getDate("time"));
-		tournament.setDuration(returnData.getInteger("duration", 60));
-		tournament.setNumber(returnData.getInteger("number"));
-		tournament.setNumRounds(returnData.getInteger("numRounds"));
-		tournament.setPublic(returnData.getBoolean("public", false));
+		tournament.setOwner(returnData.getString(OWNER));
+		tournament.setGame(returnData.getString(GAME));
+		tournament.setGameMode(returnData.getString(GAME_MODE));
+		tournament.setDescription(returnData.getString(DESCRIPTION));
+		tournament.setMaxPlayers(returnData.getInteger(MAX_PLAYERS, 12));
+		tournament.setPlayers(returnData.getList(PLAYERS, String.class));
+		tournament.setTime(returnData.getDate(TIME));
+		tournament.setDuration(returnData.getInteger(DURATION, 60));
+		tournament.setNumber(returnData.getInteger(NUMBER));
+		tournament.setNumRounds(returnData.getInteger(NUM_ROUNDS));
+		tournament.setPublic(returnData.getBoolean(PUBLIC, false));
 		tournamentsList.add(tournament);
 	}
     
@@ -36,17 +49,17 @@ public class TournamentsMapper implements DBObjectMapper {
 	public Document formater(Tournament reqTournaments) {
 		Document a;
 		a = new Document("_id", new ObjectId());
-	a.append("owner", reqTournaments.getOwner());
-	a.append("game", reqTournaments.getGame())
-	.append("gameMode", reqTournaments.getGameMode())
-	.append("description", reqTournaments.getDescription())
-	.append("maxPlayers", reqTournaments.getMaxPlayers())
-	.append("players", reqTournaments.getPlayers())
-	.append("number", reqTournaments.getNumber())
-	.append("time", reqTournaments.getTime())
-	.append("duration", reqTournaments.getDuration())
-	.append("public", reqTournaments.getIsPublic())
-	.append("numRounds", reqTournaments.getNumRounds());
+	a.append(OWNER, reqTournaments.getOwner());
+	a.append(GAME, reqTournaments.getGame())
+	.append(GAME_MODE, reqTournaments.getGameMode())
+	.append(DESCRIPTION, reqTournaments.getDescription())
+	.append(MAX_PLAYERS, reqTournaments.getMaxPlayers())
+	.append(PLAYERS, reqTournaments.getPlayers())
+	.append(NUMBER, reqTournaments.getNumber())
+	.append(TIME, reqTournaments.getTime())
+	.append(DURATION, reqTournaments.getDuration())
+	.append(PUBLIC, reqTournaments.getIsPublic())
+	.append(NUM_ROUNDS, reqTournaments.getNumRounds());
 	
 	return a;
 	}
