@@ -3,8 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { signUp } from './signUp'
-const port = 4000;
 
 export class Login extends Component {
     constructor(props) {
@@ -20,17 +18,21 @@ export class Login extends Component {
     }
 
     onSubmit = (event) => {
+        
+        let concetion = `https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user/${this.state.username}`;
         event.preventDefault();
-        axios.get(`http://localhost:${port}/loginattempt/`, {
+        axios.get(concetion, {
             params: {
-                user: this.state.username,
-                pw: this.state.password
+                //username: this.state.username
+                password: this.state.password
             }
         })
         .then(response => {
-            if (response.data.length > 0) {
-                this.props.onLogin(response.data[0].firstName);
+            if (response.data != null) {
+                console.log("if");
+                this.props.onLogin(response.data.firstName);
             } else {
+                console.log("hit");
                 this.setState({ username: '', password: '', invalidLogin: true });
             }
         })
@@ -38,6 +40,8 @@ export class Login extends Component {
             console.log(error);
         });   
     }
+
+    
 
     render() {
         if (this.props.username != null) {
@@ -61,7 +65,14 @@ export class Login extends Component {
                         </Form>
                         {this.incorrectLoginMessage()}
                     </div>
+                    <div className="create">
+        <h3>create</h3>
+      <button theme="pink" onClick={this.getUser}>
+          demo button
+        </button>  
+        </div>
                 </div>
+                
             );
         }
     }
@@ -82,4 +93,19 @@ export class Login extends Component {
 
     onChangePassword(e) { this.setState({ password: e.target.value }); }
     // #endregion
+
+    getUser() {
+
+        
+        //
+       // axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/userhttps://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user`)
+       axios.get('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/admin')  
+       .then(response => {
+                    console.log(response.data);
+                      alert(response.data);
+                  })
+                  .catch(error => {
+                      console.log(error);
+                  });
+                }
 }

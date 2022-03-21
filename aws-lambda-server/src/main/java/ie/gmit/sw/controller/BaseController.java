@@ -49,6 +49,8 @@ public abstract class BaseController {
 				responseJson = new JSONObject();
 			}
 			responseJson.put("statusCode", 400);
+			Headers headers = new Headers();
+			responseJson.put("headers", headers);
 			responseJson.put("exception", "No " + queryParameterName +  " found for " +filters );	
 		} else {
 			response = all.get(0);
@@ -90,6 +92,8 @@ public abstract class BaseController {
 		}
 		if (value==null) {
 			responseJson = new JSONObject();
+			Headers headers = new Headers();			
+			responseJson.put("headers", headers);
 			responseJson.put("statusCode", 400);
 			responseJson.put("exception", "No value for key in URL " + key );
 		}
@@ -107,6 +111,8 @@ public abstract class BaseController {
 			if (responseJson == null) {
 				responseJson = new JSONObject();
 			}
+			Headers headers = new Headers();			
+			responseJson.put("headers", headers);
 			responseJson.put("statusCode", 400);
 			responseJson.put("exception", ex);
 		}
@@ -140,6 +146,8 @@ public abstract class BaseController {
 		JSONObject responseBody = new JSONObject();
 		responseBody.put(getResources(), response);
 		//required for apigatweway
+		Headers headers = new Headers();			
+		responseJson.put("headers", headers);
 		responseJson.put("body", responseBody.toString());
 		responseJson.put("statusCode", 200);
 		return responseJson;

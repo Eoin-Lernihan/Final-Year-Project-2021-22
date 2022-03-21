@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-//
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,10 +7,8 @@ import { Home } from './Home';
 import { Create } from './create';
 import { Login } from './login';
 import { signUp } from './signUp';
-
-                      
-
-
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from 'react-bootstrap/Form';
 
 //import NavDropdown from 'react-bootstrap/NavDropdown';
 //import Form from 'react-bootstrap/Form';
@@ -48,15 +45,46 @@ export class NavigationBar extends Component {
 					<Switch>
                         <Route path="/" component={Home} exact></Route>
                         <Route path="/create" component={Create} exact></Route>
-						<Route path="/login" component={Login} exact></Route>
-                        <Route path="/signUp" component={signUp} exact></Route>
+						
+                        <Route 
+                            path="/signup" exact 
+                            render={() => (
+                                <signUp onLogin={this.props.handleLogin} />
+                            )}>
+                        </Route>
+                        <Route
+                            path="/login" exact 
+                            render={() => (
+                                <Login onLogin={this.props.handleLogin} username={this.props.username} />
+                            )}>
+                        </Route>
+                       
 						</Switch>
                 </BrowserRouter>
             </div>
+
+            
         );
     }
-
-   
+    displayUserOrGuest() {
+        if (this.props.username != null) {
+            return (
+                <Nav onSelect={this.handleSelect}>
+                    <NavDropdown title={this.props.username}>
+                        <NavDropdown.Item href="/">Your Orders</NavDropdown.Item>
+                        <NavDropdown.Item href="/" eventKey="Logout">Logout</NavDropdown.Item>
+                    </NavDropdown>
+                                    </Nav>
+            );
+        } else {
+            return (
+                <Nav>
+                    <Link to="/signup" className="btn btn-outline-light" id="navbarButton">Sign up</Link>
+                    <Link to="/login" className="btn btn-outline-light" id="navbarButton">Login</Link>
+                </Nav>
+            );
+        }
+    }   
 
     onChangeSearchTerm = (e) => { this.setState({ searchTerm: e.target.value }); }
 }
