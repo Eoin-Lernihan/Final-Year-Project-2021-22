@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
-const port = 4000;
 
 
 export class signUp extends Component {
@@ -13,24 +12,30 @@ export class signUp extends Component {
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeFName = this.onChangeFName.bind(this);
-        this.onChangeSurname = this.onChangeSurname.bind(this);
+        this.onChangeLastName = this.onChangeLastName.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePhonenumber = this.onChangePhonenumber.bind(this);
     }
     state = {
         accCreationFailed: false,
         accountCreated: false,
+        username: '',
         email: '',
         password: '',
         firstName: '',
-        surname: ''
+        lastName: '',
+        phoneNumber: ''
     }
 
     onSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:${port}/signup/`, {
+        axios.post(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user`, {
+            userName: this.state.username,
             email: this.state.email,
-            pw: this.state.password,
             firstName: this.state.firstName,
-            surname: this.state.surname
+            lastName: this.state.lastName,
+            password: this.state.password,
+            number: this.state.phoneNumber
         })
         .then(response => {
             if (response.statusText === "OK") {
@@ -55,27 +60,31 @@ export class signUp extends Component {
                     <div className="container-fluid col-lg-8">
                         <h2>Create an Account</h2>
                         <Form onSubmit={this.onSubmit}>
-                   
-                           
                         <Form.Group as={Col}>
-                                    <Form.Label>Email Address</Form.Label>
-                                    <Form.Control type="input" value={this.state.email} onChange={this.onChangeEmail} required></Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="input" value={this.state.password} onChange={this.onChangePassword} required></Form.Control>
-                                </Form.Group>
-                           
-                                <Form.Group as={Col}>
-                                    <Form.Label>First Name</Form.Label>
-                                    <Form.Control type="input" value={this.state.firstName} onChange={this.onChangeFName} required></Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Surname</Form.Label>
-                                    <Form.Control type="input" value={this.state.surname} onChange={this.onChangeSurname} required></Form.Control>
-                                </Form.Group>
-                               
-                            <Button variant="dark" type="submit">Sign Up</Button>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="input" value={this.state.username} onChange={this.onChangeUsername} required></Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control type="input" value={this.state.email} onChange={this.onChangeEmail} required></Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="input" value={this.state.password} onChange={this.onChangePassword} required></Form.Control>
+                        </Form.Group>                           
+                        <Form.Group as={Col}>
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control type="input" value={this.state.firstName} onChange={this.onChangeFName} required></Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>lastName</Form.Label>
+                            <Form.Control type="input" value={this.state.lastName} onChange={this.onChangeLastName} required></Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>PhoneNumber</Form.Label>
+                            <Form.Control type="input" value={this.state.phoneNumber} onChange={this.onChangePhonenumber} required></Form.Control>
+                        </Form.Group>                                   
+                        <Button variant="dark" type="submit">Sign Up</Button>
                         </Form>
                         {this.accountCreationFailedMessage()}
                     </div>
@@ -102,6 +111,10 @@ export class signUp extends Component {
 
     onChangeFName(e) { this.setState({ firstName: e.target.value }); }
 
-    onChangeSurname(e) { this.setState({ surname: e.target.value }); }
+    onChangeLastName(e) { this.setState({ lastName: e.target.value }); }
+
+    onChangeUsername(e) { this.setState({ username: e.target.value }); }
+
+    onChangePhonenumber(e) { this.setState({ phoneNumber: e.target.value }); }
     // #endregion
 }
