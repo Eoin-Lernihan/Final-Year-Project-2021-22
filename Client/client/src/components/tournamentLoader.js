@@ -7,14 +7,24 @@ import Col from 'react-bootstrap/Col';
 export class TournamentLoader extends Component {
     
     render() {
-        return  this.props.tournamentsGames.map((product) => {
+        return  this.props.tournamentsGames.map((touraments) => {
                 return (
-                    <div className="StoreDisplayProducts container-fluid col-lg-10" key={product.productID}>
+                    <div className="StoreDisplayProducts container-fluid col-lg-10" key={touraments.owner}>
                         <Card id="Card" bg="secondary" border="dark" text="white">
                             <Card.Body>
                                 <Row>
                                     <Col>
-                                       hi
+                                    <p></p>
+                                    {touraments.owner}
+                                    <p></p>                                   
+                                    {touraments.game}
+                                    <p></p>
+                                    {touraments.gameMode}
+                                    <p></p>
+                                    {touraments.maxPlayers}
+                                    <p></p>
+                                    {touraments.time}
+                                    <p></p>
                                     </Col>
                                 </Row>
                             </Card.Body>

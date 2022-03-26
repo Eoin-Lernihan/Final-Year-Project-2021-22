@@ -1,0 +1,70 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import { TournamentLoader } from './tournamentLoader';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+export class Tournaments extends Component {
+    state = { tournamentsGames: [] }
+    constructor(tournamentsGames) {
+        super(tournamentsGames);
+        this.tournamentsGames = this.getAllTournaments(this);
+    }
+    
+    /* Need a DidUpdate here as store page will not update if a search is performed while  
+       already on the store page i.e. the Store component is already mounted */
+  //  componentDidUpdate() {
+        // Check if a search has been performed (by checking if the param search is undefined or not)
+       // if (this.props.match.params.search === undefined) {
+           
+        //} else {
+        // search param found so call server to find items matching the search
+           // axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments/{touramentId}` + this.props.match.params.search)
+            //.then(response => {
+           //     this.setState({tournamentsGames: response.tournaments, productSearch: true});
+          //  })
+          //  .catch(error => {
+           //     console.log(error);
+         //   });
+       // }
+    }
+
+    render() { 
+        return this.props.tournamentsGames.map((tournament)  => ( 
+            <div className="Tournament">
+               <h1>Application</h1>
+      <p>The currently active users list:</p>
+      <div className="TournamentLoader container-fluid col-lg-10" //key={product.productID}
+                    >
+                        <Card id="Card" bg="secondary" border="dark" text="white">
+                            <Card.Body>
+                                <Col>
+                                    <Row>
+                                    <li> {tournament.owner} as the {tournament.game} </li>
+                                    
+                                    </Row>
+                                </Col>
+                            </Card.Body>
+                        </Card>
+                        
+                    </div>
+            </div>
+        ));
+    }
+
+
+
+
+
+    getAllTournaments(e) { 
+         axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
+            .then(response => {
+                console.log (response)
+                this.setState({tournamentsGames: response.data.tournaments});
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        this.setState({ tournament: e.target.value }); }
+    
+}
