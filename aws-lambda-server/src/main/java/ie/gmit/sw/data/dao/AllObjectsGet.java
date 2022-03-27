@@ -24,5 +24,7 @@ public interface AllObjectsGet {
 
 	void deleteOne(Integer integer);
 
+	void deleteOne(String key);
+
 
 }

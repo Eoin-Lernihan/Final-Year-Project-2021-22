@@ -132,7 +132,7 @@ public class UserDao extends BaseDao implements AllObjectsGet {
 		User tim = users.get(0);
 		System.out.println (tim.getFirstName() + "is nice but dim");
 		users.forEach(u -> System.out.println("After Update getOne User"+u.toString()));
-		hello.deleteOne(user1.getNumber());
+		hello.deleteOne(user1.getUserName());
 		users = hello.getOne(filters).stream().map(u -> (User) u ).collect(Collectors.toList());
 		users.forEach(u -> System.out.println("After delete getOne User"+u.toString()));
 		
@@ -141,13 +141,21 @@ public class UserDao extends BaseDao implements AllObjectsGet {
 	}
 
 
+	
 	@Override
-	public void deleteOne(Integer number) {
+	public void deleteOne(String username) {
 			MongoCollection<Document> collection = getCollection(USER_TABLE_NAME);
 
-			Bson filter = eq("number", number);
+			Bson filter = eq("username", username);
 			deleteOneInMongoDB(collection, filter );
 
+	}
+
+
+	@Override
+	public void deleteOne(Integer integer) {
+		// TODO Auto-generated method stub
+		
 	}
 		
 }

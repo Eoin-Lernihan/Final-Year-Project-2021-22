@@ -39,9 +39,7 @@ public abstract class BaseController {
 
 	protected void findOneValueinDAO(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName, String dbFieldName)
 		throws UnsupportedEncodingException, IOException {
-		JSONObject event = extractInputData(input, responseJson);
-
-		Map<String, String> filters = extractFilters(event, responseJson, queryParameterName, dbFieldName);
+		Map<String, String> filters = getQueryAndPathParams(input, responseJson, queryParameterName, dbFieldName);
 		List<Object> all = getOne(filters);
 		Object  response = null;
 		if (all.isEmpty()) {
@@ -57,6 +55,23 @@ public abstract class BaseController {
 		}
 		
 		createJsonResponse(output, response, responseJson);
+	}
+	
+	protected void deleteOneInDao(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName, String dbFieldName)
+			throws UnsupportedEncodingException, IOException {
+			Map<String, String> filters = getQueryAndPathParams(input, responseJson, queryParameterName, dbFieldName);
+			deleteOne(filters);
+			Object  response = null;
+			
+			createJsonResponse(output, response, responseJson);
+		}
+
+	private Map<String, String> getQueryAndPathParams(InputStream input, JSONObject responseJson,
+			String queryParameterName, String dbFieldName) {
+		JSONObject event = extractInputData(input, responseJson);
+
+		Map<String, String> filters = extractFilters(event, responseJson, queryParameterName, dbFieldName);
+		return filters;
 	}
 
 	
@@ -146,23 +161,29 @@ public abstract class BaseController {
 		JSONObject responseBody = new JSONObject();
 		responseBody.put(getResources(), response);
 		//required for apigatweway
+		successResponseProxy(responseJson, responseBody);
+		return responseJson;
+	}
+	
+	
+
+	private void successResponseProxy(JSONObject responseJson, JSONObject responseBody) {
 		Headers headers = new Headers();			
 		responseJson.put("headers", headers);
 		responseJson.put("body", responseBody.toString());
 		responseJson.put("statusCode", 200);
-		return responseJson;
 	}
 
 	protected  abstract String getResources();
 
 	private Gson createGson() {
 		return new GsonBuilder().disableHtmlEscaping().create();
-	}
-
+	} 
 	
 	protected abstract List<Object> getAll(); 
 
 	protected abstract List<Object>  getOne(Map<String, String> key); 
-
+	
+	protected abstract void  deleteOne(Map<String, String> key); 
 
 }

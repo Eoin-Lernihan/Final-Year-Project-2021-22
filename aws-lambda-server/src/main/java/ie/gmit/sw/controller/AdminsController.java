@@ -150,6 +150,12 @@ public class AdminsController extends BaseController implements RequestStreamHan
 			return "admins";
 		}
 
+		@Override
+		protected void deleteOne(Map<String, String> key) {
+			// TODO Auto-generated method stub
+			
+		}
+
 
 
 }

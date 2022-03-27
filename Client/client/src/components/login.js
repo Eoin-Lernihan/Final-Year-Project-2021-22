@@ -14,7 +14,8 @@ export class Login extends Component {
     state = {
         username: '',
         password: '',
-        invalidLogin: false
+        invalidLogin: false,
+        loginUser:  localStorage.getItem("user")
     }
 
     onSubmit = (event) => {
@@ -23,14 +24,14 @@ export class Login extends Component {
         event.preventDefault();
         axios.get(concetion, {
             params: {
-                //username: this.state.username
+               // username: this.state.username,
                 password: this.state.password
             }
         })
         .then(response => {
             if (response.data != null) {
                 console.log("if");
-                this.props.onLogin(response.data.firstName);
+                this.props.onLogin( localStorage.setItem('user', JSON.stringify(response.data.users)));
             } else {
                 console.log("hit");
                 this.setState({ username: '', password: '', invalidLogin: true });
@@ -44,8 +45,8 @@ export class Login extends Component {
     
 
     render() {
-        if (this.props.username != null) {
-            return (<Redirect exact to="/store" />);
+        if (this.state.loginUser != null) {
+            return (<Redirect exact to="/" />);
         } else {
             return (
                 <div className="Login topMargin">

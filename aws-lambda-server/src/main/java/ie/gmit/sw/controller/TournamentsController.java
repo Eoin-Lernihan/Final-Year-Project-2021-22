@@ -119,6 +119,12 @@ public class TournamentsController extends BaseController implements RequestStre
 
 		}
 
+		@Override
+		protected void deleteOne(Map<String, String> key) {
+			// TODO Auto-generated method stub
+			
+		}
+
 
 
 }

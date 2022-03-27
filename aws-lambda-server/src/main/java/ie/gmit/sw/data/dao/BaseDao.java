@@ -120,5 +120,10 @@ public class BaseDao {
 		return filter;
 	}
 
+	public void deleteOne(String key) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

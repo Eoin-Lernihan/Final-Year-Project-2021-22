@@ -3,10 +3,12 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Home } from './Home';
+import { Home } from './home';
 import { Create } from './create';
 import { Login } from './login';
 import { signUp } from './signUp';
+import { User } from './user';
+import { LogOut } from './logOut';
 import { Tournaments } from './tournaments';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
@@ -15,7 +17,7 @@ import Form from 'react-bootstrap/Form';
 //import Form from 'react-bootstrap/Form';
 
 export class NavigationBar extends Component {
-    state = { searchTerm: '' }
+    state = {  loginUser:  localStorage.getItem("user") }
 
     handleSelect = (eventKey) => {
         if (eventKey === "Logout") {
@@ -39,8 +41,10 @@ export class NavigationBar extends Component {
                                 </Nav>
                             </Navbar.Collapse>
                             <Navbar.Collapse className="justify-content-end" color='white'>
-                            <Nav.Link href="/login" >Login</Nav.Link>
-                            <Nav.Link href="/signUp" >Sing Up</Nav.Link>
+                            {this.LoggedInOrNot()}
+                            
+                            
+                            
                            
                             </Navbar.Collapse>
                         </Container>
@@ -49,20 +53,22 @@ export class NavigationBar extends Component {
                         <Route path="/" component={Home} exact></Route>
                         <Route path="/create" component={Create} exact></Route>
                         <Route path="/tournaments" component={Tournaments} exact></Route>
+                        <Route path="/user" component={User} exact></Route>
+                        <Route path="/logOut" component={LogOut} exact></Route>
                         <Route 
-                            // path="/signUp" exact 
-                            // render={() => (
-                                // <signUp onLogin={this.props.handleLogin} />
-                            // )}
-                            path="/signUp" component={signUp} exact
+                         path="/signUp" exact 
+                            render={() => (
+                                 <signUp onLogin={this.props.handleLogin} />
+                             )}
+                           // path="/signUp" component={signUp} exact
                         >
                         </Route>
                         <Route
-                            // path="/login" exact 
-                            // render={() => (
-                                // <Login onLogin={this.props.handleLogin} username={this.props.username} />
-                            // )}
-                            path="/login" component={Login} exact
+                             path="/login" exact 
+                             render={() => (
+                                 <Login onLogin={this.props.handleLogin} username={this.props.username} />
+                        )}
+                            //path="/login" component={Login} exact
                             >
                         </Route>
                        
@@ -73,21 +79,19 @@ export class NavigationBar extends Component {
             
         );
     }
-    displayUserOrGuest() {
-        if (this.props.username != null) {
+    LoggedInOrNot() {
+        if (this.state.loginUser != null) {
             return (
                 <Nav onSelect={this.handleSelect}>
-                    <NavDropdown title={this.props.username}>
-                        <NavDropdown.Item href="/">Your Orders</NavDropdown.Item>
-                        <NavDropdown.Item href="/" eventKey="Logout">Logout</NavDropdown.Item>
-                    </NavDropdown>
-                                    </Nav>
+                    <Nav.Link href="/user" >User</Nav.Link>
+                            <Nav.Link href="/logOut" >Log Out</Nav.Link>
+                 </Nav>
             );
         } else {
             return (
                 <Nav>
-                    <Link to="/signUp" className="btn btn-outline-light" id="navbarButton">Sign up</Link>
-                    <Link to="/login" className="btn btn-outline-light" id="navbarButton">Login</Link>
+                    <Nav.Link href="/login" >Login</Nav.Link>
+                    <Nav.Link href="/signUp" >Sing Up</Nav.Link>
                 </Nav>
             );
         }

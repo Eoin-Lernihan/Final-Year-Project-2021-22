@@ -70,6 +70,11 @@ public class UserController extends BaseController implements RequestStreamHandl
 		JSONObject responseJson = null;
 		findOneValueinDAO(input, output, responseJson, PATH_OR_QUERY_PARAM, UserMapper.USERNAME);
 	}
+	
+	public void deleteAUser(InputStream input, OutputStream output, Context context) throws IOException {
+		JSONObject responseJson = null;
+		findOneValueinDAO(input, output, responseJson, PATH_OR_QUERY_PARAM, UserMapper.USERNAME);
+	}
 
 	/**
 	 * Adds a new user to the database
@@ -128,6 +133,12 @@ public class UserController extends BaseController implements RequestStreamHandl
 	protected List<Object> getOne(Map<String, String> key) {
 		return userDao.getOne(key);
 	}
+	
+	protected void deleteOne(Map<String, String> mapKeys) {
+		String username = mapKeys.get("username");
+		userDao.deleteOne(username);
+	}
+	
 	protected List<Object> getAll() {
 		return userDao.getAll();
 	}
