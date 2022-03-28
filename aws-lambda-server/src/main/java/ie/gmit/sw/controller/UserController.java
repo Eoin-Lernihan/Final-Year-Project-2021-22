@@ -73,7 +73,7 @@ public class UserController extends BaseController implements RequestStreamHandl
 	
 	public void deleteAUser(InputStream input, OutputStream output, Context context) throws IOException {
 		JSONObject responseJson = null;
-		findOneValueinDAO(input, output, responseJson, PATH_OR_QUERY_PARAM, UserMapper.USERNAME);
+		deleteOneInDao(input, output, responseJson, PATH_OR_QUERY_PARAM, UserMapper.USERNAME);
 	}
 
 	/**

@@ -36,6 +36,12 @@ public class TournamentsController extends BaseController implements RequestStre
 			createJsonResponse(output, all, responseJson);
 		}
 
+		public void getAllTournamentsWithParams(InputStream input, OutputStream output, Context context) throws IOException {
+			List<Object> all = getAll();
+			JSONObject responseJson = null;
+			createJsonResponse(output, all, responseJson);
+		}
+		
 		/**
 		 * Gets a user in the database and
 		 * 

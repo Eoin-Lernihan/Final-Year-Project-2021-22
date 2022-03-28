@@ -9,6 +9,7 @@ export class User extends Component {
     
 render(){
     let user = JSON.parse( localStorage.getItem("user"));
+    let userName = user.userName;
     console.log(user);
     return (
         <div className="StoreDisplayProducts container-fluid col-lg-10">
@@ -20,7 +21,11 @@ render(){
                         here
                         {this.state.loginUser}
                         <p></p>
-                        <Button variant="danger" onClick={this.DeleteBookings}>Delete</Button>
+                        Test
+                        {userName}
+                        
+                        <p></p>
+                        <Button variant="danger" onClick={this.DeleteUser}>Delete Account</Button>
                         </Col>
                     </Row>
                 </Card.Body>
@@ -29,4 +34,16 @@ render(){
         </div>
     );
     }
+
+    DeleteUser(userName) {
+        userName.preventDefault();
+        axios.delete('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user/${this.state.userName}' )
+            .then(() => {
+                this.props.ReloadData();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { TournamentLoader } from './tournamentLoader';
+import { TournamentLoader } from './tournamentLoaderPlayerTrue';
 export class Tournaments extends Component {
  
 

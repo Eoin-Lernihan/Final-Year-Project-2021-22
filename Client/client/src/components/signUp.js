@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
 
-export class signUp extends Component {
+export class SignUp extends Component {
     constructor(props) {
         super(props);
         this.onChangeEmail = this.onChangeEmail.bind(this);

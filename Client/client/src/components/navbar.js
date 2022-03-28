@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import { Home } from './home';
 import { Create } from './create';
 import { Login } from './login';
-import { signUp } from './signUp';
+import { SignUp } from './signUp';
 import { User } from './user';
 import { LogOut } from './logOut';
 import { Tournaments } from './tournaments';
@@ -36,7 +36,7 @@ export class NavigationBar extends Component {
                             <Navbar.Collapse className="justify-content-start">
                                 <Nav className="NavLinks">
                                     <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/create">Create</Nav.Link>
+                                    <Nav.Link href="/newTournament">Create Tournament</Nav.Link>
                                     <Nav.Link href="/tournaments" >Tournament</Nav.Link>                                   
                                 </Nav>
                             </Navbar.Collapse>
@@ -51,18 +51,13 @@ export class NavigationBar extends Component {
                     </Navbar>
 					<Switch>
                         <Route path="/" component={Home} exact></Route>
-                        <Route path="/create" component={Create} exact></Route>
+
+                        <Route path="/newTournament" component={Create} exact></Route>
+
                         <Route path="/tournaments" component={Tournaments} exact></Route>
                         <Route path="/user" component={User} exact></Route>
                         <Route path="/logOut" component={LogOut} exact></Route>
-                        <Route 
-                         path="/signUp" exact 
-                            render={() => (
-                                 <signUp onLogin={this.props.handleLogin} />
-                             )}
-                           // path="/signUp" component={signUp} exact
-                        >
-                        </Route>
+                        <Route  path="/signUp" component={SignUp} exact></Route>
                         <Route
                              path="/login" exact 
                              render={() => (

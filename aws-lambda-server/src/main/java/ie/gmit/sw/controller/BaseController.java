@@ -71,6 +71,7 @@ public abstract class BaseController {
 		JSONObject event = extractInputData(input, responseJson);
 
 		Map<String, String> filters = extractFilters(event, responseJson, queryParameterName, dbFieldName);
+		
 		return filters;
 	}
 
@@ -131,6 +132,7 @@ public abstract class BaseController {
 			responseJson.put("statusCode", 400);
 			responseJson.put("exception", ex);
 		}
+		System.out.println("event " + event);
 		return event;
 	}
 
