@@ -66,7 +66,7 @@ public abstract class BaseController {
 			createJsonResponse(output, response, responseJson);
 		}
 
-	private Map<String, String> getQueryAndPathParams(InputStream input, JSONObject responseJson,
+	protected Map<String, String> getQueryAndPathParams(InputStream input, JSONObject responseJson,
 			String queryParameterName, String dbFieldName) {
 		JSONObject event = extractInputData(input, responseJson);
 
@@ -123,7 +123,7 @@ public abstract class BaseController {
 		try {
 			event = (JSONObject) parser.parse(reader);
 		} catch (IOException | ParseException ex) {
-			// setup response to retur n failure
+			// setup response to return failure
 			if (responseJson == null) {
 				responseJson = new JSONObject();
 			}

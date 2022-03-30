@@ -1,46 +1,77 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { TournamentLoader } from './tournamentLoaderPlayerTrue';
+import { TournamentLoaderFlase } from './tournamentLoaderPlayerFlase';
+
 export class Tournaments extends Component {
- 
 
 
-    constructor(){
+
+    constructor() {
         super();
         this.ReloadData = this.ReloadData.bind(this);
     }
 
-    state = { tournamentsGames: [] }
-    
-    ReloadData(){
-      axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
+    state = { tournamentsGamesTrue: [],
+              tournamentsGamesFlase: [] }
+
+    ReloadData() {
+            axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
             .then(response => {
-                this.setState({tournamentsGames: response.data.tournaments});
+                this.setState({ tournamentsGamesTrue: response.data.tournaments });
             })
             .catch(error => {
                 console.log(error);
-            });  
-     }
+            });
+            axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
+            .then(response => {
+                this.setState({ tournamentsGamesFlase: response.data.tournaments });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
 
-     componentDidMount() {
-        axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
+    componentDidMount() {
+        let user = JSON.parse( localStorage.getItem("user"));
+        let userName = user.userName;
+        axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`, { params: {
+             username: userName,
+            // userName: this.state.password,
+             inGame: 'flase'
+         }})
         .then(response => {
-            this.setState({tournamentsGames: response.data.tournaments});
+            this.setState({ tournamentsGamesTrue: response.data.tournaments });
         })
         .catch(error => {
             console.log(error);
-        });  
-     }
-
-    render() {
-        return (        
-                <TournamentLoader
-                   tournamentsGames={this.state.tournamentsGames} >
-                </TournamentLoader>
-           
-        );
+        });
+        axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
+        .then(response => {
+            this.setState({ tournamentsGamesFlase: response.data.tournaments });
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
+
+    render(){
+        
+        return (
+            <div>
+               
+                <div>
+
+                All Games Avilable
+                    <TournamentLoaderFlase
+                        tournamentsGamesFlase={this.state.tournamentsGamesFlase} >
+                    </TournamentLoaderFlase>
+                </div>
+            </div>
+                );
+    }
+
+
 
     
 }

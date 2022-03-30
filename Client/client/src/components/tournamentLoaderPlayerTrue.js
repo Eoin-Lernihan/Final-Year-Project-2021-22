@@ -3,35 +3,22 @@ import { NavLink } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-export class TournamentLoader extends Component {
+import Button from 'react-bootstrap/Button';
+import {InTournament} from './inTournament';
+export class TournamentLoaderTrue extends Component {
     
-    render() {
-        return  this.props.tournamentsGames.map((touraments) => {
-                return (
-                    <div className="StoreDisplayProducts container-fluid col-lg-10" key={touraments.owner}>
-                        <Card id="Card" bg="secondary" border="dark" text="white">
-                            <Card.Body>
-                                <Row>
-                                    <Col>
-                                    <p></p>
-                                    {touraments.owner}
-                                    <p></p>                                   
-                                    {touraments.game}
-                                    <p></p>
-                                    {touraments.gameMode}
-                                    <p></p>
-                                    {touraments.maxPlayers}
-                                    <p></p>
-                                    {touraments.time}
-                                    <p></p>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                        <hr />
-                    </div>
-                );
-            });
-    }
+
+    render() { return  this.props.tournamentsGamesTrue.map((touraments) => {
+        touraments.players.indexOf("tim") === -1 ? touraments.players.push("tim") : console.log("This item already exists");
+        return(
+        <div>
+          /* Used employee as props name */
+          <InTournament tourament={touraments} >
+          </InTournament>
+        </div>
+        )
+    ;
+    })
+
+};
 }
