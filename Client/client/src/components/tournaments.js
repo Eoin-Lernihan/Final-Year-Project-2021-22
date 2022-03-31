@@ -46,13 +46,7 @@ export class Tournaments extends Component {
         .catch(error => {
             console.log(error);
         });
-        axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`)
-        .then(response => {
-            this.setState({ tournamentsGamesFlase: response.data.tournaments });
-        })
-        .catch(error => {
-            console.log(error);
-        });
+       
     }
 
     render(){

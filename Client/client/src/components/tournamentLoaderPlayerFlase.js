@@ -9,7 +9,7 @@ import {OneTouramentJoin} from './oneTouramentJoin';
 
 export class TournamentLoaderFlase extends Component {
     
-    render() { return  this.props.tournamentsGamesTrue.map((touraments) => {
+    render() { return  this.props.tournamentsGamesFlase.map((touraments) => {
             touraments.players.indexOf("tim") === -1 ? touraments.players.push("tim") : console.log("This item already exists");
             return(
             <div>

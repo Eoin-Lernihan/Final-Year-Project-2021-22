@@ -4,6 +4,7 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
 import static com.mongodb.client.model.Updates.set;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -35,9 +36,7 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 	private static final String TOURNAMENTS_TABLE_NAME = "Games";
 	private DBObjectMapper tournamentMap = new TournamentsMapper();
 
-	@Override
 	public List<Object> getAll() {
-
 		List<Object> tournamentLists = getRowsForFilter(null);
 		return tournamentLists;
 	}
@@ -47,7 +46,7 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 
 		Bson filter = createMongoDBFilter(filters);
 		List<Object> tournament = new ArrayList<>();
-		tournament = getRowsForFilter(filter);	
+		tournament = getRowsForFilter(filter);
 		return tournament;
 	}
 
@@ -77,8 +76,7 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 		Bson updateOperation11 = set("numRounds", request.getNumRounds());
 
 		Bson updates = combine(updateOperation1, updateOperation2, updateOperation3, updateOperation4, updateOperation5,
-				updateOperation6, updateOperation8, updateOperation9, updateOperation10,
-				updateOperation11);
+				updateOperation6, updateOperation8, updateOperation9, updateOperation10, updateOperation11);
 		updateOneInMongoDB(collection, filter, updates);
 
 	}
@@ -99,36 +97,34 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 	// testing
 	public static void main(String[] args) {
 		TournamentsDao tournamentsDao = new TournamentsDao();
-		
-		
+
 		Integer seedNumber = getRandomNumber();
 		Boolean publicValue = false;
-		
-		
+
 //		createTournament(seedNumber, publicValue,  tournamentsDao);
-		//createTournament(seedNumber+1, !publicValue,  tournamentsDao);
-	//	createTournament(seedNumber+2, publicValue,  tournamentsDao);
+		// createTournament(seedNumber+1, !publicValue, tournamentsDao);
+		// createTournament(seedNumber+2, publicValue, tournamentsDao);
 //		createTournament(seedNumber+3, !publicValue,  tournamentsDao);
 
 		List<Tournament> all = tournamentsDao.getAll().stream().map(t -> (Tournament) t).collect(Collectors.toList());
-		
+
 		all.forEach(u -> System.out.println("getAll Tourament" + u.toString()));
 		String searchNumber = all.get(0).getNumber().toString();
-		Map<String , String> filters = new HashMap<>();
+		Map<String, String> filters = new HashMap<>();
 		filters.put("number", searchNumber);
 
 		tournamentsDao.getOne(filters).forEach(t -> System.out.println("getOne Tourament" + t.toString()));
-		
+
 		List<Object> one = tournamentsDao.getOne(filters);
 
 		List<Tournament> tournamentsList = one.stream().map(t -> (Tournament) t).collect(Collectors.toList());
 		tournamentsList.forEach(t -> System.out.println("getOne tournament" + t.toString()));
-		
+
 		Tournament tournament1 = tournamentsList.get(0);
-		tournament1.setDescription ("changed");
+		tournament1.setDescription("changed");
 		filters.put("number", tournament1.getNumber().toString());
 
-		tournamentsDao.updateOne(tournament1,filters);
+		tournamentsDao.updateOne(tournament1, filters);
 
 		filters = new HashMap<>();
 		filters.put("number", searchNumber);
@@ -136,17 +132,30 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 		tournamentsList.forEach(t -> System.out.println("After Update getOne Admin" + t.toString()));
 		tournamentsDao.deleteOne(tournament1.getNumber());
 		tournamentsList.forEach(t -> System.out.println("After delete getOne Admin" + t.toString()));
+		filters = new HashMap<>();
+		System.out.println("before fillter get");
+		filters.put("userName", "u");
+		filters.put("inGame", "1");
+		tournamentsDao.getOne(filters).forEach(t -> System.out.println("getOne Tourament" + t.toString()));
+		System.out.println("after fillter get");
+		System.out.println("before fillter get");
+		filters.put("userName", "u");
+		filters.put("inGame", "0");
+		tournamentsDao.getOne(filters).forEach(t -> System.out.println("getOne Tourament" + t.toString()));
+		System.out.println("after fillter get");
+
+		
 
 	}
 
-	private static Tournament  createTournament( Integer seedNumber, Boolean publicValue, TournamentsDao tournamentDao) {
+	private static Tournament createTournament(Integer seedNumber, Boolean publicValue, TournamentsDao tournamentDao) {
 		Tournament tournament = new Tournament();
 
-		tournament.setNumber(seedNumber );
-		tournament.setOwner("owner"+seedNumber.toString());
-		tournament.setGame("game"+seedNumber.toString());
-		tournament.setGameMode("gameMode"+seedNumber.toString());
-		tournament.setDescription("description"+seedNumber.toString());
+		tournament.setNumber(seedNumber);
+		tournament.setOwner("owner" + seedNumber.toString());
+		tournament.setGame("game" + seedNumber.toString());
+		tournament.setGameMode("gameMode" + seedNumber.toString());
+		tournament.setDescription("description" + seedNumber.toString());
 		tournament.setMaxPlayers(12);
 		List<String> players = new ArrayList<>();
 		tournament.setPlayers(players);
@@ -157,15 +166,15 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 		tournamentDao.addOne(tournament);
 		return tournament;
 	}
+
 	private static Date convertToDateViaInstant(LocalDate dateToConvert) {
-	    return java.util.Date.from(dateToConvert.atStartOfDay()
-	      .atZone(ZoneId.systemDefault())
-	      .toInstant());
+		return java.util.Date.from(dateToConvert.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
+
 	private static int getRandomNumber() {
-		int min= 1000;
-		int max= 1000000;
-	    return (int) ((Math.random() * (max - min)) + min);
+		int min = 1000;
+		int max = 1000000;
+		return (int) ((Math.random() * (max - min)) + min);
 	}
 
 	@Override
@@ -176,8 +185,5 @@ public class TournamentsDao extends BaseDao implements AllObjectsGet {
 		deleteOneInMongoDB(collection, filter);
 
 	}
-
-
-
 
 }

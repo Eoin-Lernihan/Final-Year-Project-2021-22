@@ -44,8 +44,7 @@ public class TournamentsController extends BaseController implements RequestStre
 			filters.putAll(filters2);
 			 
 //			Map<String, String> filters = getQueryAndPathParams(input, responseJson, queryParameterName, dbFieldName);
-			List<Object> all = getAll();
-			JSONObject responseJson = null;
+			List<Object> all = getOne(filters);
 			createJsonResponse(output, all, responseJson);
 		}
 		
@@ -97,6 +96,8 @@ public class TournamentsController extends BaseController implements RequestStre
 			if  (responseJson==null) {
 				tournamentsDao.updateOne(request,filters);
 				responseJson = new JSONObject();
+				
+				responseJson.put("headers", new Headers());
 				responseJson.put("statusCode",  201);	    	
 		    }
 

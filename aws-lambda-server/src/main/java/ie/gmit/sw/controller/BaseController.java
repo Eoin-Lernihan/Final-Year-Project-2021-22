@@ -157,6 +157,7 @@ public abstract class BaseController {
 	 */
 	private JSONObject getResposeAsJson(Object response, JSONObject responseJson) {
 		if (responseJson != null) {
+			responseJson.put("headers", new Headers());
 			return responseJson;
 		}
 		responseJson = new JSONObject();
@@ -170,8 +171,7 @@ public abstract class BaseController {
 	
 
 	private void successResponseProxy(JSONObject responseJson, JSONObject responseBody) {
-		Headers headers = new Headers();			
-		responseJson.put("headers", headers);
+		responseJson.put("headers", new Headers());
 		responseJson.put("body", responseBody.toString());
 		responseJson.put("statusCode", 200);
 	}
