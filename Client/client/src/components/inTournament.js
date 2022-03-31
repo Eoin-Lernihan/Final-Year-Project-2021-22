@@ -19,6 +19,10 @@ export class InTournament extends Component {
     render()  { 
 //       let stateString = JSON.stringify(this.state)
 //       console.log("here in render"+ stateString)
+        let user = JSON.parse( localStorage.getItem("user"));
+        let userName = user.userName;
+        this.state.tourament.players.indexOf(userName) > -1 ? this.state.tourament.players.pop(userName) : console.log("This item already exists");
+        console.log(this.state.tourament.players);
         return (
             <div className="StoreDisplayProducts container-fluid col-lg-10" key={this.state.tourament.owner}>
             {this.state.tourament.owner}

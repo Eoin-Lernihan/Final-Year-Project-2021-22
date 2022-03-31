@@ -39,8 +39,8 @@ public class TournamentsController extends BaseController implements RequestStre
 		public void getAllTournamentsWithParams(InputStream input, OutputStream output, Context context) throws IOException {
 			JSONObject responseJson = null;
 			JSONObject event = extractInputData(input, responseJson);
-			Map<String, String> filters = extractFilters(event, responseJson, "userName", TournamentsMapper.PLAYERS);
-			Map<String, String> filters2 = extractFilters(event, responseJson, "inGame", "included");
+			Map<String, String> filters = extractFilters(event, responseJson, "userName", "userName");
+			Map<String, String> filters2 = extractFilters(event, responseJson, "inGame", "inGame");
 			filters.putAll(filters2);
 			 
 //			Map<String, String> filters = getQueryAndPathParams(input, responseJson, queryParameterName, dbFieldName);

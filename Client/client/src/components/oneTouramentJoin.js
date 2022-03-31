@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -20,6 +19,9 @@ export class OneTouramentJoin extends Component {
     render()  { 
 //       let stateString = JSON.stringify(this.state)
 //       console.log("here in render"+ stateString)
+        let user = JSON.parse( localStorage.getItem("user"));
+        let userName = user.userName;
+        this.state.tourament.players.indexOf(userName) === -1 ? this.state.tourament.players.push(userName) : console.log("This item already exists");
         return (
         <div className="StoreDisplayProducts container-fluid col-lg-10" key={this.state.tourament.owner}>
             {this.state.tourament.owner}

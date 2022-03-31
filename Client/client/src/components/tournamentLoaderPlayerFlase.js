@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 import {OneTouramentJoin} from './oneTouramentJoin';
 
 export class TournamentLoaderFlase extends Component {
     
     render() { return  this.props.tournamentsGamesFlase.map((touraments) => {
-            touraments.players.indexOf("tim") === -1 ? touraments.players.push("tim") : console.log("This item already exists");
+       
             return(
             <div>
               /* Used employee as props name */
@@ -22,6 +16,7 @@ export class TournamentLoaderFlase extends Component {
         })
     
     };
+}
  /*        return  this.props.tournamentsGamesFlase.map((touraments) => {
                 return (
                     <div className="StoreDisplayProducts container-fluid col-lg-10" key={touraments.owner}>
@@ -62,4 +57,3 @@ export class TournamentLoaderFlase extends Component {
                 console.log(err);
             });
     } */
-}

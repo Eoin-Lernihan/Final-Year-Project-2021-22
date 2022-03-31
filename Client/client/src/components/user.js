@@ -24,7 +24,7 @@ export class User extends Component {
             axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`, { params: {
                 // username: this.state.username,
                  userName: userName,
-                 inGame: 'true'
+                 inGame: '1'
              }})
             .then(response => {
                 this.setState({ tournamentsGamesTrue: response.data.tournaments });
@@ -42,7 +42,7 @@ export class User extends Component {
             axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`, { params: {
                 // username: this.state.username,
                  userName: userName,
-                 inGame: 'true'
+                 inGame: '1'
              }})
         .then(response => {
             this.setState({ tournamentsGamesTrue: response.data.tournaments });

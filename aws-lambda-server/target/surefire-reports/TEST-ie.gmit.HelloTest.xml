@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ie.gmit.HelloTest" time="0.29" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ie.gmit.HelloTest" time="0.301" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="14"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IE"/>
     <property name="sun.boot.library.path" value="C:\Users\eoinb\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_14.0.2.v20200815-0932\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\eoinb\AppData\Local\Temp\surefire3978086146818517138\surefirebooter7902630580263448791.jar C:\Users\eoinb\AppData\Local\Temp\surefire3978086146818517138 2022-03-31T15-31-09_797-jvmRun1 surefire13341979012783006360tmp surefire_0440908921759493278tmp"/>
+    <property name="sun.java.command" value="C:\Users\eoinb\AppData\Local\Temp\surefire12659690843676639636\surefirebooter4655005491318550570.jar C:\Users\eoinb\AppData\Local\Temp\surefire12659690843676639636 2022-03-31T16-28-27_353-jvmRun1 surefire7235231589766120229tmp surefire_011306502000819747146tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\target\test-classes;C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\target\classes;C:\Users\eoinb\.m2\repository\com\amazonaws\aws-lambda-java-core\1.2.1\aws-lambda-java-core-1.2.1.jar;C:\Users\eoinb\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\eoinb\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\eoinb\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\eoinb\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\eoinb\.m2\repository\org\mongodb\mongodb-driver-core\4.3.0\mongodb-driver-core-4.3.0.jar;C:\Users\eoinb\.m2\repository\org\mongodb\bson\4.3.0\bson-4.3.0.jar;C:\Users\eoinb\.m2\repository\org\mongodb\mongodb-driver-sync\4.3.0\mongodb-driver-sync-4.3.0.jar;C:\Users\eoinb\.m2\repository\ch\qos\logback\logback-classic\1.2.3\logback-classic-1.2.3.jar;C:\Users\eoinb\.m2\repository\ch\qos\logback\logback-core\1.2.3\logback-core-1.2.3.jar;C:\Users\eoinb\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar;C:\Users\eoinb\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\eoinb\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\eoinb\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;C:\Users\eoinb\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\eoinb\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;C:\Users\eoinb\.m2\repository\com\google\code\gson\gson\2.8.9\gson-2.8.9.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\eoinb\AppData\Local\Temp\surefire3978086146818517138\surefirebooter7902630580263448791.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\eoinb\AppData\Local\Temp\surefire12659690843676639636\surefirebooter4655005491318550570.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="14.0.2+12-46"/>
@@ -55,5 +55,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="58.0"/>
   </properties>
-  <testcase name="test" classname="ie.gmit.HelloTest" time="0.288"/>
+  <testcase name="test" classname="ie.gmit.HelloTest" time="0.298"/>
 </testsuite>
