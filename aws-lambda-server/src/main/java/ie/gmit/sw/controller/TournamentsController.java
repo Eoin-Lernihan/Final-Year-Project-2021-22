@@ -12,17 +12,14 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
 
-import ie.gmit.sw.data.dao.AdminDao;
-import ie.gmit.sw.data.dao.AllObjectsGet;
+import ie.gmit.sw.data.dao.DaoCommonInterface;
 import ie.gmit.sw.data.dao.TournamentsDao;
 import ie.gmit.sw.data.mapper.TournamentsMapper;
-import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.Tournament;
-import ie.gmit.sw.data.model.User;
 
-public class TournamentsController extends BaseController implements RequestStreamHandler {
+public class TournamentsController extends BaseController {
 	private static final String PATH_OR_QUERY_PARAM = "touramentId";
-	AllObjectsGet tournamentsDao = new TournamentsDao();
+	DaoCommonInterface tournamentsDao = new TournamentsDao();
 
 		/**
 		 * Gets all user in the database and tranforms them by putting in a google json
@@ -96,8 +93,8 @@ public class TournamentsController extends BaseController implements RequestStre
 			if  (responseJson==null) {
 				tournamentsDao.updateOne(request,filters);
 				responseJson = new JSONObject();
-				
-				responseJson.put("headers", new Headers());
+				Headers headers = new Headers();
+				responseJson.put("headers", headers);
 				responseJson.put("statusCode",  201);	    	
 		    }
 

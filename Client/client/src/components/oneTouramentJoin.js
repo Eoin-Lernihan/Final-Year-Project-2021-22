@@ -24,7 +24,6 @@ export class OneTouramentJoin extends Component {
         this.state.tourament.players.indexOf(userName) === -1 ? this.state.tourament.players.push(userName) : console.log("This item already exists");
         return (
         <div className="StoreDisplayProducts container-fluid col-lg-10" key={this.state.tourament.owner}>
-            {this.state.tourament.owner}
             <Card id="Card" bg="secondary" border="dark" text="white">
                 <Card.Body>
                     <Row>

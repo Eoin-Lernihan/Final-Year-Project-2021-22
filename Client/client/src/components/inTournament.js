@@ -18,7 +18,7 @@ export class InTournament extends Component {
 
     render()  { 
        let stateString = JSON.stringify(this.state)
-//       console.log("here in render"+ stateString)
+
       let user = JSON.parse( localStorage.getItem("user"));
         let userName = user.userName;
 
@@ -26,7 +26,6 @@ export class InTournament extends Component {
         console.log(this.state.tourament.players);
         return (
             <div className="StoreDisplayProducts container-fluid col-lg-10" key={this.state.tourament.owner}>
-            {this.state.tourament.owner}
             <Card id="Card" bg="secondary" border="dark" text="white">
                 <Card.Body>
                     <Row>
@@ -41,7 +40,7 @@ export class InTournament extends Component {
                         </Col>
                     </Row>
                    
-                    <Button variant="warning">Stop traking Game</Button>{' '}
+                    <Button onClick={this.updateTournament} variant="warning">Stop traking Game</Button>{' '}
                     
                 </Card.Body>
             </Card>

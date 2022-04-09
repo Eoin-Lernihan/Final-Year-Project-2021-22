@@ -1,0 +1,117 @@
+@startuml
+!define COMMENT(x) <color:grey>x</color>
+interface   RequestStreamHandler   {
+ COMMENT(Interface for communicationswith AWSlambda )
+}
+interface   DaoCommonInterface{
+ COMMENT(Interface for Communicating with the DAO layer)
+}
+interface DBObjectMapper {
+ COMMENT(Interface for Communicating with the the Mapping layer )
+}
+
+
+class AdminsController  {
+ COMMENT(REST methods for AWS Lambda)
+}
+class TournamentsController {
+ COMMENT(REST methods for AWS Lambda)
+ COMMENT(Specific filtering)
+}
+class UserController  {
+ COMMENT(REST methods for AWS Lambda)
+}
+
+abstract class BaseController implements RequestStreamHandler{
+ COMMENT(Common Methods for )
+ COMMENT( "1. Extracting query and path params from input" )
+ COMMENT( "2. Interfacing with Dao"  )
+ COMMENT( "3. Constructing Response code, header etc")
+}
+
+together {
+   class AdminsController  
+   class TournamentsController 
+   class UserController  
+}
+
+class Headers{
+ COMMENT(CORS HTTP Response Headers)
+}
+
+AdminsController .left. Headers : uses
+TournamentsController .left. Headers : uses
+UserController .left. Headers : uses
+
+BaseController <|-- AdminsController
+BaseController <|-- TournamentsController
+BaseController <|-- UserController
+
+class Admin {
+ COMMENT(Model object for Admin Entity)
+}
+class Tournament{
+ COMMENT(Model object for TournamentEntity)
+}
+class User{
+ COMMENT(Model object for User Entity)
+}
+
+abstract class DBObject {}
+
+DBObject <|-down- Tournament
+DBObject <|-down- Admin 
+DBObject <|-down- User
+
+class AdminDao  {
+ COMMENT(Specific Methods for orchestraing)
+ COMMENT(interaction with DB for Admin)
+}
+class TournamentDao {
+ COMMENT(Specific Methods for orchestraing)
+ COMMENT(interaction with DB for Tournament)
+}
+class UserDao {
+ COMMENT(Specific Methods for orchestraing)
+ COMMENT(interaction with DB for User)
+}
+abstract class BaseDao{
+ COMMENT(Common Methods for )
+ COMMENT( "1. Has static connection to Mongodb for lambda performance" )
+ COMMENT( "1. Constructing mongodb filters" )
+ COMMENT( "2. Looping through cursor of retruend data"  )
+ COMMENT( "3. Handles the Mongodb interfacing for delete, updates and inserts")
+}
+
+class DBConnection{
+ COMMENT( "Creates Connection to MongoDB")
+}
+
+DaoCommonInterface <|..down.. AdminDao 
+DaoCommonInterface <|..down.. TournamentDao 
+DaoCommonInterface <|..down.. UserDao 
+
+BaseDao <|-left- TournamentDao
+BaseDao <|-left- AdminDao
+BaseDao <|-left- UserDao
+
+BaseDao -- DBConnection
+AdminsController -- DaoCommonInterface: uses
+TournamentsController -- DaoCommonInterface : uses
+UserController -- DaoCommonInterface: uses
+
+
+DBObjectMapper .up. TournamentDao
+DBObjectMapper .up. AdminDao
+DBObjectMapper .up. UserDao
+
+class AdminsMapper {}
+class TournamentsMapper {}
+class UserMapper{}
+
+DBObjectMapper <|..down.. AdminsMapper 
+DBObjectMapper <|..down.. TournamentsMapper  
+DBObjectMapper <|..down.. UserMapper 
+
+
+@enduml

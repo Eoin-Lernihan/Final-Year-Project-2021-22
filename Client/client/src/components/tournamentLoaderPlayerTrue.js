@@ -6,7 +6,6 @@ export class TournamentLoaderTrue extends Component {
     render() { return  this.props.tournamentsGamesTrue.map((touraments) => {
        return(
         <div>
-          /* Used employee as props name */
           <InTournament tourament={touraments} >
           </InTournament>
         </div>

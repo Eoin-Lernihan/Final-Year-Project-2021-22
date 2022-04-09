@@ -19,9 +19,9 @@ public class Tournament extends  DBObject {
 	private Integer duration;
 	private boolean isPublic;
 	private Integer numRounds;
+
 	public Tournament() {
-		//defualt constuctor
-		}
+	}
 	
 	public Tournament(String json) {
         Gson gson = new Gson();

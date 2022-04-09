@@ -14,7 +14,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
 
-import ie.gmit.sw.data.dao.AllObjectsGet;
+import ie.gmit.sw.data.dao.DaoCommonInterface;
 import ie.gmit.sw.data.dao.UserDao;
 import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.User;
@@ -28,7 +28,7 @@ import ie.gmit.sw.data.model.User;
 public class UserController extends BaseController implements RequestStreamHandler
 {
 	private static final String PATH_OR_QUERY_PARAM = "username";
-	AllObjectsGet userDao = new UserDao();
+	DaoCommonInterface userDao = new UserDao();
 
 	/**
 	 * Gets all user in the database and tranforms them by putting in a google json
@@ -92,6 +92,8 @@ public class UserController extends BaseController implements RequestStreamHandl
 		if  (responseJson==null) {
 			userDao.addOne(request);
 			responseJson = new JSONObject();
+			Headers headers = new Headers();
+			responseJson.put("headers", headers);
 			responseJson.put("statusCode",  201);	    	
 	    }
 		createOutPutStream(output, responseJson);

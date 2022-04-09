@@ -15,10 +15,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public abstract class BaseController {
+public abstract class BaseController implements RequestStreamHandler {
 
 	public BaseController() {
 		super();

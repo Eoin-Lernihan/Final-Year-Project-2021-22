@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ie.gmit.HelloTest" time="0.354" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ie.gmit.sw.data.dao.AdminDaoTest" time="1.513" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="14"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -55,5 +55,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="58.0"/>
   </properties>
-  <testcase name="test" classname="ie.gmit.HelloTest" time="0.35"/>
+  <testcase name="testgetOne" classname="ie.gmit.sw.data.dao.AdminDaoTest" time="0.873"/>
+  <testcase name="testAll" classname="ie.gmit.sw.data.dao.AdminDaoTest" time="0.186"/>
+  <testcase name="testUpdateOne" classname="ie.gmit.sw.data.dao.AdminDaoTest" time="0.226"/>
+  <testcase name="testCreateAndDeleteOne" classname="ie.gmit.sw.data.dao.AdminDaoTest" time="0.227"/>
 </testsuite>

@@ -1,5 +1,4 @@
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\controller\AdminsController.java
-C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\dao\AllObjectsGet.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\mapper\UserMapper.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\utily\DBObject.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\dao\UserDao.java
@@ -11,6 +10,7 @@ C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\jav
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\mapper\TournamentsMapper.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\controller\UserController.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\controller\TournamentsController.java
+C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\dao\DaoCommonInterface.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\dao\AdminDao.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\mapper\AdminsMapper.java
 C:\Users\eoinb\Desktop\Final-Year-Project-2021-22\aws-lambda-server\src\main\java\ie\gmit\sw\data\model\Admin.java

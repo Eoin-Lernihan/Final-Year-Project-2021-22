@@ -54,9 +54,9 @@ export class Create extends Component {
     }
 
       render() {
-        //if (this.state.accountCreated) {
-          //  return (<Redirect exact to="/" />);
-        //} else {
+        if (this.state.tournamentCreated) {
+            return (<Redirect exact to="/" />);
+        } else {
             return (
                 <div className="Signup topMargin">
                    
@@ -97,7 +97,7 @@ export class Create extends Component {
                     </div>
                 </div>
             );
-        //}
+        }
     }
 
     tournamentCreationFailedMessage() {

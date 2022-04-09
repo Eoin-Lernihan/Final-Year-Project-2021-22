@@ -114,8 +114,9 @@ public class BaseDao {
 	/**
 	 * https://www.java67.com/2019/12/how-to-convert-map-to-list-in-java-8.html
 	 * 1 means inculed other numbers means not included
+	 * @param isATourament 
 	 */
-	protected Bson createMongoDBFilter(Map<String, String> filters) {
+	protected Bson createMongoDBFilter(Map<String, String> filters, boolean isATourament) {
 
 		boolean excludeTouramentWherePlayerIsIn = true;
 		if (filters.containsKey("inGame")) {
@@ -131,7 +132,7 @@ public class BaseDao {
 			Bson filtereq = null;
 			if (entry.getKey().equalsIgnoreCase("number")) {
 				filtereq = eq("number", Integer.valueOf(entry.getValue()));
-			} else if (entry.getKey().equalsIgnoreCase("userName")) {
+			} else if ( (entry.getKey().equalsIgnoreCase("userName")) && (isATourament) ) {
 				if (excludePlayer) {
 					filtereq = ne("players", entry.getValue()) ;
 				} else {

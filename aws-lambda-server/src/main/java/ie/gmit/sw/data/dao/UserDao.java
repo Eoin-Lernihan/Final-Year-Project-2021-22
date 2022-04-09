@@ -33,7 +33,7 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
  * @author eoinb
  *
  */
-public class UserDao extends BaseDao implements AllObjectsGet {
+public class UserDao extends BaseDao implements DaoCommonInterface {
 	private static final String USER_TABLE_NAME = "users";
 	private DBObjectMapper usermap = new UserMapper();
 
@@ -47,7 +47,7 @@ public class UserDao extends BaseDao implements AllObjectsGet {
 
 	@Override
 	public List<Object> getOne(Map<String, String> filters) {
-		Bson filter = createMongoDBFilter(filters);
+		Bson filter = createMongoDBFilter(filters,  false);
 		
 		List<Object> users = getRowsForFilter(filter);
 		return users;
@@ -69,7 +69,7 @@ public class UserDao extends BaseDao implements AllObjectsGet {
 		User request = (User) request1;
 		MongoCollection<Document> collection = getCollection(USER_TABLE_NAME);
 
-		Bson filter = createMongoDBFilter(filters);
+		Bson filter = createMongoDBFilter(filters, false);
 		Bson updateOperation1 = set("userName", request.getUserName());
 		Bson updateOperation2 = set("firstName", request.getFirstName());
 		Bson updateOperation3 = set("emailName", request.getEmail());
@@ -90,55 +90,6 @@ public class UserDao extends BaseDao implements AllObjectsGet {
 	}
 
 	
-	/**
-	 * Mainly used for local testing
-	 * 
-	 * @param args
-	 */
-	// testing
-	public static void main(String[] args) {
-		AllObjectsGet hello = new UserDao();
-		hello.getAll().forEach(u -> System.out.println("getAll User"+u.toString()));
-		Map<String , String> filters = new HashMap<>();
-		filters.put("username", "GamingDude");
-		
-		hello.getOne(filters).forEach(u -> System.out.println("getOne User"+u.toString()));
-		User user = new User();
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setEmail("email");
-		user.setPhoneNumber("086-444444");
-		user.setUserName("username");
-		user.setPassword("passwordX");
-		hello.addOne(user);
-
-		 filters = new HashMap<>();
-		filters.put("username", "username");
-
-		List<Object> one = hello.getOne(filters);
-		List<User> users = one.stream().map(u -> (User) u ).collect(Collectors.toList());
-		users.forEach(u -> System.out.println("getOne password User"+u.toString()));
-		//needto tests update
-		User user1 = users.get(0);
-		user1.setFirstName("Tim");
-		 filters = new HashMap<>();
-		filters.put("username", user1.getUserName());
-		hello.updateOne(user1, filters );
-		 filters = new HashMap<>();
-		filters.put("username", "username");
-		filters.put("password", "passwordX");
-		
-		users = hello.getOne(filters).stream().map(u -> (User) u ).collect(Collectors.toList());
-		User tim = users.get(0);
-		System.out.println (tim.getFirstName() + "is nice but dim");
-		users.forEach(u -> System.out.println("After Update getOne User"+u.toString()));
-		hello.deleteOne(user1.getUserName());
-		users = hello.getOne(filters).stream().map(u -> (User) u ).collect(Collectors.toList());
-		users.forEach(u -> System.out.println("After delete getOne User"+u.toString()));
-		
-
-
-	}
 
 
 	

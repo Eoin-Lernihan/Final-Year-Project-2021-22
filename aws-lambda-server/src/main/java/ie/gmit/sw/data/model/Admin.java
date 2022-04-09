@@ -17,7 +17,6 @@ public class Admin extends DBObject{
 	
 
 	public Admin() {
-	//defualt constuctor
 	}
 	
 	public Admin(String json) {

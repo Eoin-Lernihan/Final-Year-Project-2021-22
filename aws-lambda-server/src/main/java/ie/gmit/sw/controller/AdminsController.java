@@ -16,15 +16,14 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
 
 import ie.gmit.sw.data.dao.AdminDao;
-import ie.gmit.sw.data.dao.AllObjectsGet;
+import ie.gmit.sw.data.dao.DaoCommonInterface;
 import ie.gmit.sw.data.mapper.AdminsMapper;
 import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.Admin;
-import ie.gmit.sw.data.model.User;
 
 public class AdminsController extends BaseController implements RequestStreamHandler {
 	private static final String PATH_OR_QUERY_PARAM = "adminId";
-	AllObjectsGet adminDao = new AdminDao();
+	DaoCommonInterface adminDao = new AdminDao();
 	
 
 	public static void main(String[] args) throws UnsupportedEncodingException, IOException {

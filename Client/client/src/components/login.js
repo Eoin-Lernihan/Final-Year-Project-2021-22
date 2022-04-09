@@ -15,7 +15,8 @@ export class Login extends Component {
         username: '',
         password: '',
         invalidLogin: false,
-        loginUser:  localStorage.getItem("user")
+        user: JSON.parse( localStorage.getItem("user")),
+
     }
 
     onSubmit = (event) => {
@@ -45,7 +46,7 @@ export class Login extends Component {
     
 
     render() {
-        if (this.state.loginUser != null) {
+        if (this.state.user != null) {
             return (<Redirect exact to="/" />);
         } else {
             return (
@@ -67,10 +68,6 @@ export class Login extends Component {
                         {this.incorrectLoginMessage()}
                     </div>
                     <div className="create">
-        <h3>create</h3>
-      <button theme="pink" onClick={this.getUser}>
-          demo button
-        </button>  
         </div>
                 </div>
                 

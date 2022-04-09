@@ -11,7 +11,7 @@ import com.mongodb.client.MongoCollection;
 
 import ie.gmit.sw.data.model.User;
 
-public interface AllObjectsGet {
+public interface DaoCommonInterface {
 
 
 	List<Object> getAll();
