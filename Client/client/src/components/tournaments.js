@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link, Redirect } from 'react-router-dom';
 import { TournamentLoaderFlase } from './tournamentLoaderPlayerFlase';
 
 export class Tournaments extends Component {
@@ -9,10 +10,12 @@ export class Tournaments extends Component {
     constructor() {
         super();
         this.ReloadData = this.ReloadData.bind(this);
+        
     }
 
     state = { tournamentsGamesTrue: [],
-              tournamentsGamesFlase: [] }
+              tournamentsGamesFlase: [],
+              loginUser:  localStorage.getItem("user") }
 
     ReloadData() {
         let user = JSON.parse( localStorage.getItem("user"));
@@ -33,8 +36,16 @@ export class Tournaments extends Component {
 
 
     componentDidMount() {
+        let userName =null;
         let user = JSON.parse( localStorage.getItem("user"));
-        let userName = user.userName;
+        if(user == null)
+        {
+             userName = null;
+        }
+        else{
+             userName = user.userName;
+        }
+       
         axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`, { params: {
             // username: this.state.username,
              userName: userName,
@@ -51,7 +62,10 @@ export class Tournaments extends Component {
 
     render(){
         
-        return (
+        if (this.state.loginUser == null) {
+            return (<Redirect exact to="/" />);
+        } else {
+            return (
             <div>
                 Check
                 <div>
@@ -62,9 +76,9 @@ export class Tournaments extends Component {
                 </div>
             </div>
                 );
+            }
     }
 
 
 
-    
-}
+}  
