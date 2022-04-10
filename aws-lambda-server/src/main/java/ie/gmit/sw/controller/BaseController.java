@@ -32,7 +32,7 @@ public abstract class BaseController implements RequestStreamHandler {
 		super();
 	}
 	/**
-	 * 
+	 * extracts a filter from the event defines by the queryParameterName and insert into the a filter map with a key of dbFieldName
 	 * @param event
 	 * @param responseJson
 	 * @param queryParameterName
@@ -52,7 +52,7 @@ public abstract class BaseController implements RequestStreamHandler {
 		return filters;
 	}
 	/**
-	 * 
+	 * Using the event in the input it extracts the filters and query the Database , returns the appropirate row (or error)  in responseJson
 	 * @param input
 	 * @param output
 	 * @param responseJson
@@ -81,7 +81,7 @@ public abstract class BaseController implements RequestStreamHandler {
 		createJsonResponse(output, response, responseJson);
 	}
 	/**
-	 * 
+	 * deletes a row as specified in the input by extract the query/path parameter , return any erros in theresponseJson 
 	 * @param input
 	 * @param output
 	 * @param responseJson
@@ -99,8 +99,8 @@ public abstract class BaseController implements RequestStreamHandler {
 			createJsonResponse(output, response, responseJson);
 		}
 	/**
-	 * 
-	 * @param input
+	 * General method for extracting a query/path parameters from the input stream, any errors return in responseJson
+	 * @param input 
 	 * @param responseJson
 	 * @param queryParameterName
 	 * @param dbFieldName
@@ -116,7 +116,7 @@ public abstract class BaseController implements RequestStreamHandler {
 	}
 
 	/**
-	 * 
+	 * Gernal method for extract the body from the input request as a string
 	 * @param event
 	 * @param responseJson
 	 * @return
@@ -126,7 +126,7 @@ public abstract class BaseController implements RequestStreamHandler {
 		return (String) event.get("body");
 	}
 	/**
-	 * 
+	 * Extracts from the Input stream a specific value for a  query/path Param
 	 * @param event
 	 * @param key
 	 * @param responseJson
@@ -140,7 +140,7 @@ public abstract class BaseController implements RequestStreamHandler {
 	
 	}
 	/**
-	 * 
+	 * 	 Extracts from the Input stream a specific value for a  query/path Param
 	 * @param key
 	 * @param event
 	 * @return
@@ -172,7 +172,7 @@ public abstract class BaseController implements RequestStreamHandler {
 		return value;
 	}
 	/**
-	 * 
+	 * convert the input stream into a Json object
 	 * @param input
 	 * @param responseJson
 	 * @return
@@ -197,7 +197,7 @@ public abstract class BaseController implements RequestStreamHandler {
 		return event;
 	}
 	/**
-	 * 
+	 * creates a Json response object given the return data and writes it to the output Stream.
 	 * @param output
 	 * @param all
 	 * @param responseJson
@@ -210,7 +210,7 @@ public abstract class BaseController implements RequestStreamHandler {
 				createOutPutStream(output, responseJson);
 			}
 	/**
-	 * 
+	 * creates a Json response object given the return data and writes it to the output Stream. 
 	 * @param output
 	 * @param responseJson
 	 * @throws UnsupportedEncodingException
@@ -244,7 +244,7 @@ public abstract class BaseController implements RequestStreamHandler {
 	
 	
 	/**
-	 * 
+	 * Creates a success response object 
 	 * @param responseJson
 	 * @param responseBody
 	 */

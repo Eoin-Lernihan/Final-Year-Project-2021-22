@@ -39,6 +39,9 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 	private DBObjectMapper usermap = new UserMapper();
 
 	@Override
+	/**
+	 * method to get all User rows in the Database 
+	 */
 	public List<Object> getAll() {
 
 		List<Object> users = getRowsForFilter(null);
@@ -47,6 +50,9 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 
 
 	@Override
+	/**
+	 * Returns a list of Users from thedatabase normally usedfor getting one 
+	 */
 	public List<Object> getOne(Map<String, String> filters) {
 		Bson filter = createMongoDBFilter(filters,  false);
 		
@@ -56,6 +62,9 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 
 
 	@Override
+	/**
+	 * Adds one User to the database
+	 */
 	public void addOne(Object request1) {
 		User request = (User) request1;
 		MongoCollection<Document> collection = getCollection(USER_TABLE_NAME);
@@ -85,7 +94,7 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 	}
 
 	/**
-	 * 
+	 * 	gets all User matching the Filter
 	 * @param filter
 	 * @return
 	 */
@@ -102,6 +111,10 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 
 	
 	@Override
+	/**
+	 * Deletes one User from the Database
+	 * @param number
+	 */
 	public void deleteOne(String username) {
 			MongoCollection<Document> collection = getCollection(USER_TABLE_NAME);
 

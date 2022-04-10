@@ -108,7 +108,7 @@ public class TournamentsController extends BaseController {
 		}
 
 		/**
-		 * 
+		 * extracts the request body and creates a tournamet object
 		 * @param event
 		 * @param responseJson
 		 * @return

@@ -40,6 +40,8 @@ public class TournamentsDao extends BaseDao implements DaoCommonInterface {
 
 	@Override
 	/**
+	 * Returns a list of Tournaments from the database normally used for getting one,  
+	 *
 	 * @param filters map
 	 */
 	public List<Object> getOne(Map<String, String> filters) {

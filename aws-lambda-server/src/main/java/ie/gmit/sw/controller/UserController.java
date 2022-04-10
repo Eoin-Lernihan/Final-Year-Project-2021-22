@@ -129,7 +129,12 @@ public class UserController extends BaseController implements RequestStreamHandl
 		createOutPutStream(output, responseJson);
 	}
 
-
+	/**
+	 * 		 * extracts the request body and creates a user object
+	 * @param event
+	 * @param responseJson
+	 * @return
+	 */
 	private User extractUserFromInput(JSONObject event, JSONObject responseJson) {
 		String body = setupExtractInputPayload(event, responseJson);
 	    Gson gson = new Gson();

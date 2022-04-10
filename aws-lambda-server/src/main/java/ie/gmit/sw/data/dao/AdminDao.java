@@ -33,7 +33,9 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 	private DBObjectMapper adminMap = new AdminsMapper();
 	
 	@Override
-	
+	/**
+	 * method to get all User rows in the Database 
+	 */
 	public List<Object> getAll() {
 
 		List<Object> admins = getRowsForFilter(null);
@@ -42,6 +44,9 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 
 	
 	@Override
+	/**
+	 * Returns a list of Admin from the database normally used for getting one,  
+	 */
 	public List<Object> getOne(Map<String, String> filters) {
 
 		Bson filter = createMongoDBFilter(filters, false);
@@ -50,6 +55,9 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 	}
 
 	@Override
+	/**
+	 * Adds one Admin to the database
+	 */
 	public void addOne(Object request1) {
 		Admin request = (Admin) request1;
 		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
@@ -61,7 +69,7 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 
 	@Override
 	/**
-	 * 
+	 * Updates an existing Admin the database 
 	 */
 	public void updateOne(Object request1, Map<String, String> filters) {
 		Admin request = (Admin) request1;
@@ -82,7 +90,7 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 	}
 
 	/**
-	 * 
+	 * gets all Rows For Filter
 	 * @param filter
 	 * @return
 	 */
@@ -99,6 +107,7 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 
 	@Override
 	/**
+	 * Deletes one Admin from the Database
 	 * @param number
 	 */
 	public void deleteOne(Integer number) {
