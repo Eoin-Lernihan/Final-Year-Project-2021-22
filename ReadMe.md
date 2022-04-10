@@ -62,4 +62,10 @@ https://learntocodewith.me/posts/serverless-architecture/
 project goals 
 To see the difference between serverless and a traditional server especially for smaller business who might not be able to afford a server or do not need 1 running 24/7
 
-Designs
+How to run on your pc
+1.Clone project down or do the nessessary step to download and unzip the project
+2.Open  the client folder in visual studio code. This Client folder is inside the Final-Year-Project-2021-22 and contains Client folder
+3.Open up a terimal in visual studio code
+4. Do a npm install and wait to install
+5. Do a npm start and wait for it to start up
+6. Now you should see the home on local host 3000
