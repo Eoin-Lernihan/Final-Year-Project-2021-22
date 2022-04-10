@@ -18,13 +18,27 @@ import org.json.simple.parser.ParseException;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+/**
+ * Common Methods for 
+ 	1. Extracting query and path params from input"
+ 	2. Interfacing with Dao"
+ 	3. Constructing Response code, header etc
+ * @author eoinb
+ *
+ */
 public abstract class BaseController implements RequestStreamHandler {
 
 	public BaseController() {
 		super();
 	}
-	
+	/**
+	 * 
+	 * @param event
+	 * @param responseJson
+	 * @param queryParameterName
+	 * @param dbFieldName
+	 * @return
+	 */
 	protected Map<String, String> extractFilters(JSONObject event,  JSONObject responseJson, String queryParameterName, String dbFieldName) {
 		String collectionFillter = setupExtractInputDataQueryParam(event, queryParameterName, responseJson);
 		Map<String, String> filters = new HashMap<>();
@@ -37,7 +51,16 @@ public abstract class BaseController implements RequestStreamHandler {
 		filters.put(queryParameterName, collectionFillter);
 		return filters;
 	}
-
+	/**
+	 * 
+	 * @param input
+	 * @param output
+	 * @param responseJson
+	 * @param queryParameterName
+	 * @param dbFieldName
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
 	protected void findOneValueinDAO(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName, String dbFieldName)
 		throws UnsupportedEncodingException, IOException {
 		Map<String, String> filters = getQueryAndPathParams(input, responseJson, queryParameterName, dbFieldName);
@@ -57,7 +80,16 @@ public abstract class BaseController implements RequestStreamHandler {
 		
 		createJsonResponse(output, response, responseJson);
 	}
-	
+	/**
+	 * 
+	 * @param input
+	 * @param output
+	 * @param responseJson
+	 * @param queryParameterName
+	 * @param dbFieldName
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
 	protected void deleteOneInDao(InputStream input, OutputStream output, JSONObject responseJson, String queryParameterName, String dbFieldName)
 			throws UnsupportedEncodingException, IOException {
 			Map<String, String> filters = getQueryAndPathParams(input, responseJson, queryParameterName, dbFieldName);
@@ -66,7 +98,14 @@ public abstract class BaseController implements RequestStreamHandler {
 			
 			createJsonResponse(output, response, responseJson);
 		}
-
+	/**
+	 * 
+	 * @param input
+	 * @param responseJson
+	 * @param queryParameterName
+	 * @param dbFieldName
+	 * @return
+	 */
 	protected Map<String, String> getQueryAndPathParams(InputStream input, JSONObject responseJson,
 			String queryParameterName, String dbFieldName) {
 		JSONObject event = extractInputData(input, responseJson);
@@ -76,12 +115,23 @@ public abstract class BaseController implements RequestStreamHandler {
 		return filters;
 	}
 
-	
+	/**
+	 * 
+	 * @param event
+	 * @param responseJson
+	 * @return
+	 */
 	protected String setupExtractInputPayload(JSONObject event, JSONObject responseJson) {
 	
 		return (String) event.get("body");
 	}
-
+	/**
+	 * 
+	 * @param event
+	 * @param key
+	 * @param responseJson
+	 * @return
+	 */
 	private String setupExtractInputDataQueryParam( JSONObject event, String key, JSONObject responseJson ) {
 		if (responseJson != null) {
 			return null;
@@ -89,7 +139,12 @@ public abstract class BaseController implements RequestStreamHandler {
 		return extractPramsFormPathOrQuarry(key, event);
 	
 	}
-
+	/**
+	 * 
+	 * @param key
+	 * @param event
+	 * @return
+	 */
 	protected String extractPramsFormPathOrQuarry(String key, JSONObject event) {
 		JSONObject responseJson;
 		String value = null;
@@ -116,7 +171,12 @@ public abstract class BaseController implements RequestStreamHandler {
 		}
 		return value;
 	}
-
+	/**
+	 * 
+	 * @param input
+	 * @param responseJson
+	 * @return
+	 */
 	protected JSONObject extractInputData(InputStream input, JSONObject responseJson) {
 		JSONObject event = null;
 		JSONParser parser = new JSONParser();
@@ -136,13 +196,26 @@ public abstract class BaseController implements RequestStreamHandler {
 		System.out.println("event " + event);
 		return event;
 	}
-
+	/**
+	 * 
+	 * @param output
+	 * @param all
+	 * @param responseJson
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
 	protected void createJsonResponse(OutputStream output, Object all, JSONObject responseJson)
 			throws UnsupportedEncodingException, IOException {
 				responseJson = getResposeAsJson(all, responseJson);
 				createOutPutStream(output, responseJson);
 			}
-
+	/**
+	 * 
+	 * @param output
+	 * @param responseJson
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
 	protected void createOutPutStream(OutputStream output, JSONObject responseJson)
 			throws UnsupportedEncodingException, IOException {
 		OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
@@ -170,7 +243,11 @@ public abstract class BaseController implements RequestStreamHandler {
 	}
 	
 	
-
+	/**
+	 * 
+	 * @param responseJson
+	 * @param responseBody
+	 */
 	private void successResponseProxy(JSONObject responseJson, JSONObject responseBody) {
 		responseJson.put("headers", new Headers());
 		responseJson.put("body", responseBody.toString());

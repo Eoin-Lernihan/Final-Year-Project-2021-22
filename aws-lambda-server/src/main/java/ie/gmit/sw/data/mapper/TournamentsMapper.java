@@ -10,7 +10,11 @@ import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
-
+/**
+ * Maps Tournamnets
+ * @author eoinb
+ *
+ */
 public class TournamentsMapper implements DBObjectMapper {
 
 	public static final String PUBLIC = "public";
@@ -25,7 +29,9 @@ public class TournamentsMapper implements DBObjectMapper {
 	public static final String GAME = "game";
 	public static final String OWNER = "owner";
 
-
+/**
+ * 
+ */
 	public void populateEnity(List<DBObject> tournamentsList, Document returnData) {
 	
 		Tournament tournament = new Tournament();
@@ -46,6 +52,9 @@ public class TournamentsMapper implements DBObjectMapper {
 	
 	
 	@Override
+	/**
+	 * 
+	 */
 	public Document formater(Tournament reqTournaments) {
 		Document a;
 		a = new Document("_id", new ObjectId());

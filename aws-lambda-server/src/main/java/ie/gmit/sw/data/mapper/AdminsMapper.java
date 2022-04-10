@@ -10,7 +10,11 @@ import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
-
+/**
+ * Maps admins
+ * @author eoinb
+ *
+ */
 public class AdminsMapper implements DBObjectMapper {
 	public static final String NUMBER = "number";
 	public static final String GAMES_RUNNING = "gamesRunning";

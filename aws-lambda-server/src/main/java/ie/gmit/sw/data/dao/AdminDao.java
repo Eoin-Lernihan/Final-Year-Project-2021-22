@@ -20,6 +20,8 @@ import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
 
 /**
+ * Specific Methods for orchestraing
+ *  interaction with DB for Admin
  * https://stackoverflow.com/questions/44878605/mongodb-basicdbobject-vs-document-in-java
  * https://github.com/mongodb-developer/java-quick-start/blob/master/src/main/java/com/mongodb/quickstart/Update.java
  * 
@@ -29,8 +31,9 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
 public class AdminDao extends BaseDao implements DaoCommonInterface {
 	private static final String ADMIN_TABLE_NAME = "admins";
 	private DBObjectMapper adminMap = new AdminsMapper();
-
+	
 	@Override
+	
 	public List<Object> getAll() {
 
 		List<Object> admins = getRowsForFilter(null);
@@ -55,8 +58,11 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 	}
 
 
-	
+
 	@Override
+	/**
+	 * 
+	 */
 	public void updateOne(Object request1, Map<String, String> filters) {
 		Admin request = (Admin) request1;
 		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
@@ -75,7 +81,11 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 
 	}
 
-	
+	/**
+	 * 
+	 * @param filter
+	 * @return
+	 */
 	private List<Object> getRowsForFilter(Bson filter) {
 		MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 		List<DBObject> adminlist = new ArrayList<>();
@@ -88,6 +98,9 @@ public class AdminDao extends BaseDao implements DaoCommonInterface {
 
 
 	@Override
+	/**
+	 * @param number
+	 */
 	public void deleteOne(Integer number) {
 			MongoCollection<Document> collection = getCollection(ADMIN_TABLE_NAME);
 

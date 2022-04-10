@@ -9,6 +9,7 @@ import logo from './assest/CardsGames.png';
 import magic from './assest/Magic.png';
 // used https://www.npmjs.com/package/react-responsive-carousel
 export class Home extends Component{
+  //Simple home page 
 render(){
   return (
     <div className="home" >

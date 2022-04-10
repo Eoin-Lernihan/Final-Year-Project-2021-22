@@ -5,7 +5,11 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import ie.gmit.sw.data.utily.DBObject;
-
+/**
+ * Model object for Admin Entity
+ * @author eoinb
+ *
+ */
 public class Admin extends DBObject{
 	private Integer number;
 	private String username;
@@ -18,7 +22,10 @@ public class Admin extends DBObject{
 
 	public Admin() {
 	}
-	
+	/**
+	 * Sets admins model
+	 * @param json
+	 */
 	public Admin(String json) {
         Gson gson = new Gson();
         Admin request = gson.fromJson(json, Admin.class);

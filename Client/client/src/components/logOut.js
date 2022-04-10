@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 
 export class LogOut extends Component {
-
+//A final in conformation if the player wants to sign out
 render() {
          return (
              <div className="Login topMargin">

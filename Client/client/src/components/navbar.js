@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Home } from './home';
+import { Home } from './Home';
 import { Create } from './create';
 import { Login } from './login';
 import { SignUp } from './signUp';
@@ -24,7 +24,7 @@ export class NavigationBar extends Component {
             this.props.handleLogout();
         }
     }
-
+//A navbar that appears on every page and call each major page
     render() {
         return (
             <div className="NavigationBar">
@@ -63,7 +63,6 @@ export class NavigationBar extends Component {
                              render={() => (
                                  <Login onLogin={this.props.handleLogin} username={this.props.username} />
                         )}
-                            //path="/login" component={Login} exact
                             >
                         </Route>
                        
@@ -74,6 +73,7 @@ export class NavigationBar extends Component {
             
         );
     }
+    //checks a to see if the user is logged in or not ti display differnet links 
     LoggedInOrNot() {
         if (this.state.loginUser != null) {
             return (
@@ -86,7 +86,7 @@ export class NavigationBar extends Component {
             return (
                 <Nav>
                     <Nav.Link href="/login" >Login</Nav.Link>
-                    <Nav.Link href="/signUp" >Sing Up</Nav.Link>
+                    <Nav.Link href="/signUp" >Sign Up</Nav.Link>
                 </Nav>
             );
         }

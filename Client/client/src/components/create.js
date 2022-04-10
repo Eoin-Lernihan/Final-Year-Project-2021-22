@@ -52,7 +52,7 @@ export class Create extends Component {
             console.log(error);
         });
     }
-
+//Render a Tournament create screen for the user if logged in 
       render() {
         if (this.state.tournamentCreated) {
             return (<Redirect exact to="/" />);

@@ -22,20 +22,26 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
 /**
  * https://stackoverflow.com/questions/44878605/mongodb-basicdbobject-vs-document-in-java
  * https://github.com/mongodb-developer/java-quick-start/blob/master/src/main/java/com/mongodb/quickstart/Update.java
- * 
+ * Specific Methods for orchestraing
+ * interaction with DB for Tournament
  * @author eoinb
  *
  */
 public class TournamentsDao extends BaseDao implements DaoCommonInterface {
 	private static final String TOURNAMENTS_TABLE_NAME = "Games";
 	private DBObjectMapper tournamentMap = new TournamentsMapper();
-
+	/**
+	 * gets all form tournaments
+	 */
 	public List<Object> getAll() {
 		List<Object> tournamentLists = getRowsForFilter(null);
 		return tournamentLists;
 	}
 
 	@Override
+	/**
+	 * @param filters map
+	 */
 	public List<Object> getOne(Map<String, String> filters) {
 
 		Bson filter = createMongoDBFilter(filters, true);
@@ -45,6 +51,10 @@ public class TournamentsDao extends BaseDao implements DaoCommonInterface {
 	}
 
 	@Override
+	/**
+	 * adds a new object to the database
+	 * @param request1
+	 */
 	public void addOne(Object request1) {
 		Tournament request = (Tournament) request1;
 		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
@@ -52,6 +62,9 @@ public class TournamentsDao extends BaseDao implements DaoCommonInterface {
 	}
 
 	@Override
+	/**
+	 * Updates an existing tournament in the database
+	 */
 	public void updateOne(Object request1, Map<String, String> filters) {
 		Tournament request = (Tournament) request1;
 		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
@@ -74,7 +87,11 @@ public class TournamentsDao extends BaseDao implements DaoCommonInterface {
 		updateOneInMongoDB(collection, filter, updates);
 
 	}
-
+	/**
+	 * 
+	 * @param filter
+	 * @return
+	 */
 	private List<Object> getRowsForFilter(Bson filter) {
 		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
 		List<DBObject> adminlist = new ArrayList<>();
@@ -84,6 +101,9 @@ public class TournamentsDao extends BaseDao implements DaoCommonInterface {
 	}
 
 	@Override
+	/**
+	 * @params number
+	 */
 	public void deleteOne(Integer number) {
 		MongoCollection<Document> collection = getCollection(TOURNAMENTS_TABLE_NAME);
 

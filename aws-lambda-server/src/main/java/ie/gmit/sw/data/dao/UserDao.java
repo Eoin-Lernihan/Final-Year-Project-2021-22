@@ -29,7 +29,8 @@ import ie.gmit.sw.data.utily.DBObjectMapper;
 /**
  * https://stackoverflow.com/questions/44878605/mongodb-basicdbobject-vs-document-in-java
  * https://github.com/mongodb-developer/java-quick-start/blob/master/src/main/java/com/mongodb/quickstart/Update.java
- * 
+ * Specific Methods for orchestraing
+ * interaction with DB for User
  * @author eoinb
  *
  */
@@ -65,6 +66,9 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 
 	
 	@Override
+	/**
+	 * Updates an existing user in the database
+	 */
 	public void updateOne(Object request1, Map<String, String> filters) {
 		User request = (User) request1;
 		MongoCollection<Document> collection = getCollection(USER_TABLE_NAME);
@@ -80,7 +84,11 @@ public class UserDao extends BaseDao implements DaoCommonInterface {
 
 	}
 
-	
+	/**
+	 * 
+	 * @param filter
+	 * @return
+	 */
 	private List<Object> getRowsForFilter(Bson filter) {
 		MongoCollection<Document> collection = getCollection(USER_TABLE_NAME);
 		List<DBObject> userlist = new ArrayList<>();

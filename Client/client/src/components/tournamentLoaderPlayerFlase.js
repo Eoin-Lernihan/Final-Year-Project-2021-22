@@ -7,7 +7,7 @@ export class TournamentLoaderFlase extends Component {
        
             return(
             <div>
-              <OneTouramentJoin tourament={touraments} >
+              <OneTouramentJoin tourament={touraments} ReloadData={this.props.ReloadData}  >
                   </OneTouramentJoin>
             </div>
             )

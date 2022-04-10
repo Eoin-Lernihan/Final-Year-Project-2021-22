@@ -15,10 +15,10 @@ export class OneTouramentJoin extends Component {
       }
       state = this.props 
       
-
+    //
     render()  { 
-//       let stateString = JSON.stringify(this.state)
-//       console.log("here in render"+ stateString)
+       let stateString = JSON.stringify(this.props)
+      console.log("here in render"+stateString )
         let user = JSON.parse( localStorage.getItem("user"));
         let userName = user.userName;
         this.state.tourament.players.indexOf(userName) === -1 ? this.state.tourament.players.push(userName) : console.log("This item already exists");
@@ -56,8 +56,8 @@ export class OneTouramentJoin extends Component {
        let stateString = JSON.stringify(this.state)
        console.log("here in render"+ stateString)
 
-        axios.put('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/tourament/' + this.state.tourament.game, {
-            number: this.state.tourament.number,
+        axios.put('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments/' + this.state.tourament.number, {
+        number: this.state.tourament.number,
         userName: this.state.tourament.game,
         gameMode: this.state.tourament.gameMode,
         owner: this.state.tourament.owner,
@@ -72,5 +72,7 @@ export class OneTouramentJoin extends Component {
                 console.log(err);
             });
     }
+
+
 }
 

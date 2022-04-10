@@ -20,7 +20,11 @@ import ie.gmit.sw.data.dao.DaoCommonInterface;
 import ie.gmit.sw.data.mapper.AdminsMapper;
 import ie.gmit.sw.data.mapper.UserMapper;
 import ie.gmit.sw.data.model.Admin;
-
+/**
+ * REST methods for AWS Lambda
+ * @author eoinb
+ *
+ */
 public class AdminsController extends BaseController implements RequestStreamHandler {
 	private static final String PATH_OR_QUERY_PARAM = "adminId";
 	DaoCommonInterface adminDao = new AdminDao();

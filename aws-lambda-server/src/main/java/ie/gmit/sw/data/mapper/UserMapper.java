@@ -10,7 +10,11 @@ import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
-
+/**
+ * Maps user
+ * @author eoinb
+ *
+ */
 public class UserMapper implements DBObjectMapper {
 	
 	public static final String LAST_NAME = "lastName";

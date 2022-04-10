@@ -6,7 +6,11 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import ie.gmit.sw.data.utily.DBObject;
-
+/**
+ * Model object for TournamentEntity
+ * @author eoinb
+ *
+ */
 public class Tournament extends  DBObject {
 	private String owner;
 	private String game;

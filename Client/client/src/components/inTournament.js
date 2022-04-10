@@ -54,8 +54,8 @@ export class InTournament extends Component {
        let stateString = JSON.stringify(this.state)
        console.log("here in render"+ stateString)
 
-        axios.put('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/tourament/' + this.state.tourament.game, {
-            number: this.state.tourament.number,
+       axios.put('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments/' + this.state.tourament.number, {
+        number: this.state.tourament.number,
         userName: this.state.tourament.game,
         gameMode: this.state.tourament.gameMode,
         owner: this.state.tourament.owner,

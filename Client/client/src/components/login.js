@@ -18,7 +18,7 @@ export class Login extends Component {
         user: JSON.parse( localStorage.getItem("user")),
 
     }
-
+    //When the button is pressed send the username and password into the backend
     onSubmit = (event) => {
         
         let concetion = `https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user/${this.state.username}`;
@@ -44,7 +44,7 @@ export class Login extends Component {
     }
 
     
-
+    //A login screen for the user and a link incase someone needs to sign up
     render() {
         if (this.state.user != null) {
             return (<Redirect exact to="/" />);
@@ -74,7 +74,7 @@ export class Login extends Component {
             );
         }
     }
-
+//If The username or password was incorrect or does not exist
     incorrectLoginMessage() {
         if (this.state.invalidLogin) {
             return (
@@ -92,18 +92,4 @@ export class Login extends Component {
     onChangePassword(e) { this.setState({ password: e.target.value }); }
     // #endregion
 
-    getUser() {
-
-        
-        //
-       // axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/userhttps://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/user`)
-       axios.get('https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/admin')  
-       .then(response => {
-                    console.log(response.data);
-                      alert(response.data);
-                  })
-                  .catch(error => {
-                      console.log(error);
-                  });
-                }
 }

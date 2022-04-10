@@ -16,7 +16,13 @@ import ie.gmit.sw.data.dao.DaoCommonInterface;
 import ie.gmit.sw.data.dao.TournamentsDao;
 import ie.gmit.sw.data.mapper.TournamentsMapper;
 import ie.gmit.sw.data.model.Tournament;
-
+/**
+ * REST methods for AWS Lambda
+ * Specific filtering
+}
+ * @author eoinb
+ *
+ */
 public class TournamentsController extends BaseController {
 	private static final String PATH_OR_QUERY_PARAM = "touramentId";
 	DaoCommonInterface tournamentsDao = new TournamentsDao();
@@ -101,7 +107,12 @@ public class TournamentsController extends BaseController {
 			createOutPutStream(output, responseJson);
 		}
 
-
+		/**
+		 * 
+		 * @param event
+		 * @param responseJson
+		 * @return
+		 */
 		private Tournament extractTournmantFromInput(JSONObject event, JSONObject responseJson) {
 			String body = setupExtractInputPayload(event, responseJson);
 		    Gson gson = new Gson();

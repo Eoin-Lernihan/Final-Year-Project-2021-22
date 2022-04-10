@@ -10,7 +10,11 @@ import org.bson.json.JsonWriterSettings;
 import com.mongodb.client.MongoCollection;
 
 import ie.gmit.sw.data.model.User;
-
+/**
+ * Interface for Communicating with the DAO layer
+ * @author eoinb
+ *
+ */
 public interface DaoCommonInterface {
 
 

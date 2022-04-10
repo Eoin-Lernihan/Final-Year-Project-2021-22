@@ -26,7 +26,16 @@ import ie.gmit.sw.data.mapper.TournamentsMapper;
 import ie.gmit.sw.data.utily.DBConnection;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
-
+/**
+ *Common Methods for 
+ * 1. Has static connection to Mongodb for lambda performance
+ * 1. Constructing mongodb filters
+ * 2. Looping through cursor of retruend data"
+ * 3. Handles the Mongodb interfacing for delete, updates and inserts
+}
+ * @author eoinb
+ *
+ */
 public class BaseDao {
 
 	JsonWriterSettings prettyPrint = JsonWriterSettings.builder().indent(true).build();
@@ -38,7 +47,12 @@ public class BaseDao {
 	public BaseDao() {
 		super();
 	}
-
+/**
+ * 
+ * @param collection
+ * @param query
+ * @param updateDocument
+ */
 	protected void updateCollection(MongoCollection<Document> collection, BasicDBObject query,
 			BasicDBObject updateDocument) {
 		BasicDBObject updateObject = new BasicDBObject();
@@ -46,27 +60,48 @@ public class BaseDao {
 
 		collection.updateOne(query, updateObject);
 	}
-
+/**
+ * 
+ * @param collectionName
+ * @return
+ */
 	protected MongoCollection<Document> getCollection(String collectionName) {
 		MongoDatabase database = mongoClient.getDatabase("Names");
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		return collection;
 	}
-
+/**
+ * Closes the Connection
+ */
 	protected void closeConnection() {
 		connection.closeDB(mongoClient);
 	}
-
+/**
+ * Updates one in the mongo database
+ * @param collection
+ * @param filter
+ * @param updates
+ */
 	public void updateOneInMongoDB(MongoCollection<Document> collection, Bson filter, Bson updates) {
 		UpdateResult updateResult = collection.updateOne(filter, updates);
 		System.out.println(updateResult);
 	}
-
+/**
+ * Deletes one in the mongo database
+ * @param collection
+ * @param filter
+ */
 	public void deleteOneInMongoDB(MongoCollection<Document> collection, Bson filter) {
 		DeleteResult deleteResult = collection.deleteOne(filter);
 		System.out.println(deleteResult);
 	}
-
+/**
+ * 
+ * @param collection
+ * @param userlist
+ * @param usermap
+ * @param filter
+ */
 	public void getRows(MongoCollection<Document> collection, List<DBObject> userlist, DBObjectMapper usermap,
 			Bson filter) {
 
@@ -76,13 +111,23 @@ public class BaseDao {
 			getWithFillter(userlist, usermap, collection, filter);
 		}
 	}
-
+/**
+ * gets mongo database
+ * @param userlist
+ * @param usermap
+ * @param col
+ */
 	private void getMongoDB(List<DBObject> userlist, DBObjectMapper usermap, MongoCollection<Document> col) {
 		Document returnData;
 		FindIterable<Document> fi = col.find();
 		extractObjectFormMongoCollection(userlist, usermap, fi);
 	}
-
+/**
+ * 
+ * @param userlist
+ * @param usermap
+ * @param fi
+ */
 	private void extractObjectFormMongoCollection(List<DBObject> userlist, DBObjectMapper usermap,
 			FindIterable<Document> fi) {
 		Document returnData;
@@ -98,7 +143,13 @@ public class BaseDao {
 			cursor.close();
 		}
 	}
-
+/**
+ * Get an object with fillters
+ * @param userlist
+ * @param usermap
+ * @param col
+ * @param filter
+ */
 	private void getWithFillter(List<DBObject> userlist, DBObjectMapper usermap, MongoCollection<Document> col,
 			Bson filter) {
 		FindIterable<Document> finder = col.find(filter);
@@ -125,6 +176,16 @@ public class BaseDao {
 			}
 			filters.remove("inGame");
 		}
+		if (filters.containsKey("touramentId")) {
+			filters.remove("touramentId");
+		}
+		/*
+		 * To prevent caching on the browser
+		 */
+		if (filters.containsKey("dateAt")) {
+			filters.remove("dateAt");
+		}
+		
 		//for stream as variable need to ne finalk
 		final boolean  excludePlayer = excludeTouramentWherePlayerIsIn;
 

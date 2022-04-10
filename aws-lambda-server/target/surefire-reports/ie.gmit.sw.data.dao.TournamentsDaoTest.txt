@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ie.gmit.sw.data.dao.TournamentsDaoTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.174 s - in ie.gmit.sw.data.dao.TournamentsDaoTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.111 s - in ie.gmit.sw.data.dao.TournamentsDaoTest

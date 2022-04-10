@@ -13,8 +13,8 @@ export class Tournaments extends Component {
         
     }
 
-    state = { tournamentsGamesTrue: [],
-              tournamentsGamesFlase: [],
+    state = { tournamentsGamesFlase: [],
+              id : 1,
               loginUser:  localStorage.getItem("user") }
 
     ReloadData() {
@@ -23,10 +23,15 @@ export class Tournaments extends Component {
             axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`, { params: {
                 username: userName,
                // userName: this.state.password,
-                inGame: '0'
+                inGame: '0',
+                dateAt : Date.now() 
             }})
             .then(response => {
+                console.log("setting the state")
+                console.log(response.data.tournaments)
+                console.log("Finished the state")
                 this.setState({ tournamentsGamesFlase: response.data.tournaments });
+                this.setState({ id: this.state.id++});
             })
             .catch(error => {
                 console.log(error);
@@ -45,7 +50,13 @@ export class Tournaments extends Component {
         else{
              userName = user.userName;
         }
-       
+/*       
+        axios.defaults.headers = {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          };
+          */
         axios.get(`https://cjh1f85qo9.execute-api.us-east-2.amazonaws.com/Develop/touraments`, { params: {
             // username: this.state.username,
              userName: userName,
@@ -71,7 +82,7 @@ export class Tournaments extends Component {
                 <div>
                 All Games Avilable
                     <TournamentLoaderFlase
-                        tournamentsGamesFlase={this.state.tournamentsGamesFlase} >
+                        tournamentsGamesFlase={this.state.tournamentsGamesFlase} ReloadData={this.ReloadData}  >
                     </TournamentLoaderFlase>
                 </div>
             </div>

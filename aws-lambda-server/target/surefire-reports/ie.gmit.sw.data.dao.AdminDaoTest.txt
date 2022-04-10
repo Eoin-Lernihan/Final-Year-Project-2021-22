@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ie.gmit.sw.data.dao.AdminDaoTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.513 s - in ie.gmit.sw.data.dao.AdminDaoTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.402 s - in ie.gmit.sw.data.dao.AdminDaoTest

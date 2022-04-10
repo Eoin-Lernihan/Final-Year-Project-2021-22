@@ -4,7 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import ie.gmit.sw.data.utily.DBObject;
-
+/**
+ * Model object for User Entity
+ * @author eoinb
+ *
+ */
 public class User extends DBObject  {
 	private String firstName;
 	private String lastName;
