@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
  */
 public abstract class  DBObject {
 	/**
-	 * 
+	 * used to ensure that the body response has a json structure with escaped quotes 
 	 */
 	public String toString() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

@@ -14,7 +14,7 @@ import com.mongodb.client.MongoClients;
 public class DBConnection {
 	/**
 	 * 
-	 * @return
+	 * @return a connection to MongoDB
 	 */
 	public MongoClient getDBConection() {
 		ConnectionString connectionString = new ConnectionString("mongodb+srv://user1:bV7hIKFPvWxZqlB8@serverlessinstance0.dgmiv.mongodb.net/ServerlessInstance0?retryWrites=true&w=majority&authSource=admin");
@@ -29,7 +29,7 @@ public class DBConnection {
 	}
 	
 	/**
-	 * Close concetion with mongodb
+	 * Close connection with mongodb
 	 * @param mongoClient
 	 */
 	public void closeDB(MongoClient mongoClient) {

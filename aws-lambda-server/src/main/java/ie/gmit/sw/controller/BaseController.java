@@ -256,9 +256,6 @@ public abstract class BaseController implements RequestStreamHandler {
 
 	protected  abstract String getResources();
 
-	private Gson createGson() {
-		return new GsonBuilder().disableHtmlEscaping().create();
-	} 
 	
 	protected abstract List<Object> getAll(); 
 

@@ -40,16 +40,15 @@ public class AdminsMapper implements DBObjectMapper {
 	@Override
 	
 	public Document formater(Admin reqAdmin) {
-		Document a;
-		a = new Document("_id", new ObjectId());
-	a.append(NUMBER, reqAdmin.getNumber());
-	a.append(COMPANY_USERNAME, reqAdmin.getUsername())
-	.append(COMPANY_EMAIL, reqAdmin.getEmail())
-	.append(COMPANY_NAME, reqAdmin.getName())
-	.append(COMPANY_PHONE_NUMBER, reqAdmin.getPhoneNumber())
-	.append(COMPANY_PASSWORD, reqAdmin.getPassword())
-	.append(GAMES_RUNNING, reqAdmin.getGamesRunning());
-	return a;
+		Document newDocument = new Document("_id", new ObjectId());
+		newDocument.append(NUMBER, reqAdmin.getNumber());
+		newDocument.append(COMPANY_USERNAME, reqAdmin.getUsername())
+			.append(COMPANY_EMAIL, reqAdmin.getEmail())
+			.append(COMPANY_NAME, reqAdmin.getName())
+			.append(COMPANY_PHONE_NUMBER, reqAdmin.getPhoneNumber())
+			.append(COMPANY_PASSWORD, reqAdmin.getPassword())
+			.append(GAMES_RUNNING, reqAdmin.getGamesRunning());
+		return newDocument;
 	}
 
 	@Override

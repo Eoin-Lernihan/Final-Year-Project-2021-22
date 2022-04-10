@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Home } from './Home';
+import { Home } from './home';
 import { Create } from './create';
 import { Login } from './login';
 import { SignUp } from './signUp';

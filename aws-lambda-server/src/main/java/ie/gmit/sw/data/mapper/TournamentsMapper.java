@@ -10,8 +10,10 @@ import ie.gmit.sw.data.model.Tournament;
 import ie.gmit.sw.data.model.User;
 import ie.gmit.sw.data.utily.DBObject;
 import ie.gmit.sw.data.utily.DBObjectMapper;
+
 /**
  * Maps Tournamnets
+ * 
  * @author eoinb
  *
  */
@@ -29,11 +31,11 @@ public class TournamentsMapper implements DBObjectMapper {
 	public static final String GAME = "game";
 	public static final String OWNER = "owner";
 
-/**
- * 
- */
+	/**
+	 * 
+	 */
 	public void populateEnity(List<DBObject> tournamentsList, Document returnData) {
-	
+
 		Tournament tournament = new Tournament();
 		tournament.setOwner(returnData.getString(OWNER));
 		tournament.setGame(returnData.getString(GAME));
@@ -48,29 +50,23 @@ public class TournamentsMapper implements DBObjectMapper {
 		tournament.setPublic(returnData.getBoolean(PUBLIC, false));
 		tournamentsList.add(tournament);
 	}
-    
-	
-	
+
 	@Override
 	/**
 	 * 
 	 */
 	public Document formater(Tournament reqTournaments) {
-		Document a;
-		a = new Document("_id", new ObjectId());
-	a.append(OWNER, reqTournaments.getOwner());
-	a.append(GAME, reqTournaments.getGame())
-	.append(GAME_MODE, reqTournaments.getGameMode())
-	.append(DESCRIPTION, reqTournaments.getDescription())
-	.append(MAX_PLAYERS, reqTournaments.getMaxPlayers())
-	.append(PLAYERS, reqTournaments.getPlayers())
-	.append(NUMBER, reqTournaments.getNumber())
-	.append(TIME, reqTournaments.getTime())
-	.append(DURATION, reqTournaments.getDuration())
-	.append(PUBLIC, reqTournaments.getIsPublic())
-	.append(NUM_ROUNDS, reqTournaments.getNumRounds());
-	
-	return a;
+		Document newDocument;
+		newDocument = new Document("_id", new ObjectId());
+		newDocument.append(OWNER, reqTournaments.getOwner());
+		newDocument.append(GAME, reqTournaments.getGame()).append(GAME_MODE, reqTournaments.getGameMode())
+				.append(DESCRIPTION, reqTournaments.getDescription())
+				.append(MAX_PLAYERS, reqTournaments.getMaxPlayers()).append(PLAYERS, reqTournaments.getPlayers())
+				.append(NUMBER, reqTournaments.getNumber()).append(TIME, reqTournaments.getTime())
+				.append(DURATION, reqTournaments.getDuration()).append(PUBLIC, reqTournaments.getIsPublic())
+				.append(NUM_ROUNDS, reqTournaments.getNumRounds());
+
+		return newDocument;
 	}
 
 	@Override
@@ -78,7 +74,6 @@ public class TournamentsMapper implements DBObjectMapper {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public Document formater(User reqUser) {
