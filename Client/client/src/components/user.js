@@ -63,7 +63,7 @@ render(){
     return (
         <div style={{ width: '100%' } }>
              <div>
-            <Card id="Card" bg="secondary" border="dark" text="white"  style={{ width: '80%' } }>
+            <Card id="Card" bg="secondary" border="dark" text="white">
                 <Card.Body variant="secondary">
                     <Row>
                         <Col>
